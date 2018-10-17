@@ -441,7 +441,7 @@
 <p>第五周：基础的事件处理</p>
 <hr>
 <h2 id="二、实现内容"><a href="#二、实现内容" class="headerlink" title="二、实现内容"></a>二、实现内容</h2><h3 id="第四周"><a href="#第四周" class="headerlink" title="第四周"></a>第四周</h3><p>实现一个Android应用，界面呈现如图中的效果。  </p>
-<p> <img src="Android-Homework-1/preview.jpg" alt="preview"></p>
+<p> <img src="/2018/10/17/Android-Homework-1/preview.jpg" alt="preview"></p>
 <h4 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h4><ul>
 <li>该界面为应用启动后看到的第一个界面。  </li>
 <li>各控件的要求<ol>
@@ -455,29 +455,29 @@
 </ul>
 <h4 id="使用的组件"><a href="#使用的组件" class="headerlink" title="使用的组件"></a>使用的组件</h4><p>TextView、EditText、ConstraintLayout、Button、ImageView、RadioGroup、RadioButton。 </p>
 <h3 id="第五周"><a href="#第五周" class="headerlink" title="第五周"></a>第五周</h3><p>实现一个Android应用，界面呈现如图中的效果。  </p>
-<p><img src="Android-Homework-1/preview.jpg" alt="preview">  </p>
+<p><img src="/2018/10/17/Android-Homework-1/preview.jpg" alt="preview">  </p>
 <h4 id="要求-1"><a href="#要求-1" class="headerlink" title="要求"></a>要求</h4><ul>
 <li>该界面为应用启动后看到的第一个界面。  </li>
 <li>各控件处理的要求<ol>
 <li>点击搜索按钮：<ul>
 <li>如果搜索内容为空，弹出Toast信息“<strong>搜索内容不能为空</strong>”。</li>
-<li>如果搜索内容为“Health”，根据选中的RadioButton项弹出如下对话框。<br><img src="Android-Homework-1/success.jpg" alt="success"><br>点击“确定”，弹出Toast信息——<strong>对话框“确定”按钮被点击</strong>。<br>点击“取消”，弹出Toast 信息——<strong>对话框“取消”按钮被点击</strong>。<br>否则弹出如下对话框，对话框点击效果同上。<br><img src="Android-Homework-1/fail.jpg" alt="fail">  </li>
+<li>如果搜索内容为“Health”，根据选中的RadioButton项弹出如下对话框。<br><img src="/2018/10/17/Android-Homework-1/success.jpg" alt="success"><br>点击“确定”，弹出Toast信息——<strong>对话框“确定”按钮被点击</strong>。<br>点击“取消”，弹出Toast 信息——<strong>对话框“取消”按钮被点击</strong>。<br>否则弹出如下对话框，对话框点击效果同上。<br><img src="/2018/10/17/Android-Homework-1/fail.jpg" alt="fail">  </li>
 </ul>
 </li>
 <li>RadioButton选择项切换：选择项切换之后，弹出Toast信息“<strong>XX被选中</strong>”，例如从图片切换到视频，弹出Toast信息“<strong>视频被选中</strong>”  </li>
 </ol>
 </li>
 </ul>
-<h3 id="第六周"><a href="#第六周" class="headerlink" title="第六周"></a>第六周</h3><p>本次实验模拟实现一个健康食品列表，有两个界面，第一个界面用于呈现食品列表 如下所示<br><img src="/Android-Homework-1/img1.jpg" alt="img1"><br>数据在”manual/素材”目录下给出。<br>点击右下方的悬浮按钮可以切换到收藏夹<br><img src="Android-Homework-1/img2.jpg" alt="img2"><br>上面两个列表点击任意一项后，可以看到详细的信息：<br><img src="Android-Homework-1/img3.jpg" alt="img3"> </p>
+<h3 id="第六周"><a href="#第六周" class="headerlink" title="第六周"></a>第六周</h3><p>本次实验模拟实现一个健康食品列表，有两个界面，第一个界面用于呈现食品列表 如下所示<br><img src="/2018/10/17/Android-Homework-1/img1.jpg" alt="img1"><br>数据在”manual/素材”目录下给出。<br>点击右下方的悬浮按钮可以切换到收藏夹<br><img src="/2018/10/17/Android-Homework-1/img2.jpg" alt="img2"><br>上面两个列表点击任意一项后，可以看到详细的信息：<br><img src="/2018/10/17/Android-Homework-1/img3.jpg" alt="img3"> </p>
 <h4 id="UI要求"><a href="#UI要求" class="headerlink" title="UI要求"></a>UI要求</h4><ul>
 <li>食品列表  <pre><code>每一项为一个圆圈和一个名字，圆圈和名字都是垂直居中。圆圈内的内容是该食品的种类，内容要处于圆圈的中心，颜色为白色。食品名字为黑色，圆圈颜色自定义，只需能看见圆圈内的内容即可。
 </code></pre></li>
 <li>收藏夹  <pre><code>与食品列表相似
 </code></pre></li>
 <li>食品详情界面  <ol>
-<li>界面顶部<br><img src="Android-Homework-1/img4.jpg" alt="img4"><br>顶部占整个界面的1/3。每个食品详情的顶部颜色在数据中已给出。返回图标处于这块区域的左上角，食品名字处于左下角，星标处于右下角，边距可以自己设置。 <strong>返回图标与名字左对齐，名字与星标底边对齐。</strong> 建议用RelativeLayout实现，以熟悉RelativeLayout的使用。  </li>
-<li>界面中部<br><img src="Android-Homework-1/img5.jpg" alt="img5"><br>使用的黑色argb编码值为#D5000000，稍微偏灰色的“富含”“蛋白质”的argb编码值为#8A000000。”更多资料”一栏上方有一条分割线，argb编码值为#1E000000。右边收藏符号的左边也有一条分割线，要求与收藏符号高度一致，垂直居中。字体大小自定。”更多资料”下方分割线高度自定。这部分所有的分割线argb编码值都是#1E000000。  </li>
-<li>界面底部<br><img src="Android-Homework-1/img6.jpg" alt="img6"><br>使用的黑色argb编码值为#D5000000。  </li>
+<li>界面顶部<br><img src="/2018/10/17/Android-Homework-1/img4.jpg" alt="img4"><br>顶部占整个界面的1/3。每个食品详情的顶部颜色在数据中已给出。返回图标处于这块区域的左上角，食品名字处于左下角，星标处于右下角，边距可以自己设置。 <strong>返回图标与名字左对齐，名字与星标底边对齐。</strong> 建议用RelativeLayout实现，以熟悉RelativeLayout的使用。  </li>
+<li>界面中部<br><img src="/2018/10/17/Android-Homework-1/img5.jpg" alt="img5"><br>使用的黑色argb编码值为#D5000000，稍微偏灰色的“富含”“蛋白质”的argb编码值为#8A000000。”更多资料”一栏上方有一条分割线，argb编码值为#1E000000。右边收藏符号的左边也有一条分割线，要求与收藏符号高度一致，垂直居中。字体大小自定。”更多资料”下方分割线高度自定。这部分所有的分割线argb编码值都是#1E000000。  </li>
+<li>界面底部<br><img src="/2018/10/17/Android-Homework-1/img6.jpg" alt="img6"><br>使用的黑色argb编码值为#D5000000。  </li>
 </ol>
 </li>
 <li>标题栏  <pre><code>两个界面的标题栏都需要去掉  
@@ -486,11 +486,11 @@
 <h4 id="功能要求"><a href="#功能要求" class="headerlink" title="功能要求"></a>功能要求</h4><ul>
 <li>使用RecyclerView实现食品列表。点击某个食品会跳转到该食品的详情界面，呈现该食品的详细信息。长按列表中某个食品会删除该食品，并弹出Toast，提示 <strong>“删除XX”</strong> 。</li>
 <li>点击右下方的FloatingActionButton，从食品列表切换到收藏夹或从收藏夹切换到食品列表，并且该按钮的图片作出相应改变。</li>
-<li>使用ListView实现收藏夹。点击收藏夹的某个食品会跳转到食品详情界面，呈现该食品的详细信息。长按收藏夹中的某个食品会弹出对话框询问是否移出该食品，点击确定则移除该食品，点击取消则对话框消失。如长按“鸡蛋”，对话框内容如下图所示。<br><img src="Android-Homework-1/img7.jpg" alt="img7"></li>
+<li>使用ListView实现收藏夹。点击收藏夹的某个食品会跳转到食品详情界面，呈现该食品的详细信息。长按收藏夹中的某个食品会弹出对话框询问是否移出该食品，点击确定则移除该食品，点击取消则对话框消失。如长按“鸡蛋”，对话框内容如下图所示。<br><img src="/2018/10/17/Android-Homework-1/img7.jpg" alt="img7"></li>
 <li>商品详情界面中点击返回图标会返回上一层。点击星标会切换状态，如果原本是空心星星，则会变成实心星星；原本是实心星星，则会变成空心星星。点击收藏图表则将该食品添加到收藏夹并弹出Toast提示 <strong>“已收藏”</strong> 。</li>
 </ul>
 <hr>
-<h2 id="三、实验结果"><a href="#三、实验结果" class="headerlink" title="三、实验结果"></a>三、实验结果</h2><h3 id="第四周实验结果"><a href="#第四周实验结果" class="headerlink" title="第四周实验结果"></a>第四周实验结果</h3><h4 id="1-实验截图"><a href="#1-实验截图" class="headerlink" title="(1)实验截图"></a>(1)实验截图</h4><p><img src="Android-Homework-1/week4-result.png" alt="week4-result"></p>
+<h2 id="三、实验结果"><a href="#三、实验结果" class="headerlink" title="三、实验结果"></a>三、实验结果</h2><h3 id="第四周实验结果"><a href="#第四周实验结果" class="headerlink" title="第四周实验结果"></a>第四周实验结果</h3><h4 id="1-实验截图"><a href="#1-实验截图" class="headerlink" title="(1)实验截图"></a>(1)实验截图</h4><p><img src="/2018/10/17/Android-Homework-1/week4-result.png" alt="week4-result"></p>
 <h4 id="2-实验步骤以及关键代码"><a href="#2-实验步骤以及关键代码" class="headerlink" title="(2)实验步骤以及关键代码"></a>(2)实验步骤以及关键代码</h4><h5 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h5><ul>
 <li><code>text</code> 属性引用了定义在 <code>strings.xml</code> 中的字符串 <code>title</code> ，其值为“中山大学智慧健康服务平台”</li>
 <li>颜色设为黑色，字体大小为20sp，顶部外边距为20dp</li>
@@ -547,33 +547,33 @@
 <p>有些属性，如 <code>layout_marginVertical</code> ，需要API 26及以上的版本支持。原先设置的最小SDK版本是15，可以在 <code>build.gradle(Module: app)</code> 中修改 <code>minSdkVersion</code> 的值为26。</p>
 <h3 id="第五周实验结果"><a href="#第五周实验结果" class="headerlink" title="第五周实验结果"></a>第五周实验结果</h3><h4 id="1-实验截图-1"><a href="#1-实验截图-1" class="headerlink" title="(1)实验截图"></a>(1)实验截图</h4><ul>
 <li><p>搜索内容不能为空</p>
-<p><img src="Android-Homework-1/week5-notEmpty.png" alt="week5-notEmpty"></p>
+<p><img src="/2018/10/17/Android-Homework-1/week5-notEmpty.png" alt="week5-notEmpty"></p>
 </li>
 <li><p>切换单选按钮，显示Toast</p>
 </li>
 </ul>
-<p><img src="Android-Homework-1/week5-radioChecked.png" alt="week5-radioChecked"></p>
+<p><img src="/2018/10/17/Android-Homework-1/week5-radioChecked.png" alt="week5-radioChecked"></p>
 <ul>
 <li>搜索失败</li>
 </ul>
-<p><img src="Android-Homework-1/week5-fail.png" alt=""></p>
+<p><img src="/2018/10/17/Android-Homework-1/week5-fail.png" alt=""></p>
 <ul>
 <li>点击对话框的“确定”按钮，显示Toast</li>
 </ul>
-<p><img src="Android-Homework-1/week5-positiveClicked.png" alt=""></p>
+<p><img src="/2018/10/17/Android-Homework-1/week5-positiveClicked.png" alt=""></p>
 <ul>
 <li>输入Health后搜索成功</li>
 </ul>
-<p><img src="Android-Homework-1/week5-inputHealth.png" alt=""></p>
-<p><img src="Android-Homework-1/week5-success.png" alt=""></p>
+<p><img src="/2018/10/17/Android-Homework-1/week5-inputHealth.png" alt=""></p>
+<p><img src="/2018/10/17/Android-Homework-1/week5-success.png" alt=""></p>
 <ul>
 <li><p>点击对话框的”取消“按钮，显示Toast</p>
-<p><img src="Android-Homework-1/week5-negativeClicked.png" alt=""></p>
+<p><img src="/2018/10/17/Android-Homework-1/week5-negativeClicked.png" alt=""></p>
 </li>
 </ul>
 <ul>
 <li><p>将搜索类型更改为“资讯”，重新搜索，可见“资讯搜索成功”，搜索提示信息可随选择的搜索类型而变化</p>
-<p><img src="Android-Homework-1/week5-success-2.png" alt=""></p>
+<p><img src="/2018/10/17/Android-Homework-1/week5-success-2.png" alt=""></p>
 </li>
 </ul>
 <h4 id="2-实验步骤以及关键代码-1"><a href="#2-实验步骤以及关键代码-1" class="headerlink" title="(2)实验步骤以及关键代码"></a>(2)实验步骤以及关键代码</h4><h5 id="声明和获取需要使用的控件：输入框、搜索按钮、单选按钮组"><a href="#声明和获取需要使用的控件：输入框、搜索按钮、单选按钮组" class="headerlink" title="声明和获取需要使用的控件：输入框、搜索按钮、单选按钮组"></a>声明和获取需要使用的控件：输入框、搜索按钮、单选按钮组</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> EditText searchInput;</span><br><span class="line">    <span class="keyword">private</span> Button searchButton;</span><br><span class="line">    <span class="keyword">private</span> RadioGroup searchTypes;</span><br><span class="line">    <span class="keyword">private</span> AlertDialog.Builder alert;</span><br><span class="line">  </span><br><span class="line">  	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        searchInput = (EditText)findViewById(R.id.searchInput);</span><br><span class="line">        searchButton = (Button)findViewById(R.id.searchButton);</span><br><span class="line">        searchTypes = (RadioGroup)findViewById(R.id.searchTypes);</span><br><span class="line">      </span><br><span class="line">      	<span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -589,11 +589,11 @@
 <li>试图像在 <code>activity_main.xml</code> 文件中为搜索按钮引入 <code>onClick</code> 属性、在 <code>MainActivity.java</code> 中定义按钮点击事件所调用的方法那样，也通过 <code>xml</code> 文件来设置单选按钮组的更改按钮事件，于是引入了单选按钮组的 <code>onClick</code> 属性并编写相关方法。但是失败了，不能实现所需要的效果：改变所选的单选选项时，显示相应的Toast。</li>
 </ul>
 <p>经查询，<code>RadioGroup</code> 似乎没有和监听选项更改事件有关的属性。只能通过为单选按钮组添加 <code>RadioGroup.OnCheckedChangeListener</code>  来监听选项更改事件。</p>
-<h3 id="第六周实验结果"><a href="#第六周实验结果" class="headerlink" title="第六周实验结果"></a>第六周实验结果</h3><h4 id="1-实验截图-2"><a href="#1-实验截图-2" class="headerlink" title="(1)实验截图"></a>(1)实验截图</h4><h5 id="食品列表和收藏夹列表切换"><a href="#食品列表和收藏夹列表切换" class="headerlink" title="食品列表和收藏夹列表切换"></a>食品列表和收藏夹列表切换</h5><p><img src="Android-Homework-1/week6-switch.gif" alt=""></p>
-<h5 id="食品详情界面：星形按钮点击、返回"><a href="#食品详情界面：星形按钮点击、返回" class="headerlink" title="食品详情界面：星形按钮点击、返回"></a>食品详情界面：星形按钮点击、返回</h5><p><img src="Android-Homework-1/week6-detail.gif" alt=""></p>
-<h5 id="收藏食品"><a href="#收藏食品" class="headerlink" title="收藏食品"></a>收藏食品</h5><p><img src="Android-Homework-1/week6-collect.gif" alt=""></p>
-<h5 id="删除收藏夹列表里的项"><a href="#删除收藏夹列表里的项" class="headerlink" title="删除收藏夹列表里的项"></a>删除收藏夹列表里的项</h5><p><img src="Android-Homework-1/week6-delete-collection.gif" alt=""></p>
-<h5 id="删除食品列表里的项"><a href="#删除食品列表里的项" class="headerlink" title="删除食品列表里的项"></a>删除食品列表里的项</h5><p><img src="Android-Homework-1/week6-delete-food.gif" alt=""></p>
+<h3 id="第六周实验结果"><a href="#第六周实验结果" class="headerlink" title="第六周实验结果"></a>第六周实验结果</h3><h4 id="1-实验截图-2"><a href="#1-实验截图-2" class="headerlink" title="(1)实验截图"></a>(1)实验截图</h4><h5 id="食品列表和收藏夹列表切换"><a href="#食品列表和收藏夹列表切换" class="headerlink" title="食品列表和收藏夹列表切换"></a>食品列表和收藏夹列表切换</h5><p><img src="/2018/10/17/Android-Homework-1/week6-switch.gif" alt=""></p>
+<h5 id="食品详情界面：星形按钮点击、返回"><a href="#食品详情界面：星形按钮点击、返回" class="headerlink" title="食品详情界面：星形按钮点击、返回"></a>食品详情界面：星形按钮点击、返回</h5><p><img src="/2018/10/17/Android-Homework-1/week6-detail.gif" alt=""></p>
+<h5 id="收藏食品"><a href="#收藏食品" class="headerlink" title="收藏食品"></a>收藏食品</h5><p><img src="/2018/10/17/Android-Homework-1/week6-collect.gif" alt=""></p>
+<h5 id="删除收藏夹列表里的项"><a href="#删除收藏夹列表里的项" class="headerlink" title="删除收藏夹列表里的项"></a>删除收藏夹列表里的项</h5><p><img src="/2018/10/17/Android-Homework-1/week6-delete-collection.gif" alt=""></p>
+<h5 id="删除食品列表里的项"><a href="#删除食品列表里的项" class="headerlink" title="删除食品列表里的项"></a>删除食品列表里的项</h5><p><img src="/2018/10/17/Android-Homework-1/week6-delete-food.gif" alt=""></p>
 <h4 id="2-实验步骤以及关键代码-2"><a href="#2-实验步骤以及关键代码-2" class="headerlink" title="(2)实验步骤以及关键代码"></a>(2)实验步骤以及关键代码</h4><h5 id="编写食品列表-收藏夹的布局文件-activity-collection-xml"><a href="#编写食品列表-收藏夹的布局文件-activity-collection-xml" class="headerlink" title="编写食品列表 / 收藏夹的布局文件 activity_collection.xml"></a>编写食品列表 / 收藏夹的布局文件 <code>activity_collection.xml</code></h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ListView</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">"@+id/collectionList"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:visibility</span>=<span class="string">"invisible"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">android.support.v7.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">"@+id/foodList"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:visibility</span>=<span class="string">"visible"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">android.support.design.widget.FloatingActionButton</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">"@+id/switchButton"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:onClick</span>=<span class="string">"onSwitchButtonClick"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:src</span>=<span class="string">"@mipmap/collect"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:backgroundTint</span>=<span class="string">"@color/colorWhite"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:backgroundTintMode</span>=<span class="string">"src_atop"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_margin</span>=<span class="string">"25dp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <h5 id="编写食品列表和收藏夹列表的项布局文件-item-xml"><a href="#编写食品列表和收藏夹列表的项布局文件-item-xml" class="headerlink" title="编写食品列表和收藏夹列表的项布局文件 item.xml"></a>编写食品列表和收藏夹列表的项布局文件 <code>item.xml</code></h5><p>使用 <code>RelativeLayout</code> 布局，有两个子控件，一个是 <code>Button</code> 类型的 <code>shortKind</code> ，表示种类的缩写，一个是 <code>TextView</code> 类型的 <code>name</code> ，表示食品名称。</p>
 <p><code>shortKind</code> 使用的按钮样式定义于 <code>res/drawable/short_shape.xml</code> ，如下：</p>
