@@ -117,11 +117,12 @@
 <meta property="og:description" content="前言折腾加密博文的起因是，我想把一篇很长的实验报告放到个人的github博客上，利用导航为TA提供阅读方便。当然，也有玩儿的意思在。但是我不想把我的隐私（学校班级、手机号等）暴露出来。之前建博客时，我看到别人的博客里提到了 hexo-blog-encrypt 这个插件，于是就开始尝试了。 （我知道可以在公布在博客上的报告里去掉那些隐私信息！我就是想搞搞加密嘛！） 这篇文章主要是为了记录配置加密TO">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://yuyuforest.github.io/2018/10/18/encrypt-toc/bug.gif">
-<meta property="og:image" content="https://yuyuforest.github.io/2018/10/18/encrypt-toc/post-toc.jpg">
-<meta property="og:image" content="https://yuyuforest.github.io/2018/10/18/encrypt-toc/site-overview.jpg">
+<meta property="og:image" content="https://yuyuforest.github.io/2018/10/18/encrypt-toc/site-overview.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2018/10/18/encrypt-toc/post-toc.png">
 <meta property="og:image" content="https://yuyuforest.github.io/2018/10/18/encrypt-toc/switch.gif">
 <meta property="og:image" content="https://yuyuforest.github.io/2018/10/18/encrypt-toc/old-swig.png">
 <meta property="og:image" content="https://yuyuforest.github.io/2018/10/18/encrypt-toc/other-swig.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2018/10/18/encrypt-toc/success.gif">
 <meta property="og:updated_time" content="2018-10-19T06:44:11.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo | 在NexT主题下加密文章和目录">
@@ -466,11 +467,13 @@
 <h1 id="修复Bug"><a href="#修复Bug" class="headerlink" title="修复Bug"></a>修复Bug</h1><p>那么，来试试修好它吧！</p>
 <h2 id="检查网页"><a href="#检查网页" class="headerlink" title="检查网页"></a>检查网页</h2><p><code>Ctrl + Shift + I</code> ，或者右键点击网页 <code>检查</code> ，进入开发者工具，在这里可以查看网页的 <code>html</code> 元素和样式等。</p>
 <p>我们找到文章目录区与站点概览区对应的元素：</p>
-<p><img src="/2018/10/18/encrypt-toc/post-toc.jpg" alt=""></p>
-<p><img src="/2018/10/18/encrypt-toc/site-overview.jpg" alt=""></p>
+<p><img src="/2018/10/18/encrypt-toc/site-overview.png" alt=""></p>
+<p><img src="/2018/10/18/encrypt-toc/post-toc.png" alt=""></p>
 <p>来切换一下两个区，看看元素的变化：</p>
 <p><img src="/2018/10/18/encrypt-toc/switch.gif" alt=""></p>
-<p>通过切换，可以发现，<code>sidebar-panel-active</code> 这个类，会影响文章目录区/站点概览区的显示。如果被加上了这个类，那么 <code>sidebar-panel-active</code> 里的 <code>display: block</code> 属性会覆盖掉原有的 <code>sidebar-panel</code> 类里的 <code>display: none</code> ，从而使这个元素显示。</p>
+<p>通过切换，可以发现，<code>display</code> 属性，会影响文章目录区/站点概览区的显示。</p>
+<p>文章目录区和站点概览区里都有 <code>sidebar-panel</code> 和 <code>sidebar-panel-active</code> 这两个类， <code>sidebar-panel</code> 类里设置了 <code>display: none</code> ， <code>sidebar-panel-active</code> 里设置了 <code>display: block</code> 。</p>
+<p>这个bug是站点概览区显示的错误，和这两个类有没有关系呢？</p>
 <p>##检查swig文件代码 </p>
 <p>现在来看看原swig文件。</p>
 <p>（为了截图，这是我第一次把大屏竖过来用。有显示器真快乐！）</p>
@@ -482,11 +485,12 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"site-overview-wrap sidebar-panel&#123;% if not display_toc or toc(page.content).length &lt;= 1 %&#125; sidebar-panel-active&#123;% endif %&#125;"</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这段代码有 <code>page.content</code> 。</p>
 <p>推测 <code> sidebar-panel-active</code> 这段代码的作用是：</p>
-<p>在不显示TOC（ <code>not display_toc</code> ），或目录表长度不超过1（ <code>toc(page.content).length &lt;= 1</code> ）的条件下，为站点概览区加上 <code>sidebar-panel-active</code> 这个类，即让站点概览区显示。</p>
+<p>在不显示TOC（ <code>not display_toc</code> ），或目录表长度不超过1（ <code>toc(page.content).length &lt;= 1</code> ）的条件下，使站点概览区的 <code>sidebar-panel-active</code> 这个类起作用，即让站点概览区显示。</p>
 <p>那么这个bug的出现，应该就是因为站点概览区的显示条件错误了。</p>
 <h2 id="最终解决"><a href="#最终解决" class="headerlink" title="最终解决"></a>最终解决</h2><p>那么在引入加密机制后，我们就需要结合 <code>page.encrypt</code> 和 <code>page.origin</code> 来重写站点概览区的显示条件：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"site-overview-wrap sidebar-panel&#123;% if not display_toc or page.encrypt == false and toc(page.content).length &lt;= 1 or page.encrypt == true and toc(page.origin).length &lt;= 1 %&#125; sidebar-panel-active&#123;% endif %&#125;"</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>重新部署，可以看到想要的效果了！</p>
+<p>重新部署，可以看到正确的效果了！</p>
+<p><img src="/2018/10/18/encrypt-toc/success.gif" alt=""></p>
 <h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>虽然修复过程看起来很简单，但因为我对swig这种开发工具不熟，而一大堆变量名更是令人挠头，所以实际上是花了很多时间去观察网页代码和swig文件、去想，才想通其中的原理。</p>
 <p>然而，解决问题后，我才发现这里 <a href="https://github.com/MikeCoder/hexo-blog-encrypt/issues/16" target="_blank" rel="noopener">issue - 解密后目录不会更新</a> 下的评论里，已经有关于 <code>NexT</code> 主题下加密TOC的补充了，哭哭……</p>
 <p><a href="https://github.com/MikeCoder/hexo-blog-encrypt/issues/16#issuecomment-350542857" target="_blank" rel="noopener">edward-p的评论</a> 这位同学的想法和我差不多，但在设置 <code>sidebar-panel-active</code> 的显示逻辑的代码，还是有细微差别的。（原理其实是一样的。）</p>
@@ -528,8 +532,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/17/Android-Homework-1/" rel="next" title="我的第一次安卓作业">
-                <i class="fa fa-chevron-left"></i> 我的第一次安卓作业
+              <a href="/2018/10/17/Android-Homework-1/" rel="next" title="第一次安卓作业">
+                <i class="fa fa-chevron-left"></i> 第一次安卓作业
               </a>
             
           </div>
