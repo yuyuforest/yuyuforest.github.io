@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="yuyuforest">
 <meta property="og:description" content="SimpleWeb项目地址及运行结果：GitHub - yuyuforest/golang-learning/SimpleWeb">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-15T20:38:46.175Z">
+<meta property="og:updated_time" content="2018-11-16T06:13:11.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="服务计算 | 简单web应用">
 <meta name="twitter:description" content="SimpleWeb项目地址及运行结果：GitHub - yuyuforest/golang-learning/SimpleWeb">
@@ -356,7 +356,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-16 04:38:46" itemprop="dateModified" datetime="2018-11-16T04:38:46+08:00">2018-11-16</time>
+                <time title="修改时间：2018-11-16 14:13:11" itemprop="dateModified" datetime="2018-11-16T14:13:11+08:00">2018-11-16</time>
               
             
           </span>
@@ -431,8 +431,8 @@
 <p>整个项目的目录如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SimpleWeb</span><br><span class="line">  |-- main.go</span><br><span class="line">  |-- service</span><br><span class="line">  |-- assets</span><br><span class="line">        |-- index.html</span><br><span class="line">        |-- css</span><br><span class="line">        |-- images</span><br><span class="line">        |-- js</span><br></pre></td></tr></table></figure>
 <p><code>service/server.go</code> </p>
-<p><code>mx.PathPrefix(&quot;/&quot;).Handler(http.FileServer(http.Dir(webRoot + &quot;/assets/&quot;)))</code> ，可将以 <code>/</code> 为前缀的URL都定位到以 <code>webRoot + &quot;/assets/&quot;</code> 为虚拟根目录的文件系统。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initRoutes</span><span class="params">(mx *mux.Router, formatter *render.Render)</span></span> &#123;</span><br><span class="line">	webRoot := os.Getenv(<span class="string">"WEBROOT"</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(webRoot) == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> root, err := os.Getwd(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="built_in">panic</span>(<span class="string">"Could not retrieve working directory"</span>)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			webRoot = root</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	mx.HandleFunc(<span class="string">"/api/hello/name=&#123;name&#125;"</span>, helloHandler(formatter)).Methods(<span class="string">"GET"</span>)</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	mx.PathPrefix(<span class="string">"/"</span>).Handler(http.FileServer(http.Dir(webRoot + <span class="string">"/assets/"</span>)))</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>mx.PathPrefix(&quot;/&quot;).Handler(http.FileServer(http.Dir(webRoot + &quot;/assets/&quot;)))</code> ，可将以 <code>/</code> 为前缀的URL都定位到以 <code>webRoot + &quot;/assets/&quot;</code> 为虚拟根目录的文件系统。</p>
 <p>请注意，<code>mx.PathPrefix(&quot;/&quot;).Handler(http.FileServer(http.Dir(webRoot + &quot;/assets/&quot;)))</code> 要放在其他的 <code>Handler</code> 设置语句之后。</p>
 <p>因为这里检查路由条目是按顺序的（为什么？你可以通过 <code>mux.Router</code> 追踪到 <code>gorilla/mux/mux.go</code> ，里面有一个 <code>Match</code> 函数，看看它里面的请求与路由的匹配过程。），检查到匹配的路由条目就使用它，即“最先匹配”。所以我们应当把有比较长的路径或前缀的路由设置放在前面，模拟一个“最长匹配”。</p>
 <p>如果不把由根目录访问静态文件的路由设置语句放在最后，而在它后面有某些与静态文件无关的路由控制设置，假设为 <code>/api/hello/name={name}</code> ，那么这个URL就会被认为是访问静态文件的，但实际上它不是，这样就无法进行正确的控制。</p>
