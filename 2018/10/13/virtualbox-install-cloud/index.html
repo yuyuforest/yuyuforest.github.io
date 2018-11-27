@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="1. 实验目的  初步了解虚拟化技术，理解云计算的相关概念 为后续课程提供统一的编程与实验环境 理解系统工程师面临的困境   2. 实验环境与要求  实验需要硬件虚拟化（AMD-V 或 Intel-VT）支持，部分旧笔记本不支持。 用户可通过互联网，使用微软远程桌面，远程访问你在PC机上创建的虚拟机。 虚拟机操作系统可为 CentOS，Ubuntu，或你喜欢的其他 Linux 发行版，能使用 NA">
+  <meta name="description" content="实验目的  初步了解虚拟化技术，理解云计算的相关概念 为后续课程提供统一的编程与实验环境 理解系统工程师面临的困境">
 <meta name="keywords" content="云计算">
 <meta property="og:type" content="article">
 <meta property="og:title" content="服务计算 | VirtualBox+CentOS搭建私有云">
 <meta property="og:url" content="https://yuyuforest.github.io/2018/10/13/virtualbox-install-cloud/index.html">
 <meta property="og:site_name" content="yuyuforest">
-<meta property="og:description" content="1. 实验目的  初步了解虚拟化技术，理解云计算的相关概念 为后续课程提供统一的编程与实验环境 理解系统工程师面临的困境   2. 实验环境与要求  实验需要硬件虚拟化（AMD-V 或 Intel-VT）支持，部分旧笔记本不支持。 用户可通过互联网，使用微软远程桌面，远程访问你在PC机上创建的虚拟机。 虚拟机操作系统可为 CentOS，Ubuntu，或你喜欢的其他 Linux 发行版，能使用 NA">
+<meta property="og:description" content="实验目的  初步了解虚拟化技术，理解云计算的相关概念 为后续课程提供统一的编程与实验环境 理解系统工程师面临的困境">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdn.net/20180910170914968?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180910170513239?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
@@ -149,7 +149,7 @@
 <meta property="og:updated_time" content="2018-11-25T13:15:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="服务计算 | VirtualBox+CentOS搭建私有云">
-<meta name="twitter:description" content="1. 实验目的  初步了解虚拟化技术，理解云计算的相关概念 为后续课程提供统一的编程与实验环境 理解系统工程师面临的困境   2. 实验环境与要求  实验需要硬件虚拟化（AMD-V 或 Intel-VT）支持，部分旧笔记本不支持。 用户可通过互联网，使用微软远程桌面，远程访问你在PC机上创建的虚拟机。 虚拟机操作系统可为 CentOS，Ubuntu，或你喜欢的其他 Linux 发行版，能使用 NA">
+<meta name="twitter:description" content="实验目的  初步了解虚拟化技术，理解云计算的相关概念 为后续课程提供统一的编程与实验环境 理解系统工程师面临的困境">
 <meta name="twitter:image" content="https://img-blog.csdn.net/20180910170914968?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 
@@ -438,21 +438,22 @@
       
 
       
-        <h2 id="1-实验目的"><a href="#1-实验目的" class="headerlink" title="1. 实验目的"></a>1. 实验目的</h2><blockquote>
+        <h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><blockquote>
 <ol>
 <li>初步了解虚拟化技术，理解云计算的相关概念</li>
 <li>为后续课程提供统一的编程与实验环境</li>
 <li>理解系统工程师面临的困境</li>
 </ol>
 </blockquote>
-<h2 id="2-实验环境与要求"><a href="#2-实验环境与要求" class="headerlink" title="2. 实验环境与要求"></a>2. 实验环境与要求</h2><blockquote>
+<a id="more"></a>
+<h2 id="实验环境与要求"><a href="#实验环境与要求" class="headerlink" title="实验环境与要求"></a>实验环境与要求</h2><blockquote>
 <ul>
 <li>实验需要硬件虚拟化（AMD-V 或 Intel-VT）支持，部分旧笔记本不支持。</li>
 <li>用户可通过互联网，使用微软远程桌面，远程访问你在PC机上创建的虚拟机。</li>
 <li>虚拟机操作系统可为 CentOS，Ubuntu，或你喜欢的其他 Linux 发行版，能使用 NAT 访问外网。</li>
 </ul>
 </blockquote>
-<h2 id="3-实验内容"><a href="#3-实验内容" class="headerlink" title="3. 实验内容"></a>3. 实验内容</h2><h3 id="1-安装配置VirtualBox"><a href="#1-安装配置VirtualBox" class="headerlink" title="1. 安装配置VirtualBox"></a>1. 安装配置VirtualBox</h3><ul>
+<h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><h3 id="安装配置VirtualBox"><a href="#安装配置VirtualBox" class="headerlink" title="安装配置VirtualBox"></a>安装配置VirtualBox</h3><ul>
 <li><p>可配置 VirtualBox 虚拟机存储位置，避免找不到虚拟机存储位置，特别是消耗启动盘的宝贵空间。</p>
 <p>VirtualBox菜单：【管理】-&gt;【全局设定】-&gt;【常规】</p>
 <p><img src="https://img-blog.csdn.net/20180910170914968?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
@@ -465,7 +466,7 @@
 <p><img src="https://img-blog.csdn.net/20180910170650799?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
 </li>
 </ul>
-<h3 id="2-创建Centos虚拟机"><a href="#2-创建Centos虚拟机" class="headerlink" title="2. 创建Centos虚拟机"></a>2. 创建Centos虚拟机</h3><ul>
+<h3 id="创建Centos虚拟机"><a href="#创建Centos虚拟机" class="headerlink" title="创建Centos虚拟机"></a>创建Centos虚拟机</h3><ul>
 <li><p>下载：<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso%20%E2%80%9CCentos%E2%80%9D" target="_blank" rel="noopener">Centos</a> , 仅需 <strong>Minimal ISO</strong></p>
 </li>
 <li><p>利用虚拟化软件提供的虚拟机复制功能，避免每次安装 OS 系统的痛苦。</p>
@@ -495,13 +496,10 @@
 <blockquote>
 <p>一般使用Linux不仅做桌面应用的，通常希望与主机、多个虚拟机互通。所以必须添加第二块或更多的网卡。 </p>
 </blockquote>
-<p> 第一块网卡设置（NAT）不能修改。</p>
-<p> <img src="https://img-blog.csdn.net/2018091100242938?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p> 添加第二块网卡，设置如图。</p>
-<p> <img src="https://img-blog.csdn.net/20180911002500460?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>第一块网卡设置（NAT）不能修改。<br><img src="https://img-blog.csdn.net/2018091100242938?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>添加第二块网卡，设置如图。<br><img src="https://img-blog.csdn.net/20180911002500460?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
 </li>
 </ol>
-<h3 id="3-配置基础虚拟机"><a href="#3-配置基础虚拟机" class="headerlink" title="3. 配置基础虚拟机"></a>3. 配置基础虚拟机</h3><ol>
+<h3 id="配置基础虚拟机"><a href="#配置基础虚拟机" class="headerlink" title="配置基础虚拟机"></a>配置基础虚拟机</h3><ol>
 <li><p>加载 iso 文件。</p>
 <p><img src="https://img-blog.csdn.net/20180911003009300?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
 </li>
@@ -558,12 +556,12 @@
 <p>现在我们已经配置好网络了！</p>
 </li>
 </ol>
-<h3 id="4-复制虚拟机并重新配置"><a href="#4-复制虚拟机并重新配置" class="headerlink" title="4. 复制虚拟机并重新配置"></a>4. 复制虚拟机并重新配置</h3><p>右键点击centos-base虚拟机，选择【复制】。必须选择<strong>【重新初始化所有网卡的MAC地址】</strong>。</p>
+<h3 id="复制虚拟机并重新配置"><a href="#复制虚拟机并重新配置" class="headerlink" title="复制虚拟机并重新配置"></a>复制虚拟机并重新配置</h3><p>右键点击centos-base虚拟机，选择【复制】。必须选择<strong>【重新初始化所有网卡的MAC地址】</strong>。</p>
 <p><img src="https://img-blog.csdn.net/20180912000506165?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
 <p>下一步，选择【链接复制】。</p>
 <p>复制完成后，需要配置新虚拟机的主机名和第二块网卡。在 <code>nmtui</code>中配置。</p>
 <p><img src="https://img-blog.csdn.net/20180912000915198?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>​<br>将enp0s8的IPv4地址修改成 <code>192.168.100.3/24</code>。如下图所示。（3改成其他的数字也可，但不要与前面步骤中设定的1和2重复。）<br>​<br><img src="https://img-blog.csdn.net/20180912001457193?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<h3 id="5-配置远程桌面访问虚拟机"><a href="#5-配置远程桌面访问虚拟机" class="headerlink" title="5. 配置远程桌面访问虚拟机"></a>5. 配置远程桌面访问虚拟机</h3><p>从这里下载 VirtualBox 的扩展包：<a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">Download VirtualBox</a></p>
+<h3 id="配置远程桌面访问虚拟机"><a href="#配置远程桌面访问虚拟机" class="headerlink" title="配置远程桌面访问虚拟机"></a>配置远程桌面访问虚拟机</h3><p>从这里下载 VirtualBox 的扩展包：<a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">Download VirtualBox</a></p>
 <p><img src="https://img-blog.csdn.net/20180912081637934?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
 <p>【管理】-&gt;【全局设定】-&gt;【扩展】，添加扩展包。</p>
 <p><img src="https://img-blog.csdn.net/20180912082850477?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
@@ -572,7 +570,7 @@
 <p>比如，我在另一台连上校园网的笔记本，输入如下：</p>
 <p><img src="https://img-blog.csdn.net/20180913002450323?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
 <p><code>172.18.155.109</code>是我的虚拟机的宿主机的校园网ip，<code>4235</code>是前面配置时设定的端口。</p>
-<h3 id="6-配置SSH访问虚拟机"><a href="#6-配置SSH访问虚拟机" class="headerlink" title="6. 配置SSH访问虚拟机"></a>6. 配置SSH访问虚拟机</h3><p>在centos里设置ssh访问：</p>
+<h3 id="配置SSH访问虚拟机"><a href="#配置SSH访问虚拟机" class="headerlink" title="配置SSH访问虚拟机"></a>配置SSH访问虚拟机</h3><p>在centos里设置ssh访问：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
 <p>把下图红框所在行的【#】号去掉：</p>
 <p><img src="https://img-blog.csdn.net/20180913003405166?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
@@ -580,7 +578,7 @@
 <p><img src="https://img-blog.csdn.net/20180913003416566?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
 <p>之后，在bash输入 <code>ssh 用户名@虚拟机ip地址</code>即可。</p>
 <p><img src="https://img-blog.csdn.net/20180913003532877?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<h2 id="4-最后"><a href="#4-最后" class="headerlink" title="4. 最后"></a>4. 最后</h2><p>参考了老师的教程：<a href="https://pmlpml.github.io/ServiceComputingOnCloud/ex-install-cloud" target="_blank" rel="noopener">私有云</a></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>参考了老师的教程：<a href="https://pmlpml.github.io/ServiceComputingOnCloud/ex-install-cloud" target="_blank" rel="noopener">私有云</a></p>
 <p>推荐两个大佬的博客，额外介绍了一些概念：</p>
 <p><a href="https://icytown.com/linux/centos-vps-build/" target="_blank" rel="noopener">MegaShow - Linux | 配置CentOS私有云</a></p>
 <p><a href="https://blog.zhenly.cn/Linux/linux_virtualbox/" target="_blank" rel="noopener">Zhenly - Linux | CentOS虚拟机私有云环境搭建</a> （介绍了外网访问的设置）</p>
@@ -829,7 +827,7 @@
               
 
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-实验目的"><span class="nav-number">1.</span> <span class="nav-text">1. 实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-实验环境与要求"><span class="nav-number">2.</span> <span class="nav-text">2. 实验环境与要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-实验内容"><span class="nav-number">3.</span> <span class="nav-text">3. 实验内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装配置VirtualBox"><span class="nav-number">3.1.</span> <span class="nav-text">1. 安装配置VirtualBox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建Centos虚拟机"><span class="nav-number">3.2.</span> <span class="nav-text">2. 创建Centos虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装步骤"><span class="nav-number">3.2.1.</span> <span class="nav-text">安装步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置基础虚拟机"><span class="nav-number">3.3.</span> <span class="nav-text">3. 配置基础虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-复制虚拟机并重新配置"><span class="nav-number">3.4.</span> <span class="nav-text">4. 复制虚拟机并重新配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-配置远程桌面访问虚拟机"><span class="nav-number">3.5.</span> <span class="nav-text">5. 配置远程桌面访问虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-配置SSH访问虚拟机"><span class="nav-number">3.6.</span> <span class="nav-text">6. 配置SSH访问虚拟机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-最后"><span class="nav-number">4.</span> <span class="nav-text">4. 最后</span></a></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验环境与要求"><span class="nav-number">2.</span> <span class="nav-text">实验环境与要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验内容"><span class="nav-number">3.</span> <span class="nav-text">实验内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装配置VirtualBox"><span class="nav-number">3.1.</span> <span class="nav-text">安装配置VirtualBox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Centos虚拟机"><span class="nav-number">3.2.</span> <span class="nav-text">创建Centos虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装步骤"><span class="nav-number">3.2.1.</span> <span class="nav-text">安装步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置基础虚拟机"><span class="nav-number">3.3.</span> <span class="nav-text">配置基础虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制虚拟机并重新配置"><span class="nav-number">3.4.</span> <span class="nav-text">复制虚拟机并重新配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置远程桌面访问虚拟机"><span class="nav-number">3.5.</span> <span class="nav-text">配置远程桌面访问虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置SSH访问虚拟机"><span class="nav-number">3.6.</span> <span class="nav-text">配置SSH访问虚拟机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
               
 
             </div>

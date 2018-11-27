@@ -342,7 +342,7 @@
                 
               
 
-              <time title="创建时间：2018-11-27 11:49:44 / 修改时间：11:50:36" itemprop="dateCreated datePublished" datetime="2018-11-27T11:49:44+08:00">2018-11-27</time>
+              <time title="创建时间：2018-11-27 11:49:44 / 修改时间：14:24:55" itemprop="dateCreated datePublished" datetime="2018-11-27T11:49:44+08:00">2018-11-27</time>
             
 
             
@@ -399,109 +399,15 @@
 
       
         
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode.com/problems/first-missing-positive/description/" target="_blank" rel="noopener">First Missing Positive</a></p>
+          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode.com/problems/first-missing-positive/description/" target="_blank" rel="noopener">First Missing Positive</a></p>
 <p>Given an unsorted integer array, find the smallest missing positive integer.</p>
-<p><strong>Example 1:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,0]</span><br><span class="line">Output: 3</span><br></pre></td></tr></table></figure></p>
-<p><strong>Example 2:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,4,-1,1]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure></p>
-<p><strong>Example 3:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,8,9,11,12]</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure></p>
-<p><strong>Note:</strong></p>
-<p>Your algorithm should run in O(n) time and uses constant extra space.</p>
-<p><strong>Difficulty:</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">## 分析</span><br><span class="line"></span><br><span class="line">我们要找到无序数组升序排列后缺少的第一个正数。</span><br><span class="line"></span><br><span class="line">在考虑算法时，可以忽略那些 0 和负数。输入数列有几种情况：</span><br><span class="line"></span><br><span class="line">- 所有的正数可以组成一个连续的数列</span><br><span class="line"></span><br><span class="line">  - 该数列从 1 开始，如 [ 1 2 3 4 5 ] ，答案为 6</span><br><span class="line"></span><br><span class="line">  - 该数列不从 1 开始，如 [ 2 3 4 ] ，答案为 1</span><br><span class="line"></span><br><span class="line">- 所有的正数可以组成几个连续的数列</span><br><span class="line"></span><br><span class="line">  - 第一个数列从 1 开始，如 [ [ 1 2 ] [ 5 6 7 ] ] ，答案为 3</span><br><span class="line"></span><br><span class="line">  - 第一个数列不从 1 开始，如 [ [ 2 3 4 ] [ 9 10 11 ] ] ，答案为 1</span><br><span class="line"></span><br><span class="line">总的来说，就是要找这个无序数列忽略非正数进行排序后，**第一个连续的数列，并看它的开头和结尾**。</span><br><span class="line"></span><br><span class="line">另外，输入数列中可能有重复的数字，对某些算法来说要考虑这一情况。我有一次的WA对应的输入是 [ 2 2 4 0 1 3 3 3 4 3 ] 。</span><br><span class="line"></span><br><span class="line">### 算法1</span><br><span class="line"></span><br><span class="line">这个算法的思想是，建立一个 ```unsiged int```类型的数组 ```record```，让数组中第 i 个（从 0 开始计）数的二进制的第 n 位（最右边为第 1 位）代表数列中是否存在这个数字 ```32 * i + j```。如果为 1 ，代表存在，否则不存在。</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure></p>
-<p>record[0] =  1 = 0b0…0000001    // 代表数列中存在 1<br>record[2] = 38 = 0b0…0100110    // 代表数列中存在 32<em>2+2、32</em>2+3、32*2+6<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">record 数组中第一个不等于 ```0xFFFFFFFF```的数，即为正数轴第一次出现断点的地方。</span><br></pre></td></tr></table></figure></p>
-<p>#include <iostream></iostream></p>
-<p>#include <climits></climits></p>
-<p>#include <vector></vector></p>
-<p>#define N 100</p>
-<p>class Solution {<br>public:<br>    int firstMissingPositive(vector<int>&amp; nums) {<br>        int size = nums.size();<br>        unsigned int record[N] = {0};</int></p>
-<pre><code>    int max = 0;
-    int min = INT_MAX;
-
-    // 第一次遍历，去掉非正数，找到最大数和最小数
-    vector&lt;int&gt;::iterator iter = nums.begin();
-    while(iter != nums.end()){
-        int i = *iter;
-        if(i &lt;= 0){
-            nums.erase(iter);
-        }
-        else{
-            if(i &lt; min) min = i;
-            if(i &gt; max) max = i;
-            iter++;
-        }
-    }
-
-    if(min != 1) return 1;
-
-    // 第二次遍历，利用 record 数组记录数列中的正数
-    iter = nums.begin();
-    for(; iter != nums.end(); iter++){
-        int n = *iter;
-        int i = n - 1;
-
-        int quotient = i / 32;
-        int reminder = i % 32;
-        if(quotient &lt; N) record[quotient] |= (1 &lt;&lt; reminder);
-    }
-
-    // 确定 record 在逻辑上最大的索引，避免溢出
-    int indexmax = (max - 1) / 32;
-    if(indexmax &gt;= size) indexmax = size - 1;
-
-    int result = 0;
-    for(int index = 0; index &lt;= indexmax; index++){
-        if(record[index] &lt; UINT_MAX){
-            // 找到 record 中第一个不是所有位都为 1 的数
-            result = index * 32;
-
-            // 寻找这个数中第一个为0的位
-            while(record[index] &amp; 1){
-                record[index] &gt;&gt;= 1;
-                result++;
-            }
-            break;
-        }
-    }
-    result++;
-    return result;
-}
-</code></pre><p>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这个算法中的 record 数组大小 N 是常量，如果所输入的序列中的第一个连续数列的规模超出了 32*N ，就可能会出错。考虑到网站测试的例子规模，我姑且把它设为 100 。或者也可以先确定输入序列的规模，再确定数组大小。</span><br><span class="line"></span><br><span class="line">假设 n 为输入数列的大小，k 为第一个缺失的正数，则时间复杂度为$O(n)+O(k)$。</span><br><span class="line"></span><br><span class="line">该算法用时 4 ms。</span><br><span class="line"></span><br><span class="line">### 算法2</span><br><span class="line"></span><br><span class="line">这一算法的思路是，把数列中的数字和索引对应起来。比如，把数字 1 放到第 1 个位置（即 ```nums[0]```），把数字 2 放到第 2 个位置（ ```nums[1]```），以此类推。然后对产生的新数组，逐个比较索引和元素。由第一个没有应有的元素的索引即可得到所求的答案。</span><br><span class="line"></span><br><span class="line">对某些和顺序有关的算法题，数组的索引可能很有用！</span><br></pre></td></tr></table></figure></p>
-<p>class Solution {<br>public:<br>    int firstMissingPositive(vector<int>&amp; nums) {<br>        const int size = nums.size();<br>        if(size == 0) return 1;</int></p>
-<pre><code>    int result = 0;
-
-    int newnums[size] = {0};
-
-    for(int i = 0; i &lt; size; i++){
-        if(nums[i] &lt;= size &amp;&amp; nums[i] &gt; 0){
-            newnums[nums[i] - 1] = 1; // 1 表示存在与该索引对应的元素
-        }
-    }
-
-    for(int i = 0; i &lt; size; i++){
-        if(newnums[i] != 1){  // 第一个不存在对应元素的索引
-            result = i + 1;
-            break;
-        }
-    }
-
-    if(result == 0) result = size + 1;
-
-    return result;
-}
-</code></pre><p>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">显然，与算法 1 相比，算法 2 的思路更简便。 但是算法 1 可以一次性扫描32位数字，对第一个连续数列的规模比较大的情况来说，可能可以更快地确定答案所在的范围。</span><br><span class="line"></span><br><span class="line">假设 n 为输入数列的大小，k 为第一个缺失的正数，则时间复杂度为$O(n)+O(k)$。</span><br><span class="line"></span><br><span class="line">该算法用时 4 ms。</span><br><span class="line"></span><br><span class="line">## 其他算法</span><br><span class="line"></span><br><span class="line">在讨论区有一个算法：</span><br><span class="line"></span><br><span class="line">[My short c++ solution, O(1) space, and O(n) time](https://leetcode.com/problems/first-missing-positive/discuss/17071/My-short-c++-solution-O%281%29-space-and-O%28n%29-time)</span><br></pre></td></tr></table></figure></p>
-<p>// Put each number in its right place.<br>// For example:<br>// When we find 5, then swap it with A[4].<br>// At last, the first place where its number is not right, return the place + 1.</p>
-<p>class Solution<br>{<br>public:<br>    int firstMissingPositive(int A[], int n)<br>    {<br>        for(int i = 0; i &lt; n; ++ i)<br>            while(A[i] &gt; 0 &amp;&amp; A[i] &lt;= n &amp;&amp; A[A[i] - 1] != A[i])<br>                swap(A[i], A[A[i] - 1]);</p>
-<pre><code>    for(int i = 0; i &lt; n; ++ i)
-        if(A[i] != i + 1)
-            return i + 1;
-
-    return n + 1;
-}
-</code></pre><p>};<br><code>`</code><br>以 [ 2 2 4 0 1 3 3 3 4 3 ] 为例，经过第一轮 for 循环排序后产生 [ 1 2 3 4 2 0 3 3 4 3 ] ，经过第二轮 for 循环查找到 5 。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然所标的难度是 hard ，但是找到关键点（第一个连续的数列）后就其实很简单。</p>
-<p>平时还是要多练习算法，锻炼脑筋，争取更快地找到切入口<em>(:з」∠)</em></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/27/leetcode-41/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -616,7 +522,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-03 14:37:10" itemprop="dateModified" datetime="2019-03-03T14:37:10+08:00">2019-03-03</time>
+                <time title="修改时间：2018-11-27 14:24:25" itemprop="dateModified" datetime="2018-11-27T14:24:25+08:00">2018-11-27</time>
               
             
           </span>
@@ -668,28 +574,16 @@
 
       
         
-          
-            <h3 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h3><p><a href="https://leetcode.com/problems/merge-k-sorted-lists/description/" target="_blank" rel="noopener">https://leetcode.com/problems/merge-k-sorted-lists/description/</a></p>
+          <h3 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h3><p><a href="https://leetcode.com/problems/merge-k-sorted-lists/description/" target="_blank" rel="noopener">https://leetcode.com/problems/merge-k-sorted-lists/description/</a></p>
 <p>Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.</p>
 <p><strong>Difficulty:</strong> Hard</p>
-<p><strong>Example:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[</span><br><span class="line">  1-&gt;4-&gt;5,</span><br><span class="line">  1-&gt;3-&gt;4,</span><br><span class="line">  2-&gt;6</span><br><span class="line">]</span><br><span class="line">Output: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</span><br></pre></td></tr></table></figure></p>
-<p>即归并多个有序数列。</p>
-<hr>
-<h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h3><p>首先，想象归并两个有序数列的情形：</p>
-<p>指针p1处于数列1的开头，指针p2处于数列2的开头。</p>
-<p>要将数列2并入数列1中，则：</p>
-<p>①如果p2的值&lt;=p1的值，则移动p2，直到p2为空或p2的值&gt;p1的值；</p>
-<p>②否则，即p2的值&gt;p1的值，或p1已到达数列1的结尾，这样就可以确定要把数列2的什么区间插入到数列1的p1处。</p>
-<p>区间插入后，p1移动一位，重复以上步骤直到归并完毕。</p>
-<p>类似于下图：</p>
-<p><img src="https://img-blog.csdn.net/20180909230938468?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="归并示意"></p>
-<p>然后，采用<strong>分治法</strong>，不断两个两个地归并数列，归并的结果又继续进行两路归并，直到只有一个已排好序的数列。</p>
-<p>算法如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">ListNode* <span class="title">merge</span><span class="params">(ListNode* l1, ListNode* l2)</span></span>&#123;	<span class="comment">// 归并两个有序数列</span></span><br><span class="line">		<span class="function">ListNode <span class="title">tmp</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br><span class="line">        ListNode* result = &amp;tmp;</span><br><span class="line">		result-&gt;next = l1;</span><br><span class="line">		ListNode* head = l2;</span><br><span class="line">		</span><br><span class="line">    	<span class="keyword">if</span>(l1 == <span class="literal">NULL</span> &amp;&amp; l2 != <span class="literal">NULL</span>)&#123;</span><br><span class="line">    		<span class="keyword">return</span> l2;</span><br><span class="line">		&#125;</span><br><span class="line">    	<span class="keyword">else</span> <span class="keyword">if</span>(l2 == <span class="literal">NULL</span>)&#123;</span><br><span class="line">    		<span class="keyword">return</span> l1;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">    	ListNode* p1 = result-&gt;next;</span><br><span class="line">    	ListNode* p2 = head;</span><br><span class="line">    	ListNode* pre = result;</span><br><span class="line">    	<span class="keyword">while</span>(p1 != <span class="literal">NULL</span> &amp;&amp; p2 != <span class="literal">NULL</span>)&#123;</span><br><span class="line">    		<span class="keyword">if</span>(p2-&gt;val &lt;= p1-&gt;val) &#123;</span><br><span class="line">    			ListNode* first = p2;</span><br><span class="line">    			<span class="keyword">while</span>(p2-&gt;next != <span class="literal">NULL</span> &amp;&amp; p2-&gt;next-&gt;val &lt;= p1-&gt;val)&#123;</span><br><span class="line">    				p2 = p2-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">    			ListNode* last = p2;</span><br><span class="line">    			p2 = p2-&gt;next;</span><br><span class="line">    			pre-&gt;next = first;</span><br><span class="line">    			last-&gt;next = p1;</span><br><span class="line">			&#125;</span><br><span class="line">			pre = p1;</span><br><span class="line">			p1 = p1-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(p1 == <span class="literal">NULL</span> &amp;&amp; p2 != <span class="literal">NULL</span>)&#123;</span><br><span class="line">			pre-&gt;next = p2;	</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> result-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">    <span class="function">ListNode* <span class="title">mergeKLists</span><span class="params">(<span class="built_in">vector</span>&lt;ListNode*&gt;&amp; lists)</span> </span>&#123;	<span class="comment">// 归并多个有序数列</span></span><br><span class="line">        </span><br><span class="line">    	<span class="keyword">if</span>(lists.size() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    	</span><br><span class="line">    	<span class="keyword">while</span>(lists.size() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">    		<span class="keyword">int</span> size = lists.size();</span><br><span class="line">    		<span class="keyword">int</span> n = size / <span class="number">2</span>;</span><br><span class="line">    		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">    			ListNode* node = merge(lists[<span class="number">2</span> * i], lists[<span class="number">2</span> * i + <span class="number">1</span>]);</span><br><span class="line">    			lists.push_back(node);</span><br><span class="line">			&#125;</span><br><span class="line">			lists.erase(lists.begin(), lists.begin() + <span class="number">2</span> * n);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> lists[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为$O(n·logk)$。其中n为所有的数字的个数，k为数列的个数。</p>
-<p>用时为20ms。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/25/leetcode-23/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -804,7 +698,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-25 15:08:32" itemprop="dateModified" datetime="2019-11-25T15:08:32+08:00">2019-11-25</time>
+                <time title="修改时间：2018-11-27 14:24:17" itemprop="dateModified" datetime="2018-11-27T14:24:17+08:00">2018-11-27</time>
               
             
           </span>
@@ -856,24 +750,16 @@
 
       
         
-          
-            <h3 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h3><p><a href="https://leetcode.com/problems/permutations/description/" target="_blank" rel="noopener">https://leetcode.com/problems/permutations/description/</a></p>
+          <h3 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h3><p><a href="https://leetcode.com/problems/permutations/description/" target="_blank" rel="noopener">https://leetcode.com/problems/permutations/description/</a></p>
 <p>Given a collection of <strong>distinct</strong> integers, return all possible permutations.</p>
 <p><strong>Difficulty:</strong> Medium</p>
-<p><strong>Example:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3]</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [1,2,3],</span><br><span class="line">  [1,3,2],</span><br><span class="line">  [2,1,3],</span><br><span class="line">  [2,3,1],</span><br><span class="line">  [3,1,2],</span><br><span class="line">  [3,2,1]</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>即是求给出的一组不同整数的所有不同排列。</p>
-<hr>
-<h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h3><p>以[1 2 3]为例，我们手算时一般会这么做：</p>
-<p>1 2 3<br>1 3 2<br>2 1 3<br>2 3 1<br>3 1 2<br>3 2 1</p>
-<p>但是本人认为按这个有序的步骤来编写程序，需要额外的标记来指明每次需要取哪个数字放到某一位上，比较麻烦。</p>
-<p>经过观察，有如下规律：（第几位指从左到右的第几个数字）</p>
-<p><img src="https://img-blog.csdn.net/20180909225215166?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="排列的生成规律"></p>
-<p>总的来说，就是要不断进行不同的数位交换。每次交换后产生的新排列们也参与之后的交换。</p>
-<p>所以，有以下算法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; permute(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; result;</span><br><span class="line">    	result.push_back(nums);</span><br><span class="line">        <span class="keyword">int</span> size = nums.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = size - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        	<span class="keyword">int</span> ss = result.size();</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; ss; k++)&#123;	<span class="comment">// 先前的结果集合中的每个排列都要参与接下来的交换</span></span><br><span class="line">        		<span class="keyword">for</span>(<span class="keyword">int</span> j = size - <span class="number">1</span>; j &gt; i; j--)&#123;</span><br><span class="line">	        		<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nn = result[k];</span><br><span class="line">	        		<span class="keyword">int</span> tmp = nn[j];	<span class="comment">// 交换第i位和第j位</span></span><br><span class="line">	        		nn[j] = nn[i];</span><br><span class="line">					nn[i] = tmp;</span><br><span class="line">					result.push_back(nn);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">	        	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为$O(n!)$，其中n为给出的数字个数。<br>用时为8ms。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/25/leetcode-46/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1860,7 +1746,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-21 13:40:40" itemprop="dateModified" datetime="2018-11-21T13:40:40+08:00">2018-11-21</time>
+                <time title="修改时间：2018-11-27 14:24:41" itemprop="dateModified" datetime="2018-11-27T14:24:41+08:00">2018-11-27</time>
               
             
           </span>
@@ -1912,79 +1798,15 @@
 
       
         
-          
-            <h1 id="Go语言的安装与配置"><a href="#Go语言的安装与配置" class="headerlink" title="Go语言的安装与配置"></a>Go语言的安装与配置</h1><p><a href="https://golang.org/dl/" target="_blank" rel="noopener">Go语言下载</a>                 </p>
+          <h1 id="Go语言的安装与配置"><a href="#Go语言的安装与配置" class="headerlink" title="Go语言的安装与配置"></a>Go语言的安装与配置</h1><p><a href="https://golang.org/dl/" target="_blank" rel="noopener">Go语言下载</a>                 </p>
 <p>我下的是 <code>go1.11.windows-amd64.msi</code> 。</p>
-<p>安装好后，配置系统变量：</p>
-<ul>
-<li><p><code>GOROOT</code> ：Go语言的安装路径。</p>
-</li>
-<li><p><code>GOPATH</code> ：Go语言的工作空间，不能与 <code>GOROOT</code> 相同。</p>
-</li>
-<li><p><code>Path</code> ：增加 <code>%GOROOT%\bin\</code> 和 <code>%GOPATH%\bin\</code></p>
-</li>
-</ul>
-<p><img src="https://img-blog.csdn.net/20180927162417828?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p><code>Path</code> 的配置如下：</p>
-<p><img src="https://img-blog.csdn.net/201809271624364?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p><code>GOPATH</code> 下应有三个目录：</p>
-<ul>
-<li><p><code>src</code> ：包含Go的源文件，它们被组织成包（每个目录都对应一个包）</p>
-</li>
-<li><p><code>pkg</code>：包含包对象，也即编译好的库文件 <code>*.a</code></p>
-</li>
-<li><p><code>bin</code>：包含可执行命令</p>
-</li>
-</ul>
-<blockquote>
-<p>go 工具用于构建源码包，并将其生成的二进制文件安装到 pkg 和 bin 目录中。</p>
-</blockquote>
-<p><img src="https://img-blog.csdn.net/20180927162546398?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>之后，在命令行输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure>
-<p>出现类似以下的显示就是成功安装Go语言了。</p>
-<p><img src="https://img-blog.csdn.net/20180927172123780?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<h1 id="Go语言的IDE：GoLand"><a href="#Go语言的IDE：GoLand" class="headerlink" title="Go语言的IDE：GoLand"></a>Go语言的IDE：GoLand</h1><p>Windows下，Go语言的IDE可以使用GoLand。</p>
-<p><a href="http://www.jetbrains.com/go/" target="_blank" rel="noopener">GoLand下载</a>    </p>
-<p>GoLand只有30天的免费试用期，你可以每30天卸载重装一次，也可以申请免费学生授权。<a href="https://sales.jetbrains.com/hc/zh-cn/articles/207154369-%E5%AD%A6%E7%94%9F%E6%8E%88%E6%9D%83%E7%94%B3%E8%AF%B7%E6%96%B9%E5%BC%8F" target="_blank" rel="noopener">学生授权申请方式</a></p>
-<h1 id="IDE内Go程序的编写和运行"><a href="#IDE内Go程序的编写和运行" class="headerlink" title="IDE内Go程序的编写和运行"></a>IDE内Go程序的编写和运行</h1><p>在工程目录，右键点击工程名，新建Go File。</p>
-<p>编写代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	fmt.Printf(&quot;Hello, world.\n&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>之后运行：</p>
-<p><img src="https://img-blog.csdn.net/20180927173751243?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>如果首行的 <code>package main</code> 不是 <code>main</code> ，则在 <code>Run `go build hello.go`</code> 之后会报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Process failed with error 216: Process finished with exit code 216</span><br></pre></td></tr></table></figure></p>
-<p>因为如果要执行一个方法，则首行声明的包名应该为 <code>main</code> ，方法名也应为 <code>main</code> 。</p>
-<p>运行后在IDE就会出现运行结果，如下。</p>
-<p><img src="https://img-blog.csdn.net/20180927173509352?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<h1 id="命令行下Go程序的运行和生成"><a href="#命令行下Go程序的运行和生成" class="headerlink" title="命令行下Go程序的运行和生成"></a>命令行下Go程序的运行和生成</h1><h2 id="go-run"><a href="#go-run" class="headerlink" title="go run"></a>go run</h2><p>可以在Go程序所在的目录下运行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run xxx.go</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdn.net/20180927174039557?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>当然，也可不在源程序所在目录下运行，但要输入源程序的确切路径，比如在 <code>...\yuyuforest</code> 下输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run helloGo\hello.go</span><br></pre></td></tr></table></figure></p>
-<h2 id="go-build"><a href="#go-build" class="headerlink" title="go build"></a>go build</h2><p>如果要生成可执行文件，则在源程序所在目录下输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go build xxx.go</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdn.net/20180927180721907?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>可见，目录下生成了可执行文件 <code>hello.exe</code> 。在当前目录下执行 <code>./hello</code> 命令即可运行该文件。</p>
-<h2 id="go-install"><a href="#go-install" class="headerlink" title="go install"></a>go install</h2><p>在包目录下执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install</span><br></pre></td></tr></table></figure>
-<p>那么，在 <code>%GOPATH%\bin</code> 目录下就会产生一个 <code>xxx.exe</code> ，即由该包构建的可执行文件。</p>
-<p>以刚才的 <code>github.com\yuyuforest\helloGo</code> 包目录为例，执行了 <code>go install</code> 命令后，就产生如下文件：</p>
-<p><img src="https://img-blog.csdn.net/2018092718331591?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdn.net/20180927183300273?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>可以在命令行里运行 <code>helloGo</code> 查看结果。</p>
-<p><code>go build</code> 与 <code>go install</code> 有什么区别呢？</p>
-<blockquote>
-<p>install命令在编译源码后还会将可执行文件或库文件安装到约定的目录下。</p>
-<ul>
-<li>go install编译出的可执行文件以其所在目录名(DIR)命名</li>
-<li>go install将可执行文件安装到与src同级别的bin目录下，bin目录由go install自动创建</li>
-<li>go install将可执行文件依赖的各种package编译后，放在与src同级别的pkg目录下</li>
-</ul>
-<p>来源：<a href="https://blog.csdn.net/kwame211/article/details/79202384" target="_blank" rel="noopener">https://blog.csdn.net/kwame211/article/details/79202384</a></p>
-</blockquote>
-<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>关于Go的安装和GoLand的配置，参考了这篇教程：<a href="https://www.cnblogs.com/maobuji/p/8360414.html" target="_blank" rel="noopener">Windows下GO开发环境配置</a></p>
-<p>关于如何把 <code>github.com/git-user/...</code> 推送到Git上，可参考我先前的博客：<a href="https://blog.csdn.net/SquirrelYuyu/article/details/82714644" target="_blank" rel="noopener">Git学习笔记 #1 日常使用总结</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/13/golang-install/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2151,155 +1973,20 @@
 
       
         
-          
-            <h2 id="1-实验目的"><a href="#1-实验目的" class="headerlink" title="1. 实验目的"></a>1. 实验目的</h2><blockquote>
+          <h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><blockquote>
 <ol>
 <li>初步了解虚拟化技术，理解云计算的相关概念</li>
 <li>为后续课程提供统一的编程与实验环境</li>
 <li>理解系统工程师面临的困境</li>
 </ol>
 </blockquote>
-<h2 id="2-实验环境与要求"><a href="#2-实验环境与要求" class="headerlink" title="2. 实验环境与要求"></a>2. 实验环境与要求</h2><blockquote>
-<ul>
-<li>实验需要硬件虚拟化（AMD-V 或 Intel-VT）支持，部分旧笔记本不支持。</li>
-<li>用户可通过互联网，使用微软远程桌面，远程访问你在PC机上创建的虚拟机。</li>
-<li>虚拟机操作系统可为 CentOS，Ubuntu，或你喜欢的其他 Linux 发行版，能使用 NAT 访问外网。</li>
-</ul>
-</blockquote>
-<h2 id="3-实验内容"><a href="#3-实验内容" class="headerlink" title="3. 实验内容"></a>3. 实验内容</h2><h3 id="1-安装配置VirtualBox"><a href="#1-安装配置VirtualBox" class="headerlink" title="1. 安装配置VirtualBox"></a>1. 安装配置VirtualBox</h3><ul>
-<li><p>可配置 VirtualBox 虚拟机存储位置，避免找不到虚拟机存储位置，特别是消耗启动盘的宝贵空间。</p>
-<p>VirtualBox菜单：【管理】-&gt;【全局设定】-&gt;【常规】</p>
-<p><img src="https://img-blog.csdn.net/20180910170914968?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-</li>
-<li><p>创建虚拟机内部虚拟网络，使得 Vbox 内部虚拟机可以通过它，实现虚拟机之间、虚拟机与主机的通讯。</p>
-<p>VirtualBox菜单：【管理】-&gt;【主机网络管理器】，创建一块虚拟网卡，地址分配：<code>192.168.100.1/24</code><br><img src="https://img-blog.csdn.net/20180910170513239?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p><strong>这里推荐勾选启用DHCP服务器。</strong></p>
-</li>
-<li><p>在主机 windows 命令行窗口输入 ipconfig 就可以看到 VirtualBox Host-Only Network #?: 的网卡</p>
-<p><img src="https://img-blog.csdn.net/20180910170650799?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-</li>
-</ul>
-<h3 id="2-创建Centos虚拟机"><a href="#2-创建Centos虚拟机" class="headerlink" title="2. 创建Centos虚拟机"></a>2. 创建Centos虚拟机</h3><ul>
-<li><p>下载：<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso%20%E2%80%9CCentos%E2%80%9D" target="_blank" rel="noopener">Centos</a> , 仅需 <strong>Minimal ISO</strong></p>
-</li>
-<li><p>利用虚拟化软件提供的虚拟机复制功能，避免每次安装 OS 系统的痛苦。</p>
-</li>
-</ul>
-<p>用VBox创建虚拟机，虚拟机名称建议以centos-xxx命名。因为现在要创建的这个虚拟机是基础机，所以命名为centos-base。</p>
-<ul>
-<li><p>建议虚拟机CPU、内存采用默认。如果是桌面版，CPU建议数1-2，内存不低于2G。</p>
-</li>
-<li><p>显示，显存采用默认。如果是桌面版，显存越大越好。</p>
-</li>
-<li><p>存储，不低于30G。避免以后扩展难。</p>
-</li>
-<li><p>网络，第一块网卡必须是 NAT；第二块网卡连接方式： Host-Only，接口就是在安装 VBox 时创建的虚拟网卡。</p>
-</li>
-</ul>
-<h4 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h4><ol>
-<li><p>新建虚拟机时，虚拟机名称以<code>cent</code>开头，类型版本会自动识别。</p>
-<p><img src="https://img-blog.csdn.net/201809110016504?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>然后可一直选默认设置，一路 next 。</p>
-<p><img src="https://img-blog.csdn.net/20180911001658737?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-</li>
-<li><p>配置显存，【设置】-&gt;【显示】。</p>
-<p><img src="https://img-blog.csdn.net/20180911002218659?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-</li>
-<li><p>配置网络，【设置】-&gt;【网络】。</p>
-<blockquote>
-<p>一般使用Linux不仅做桌面应用的，通常希望与主机、多个虚拟机互通。所以必须添加第二块或更多的网卡。 </p>
-</blockquote>
-<p> 第一块网卡设置（NAT）不能修改。</p>
-<p> <img src="https://img-blog.csdn.net/2018091100242938?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p> 添加第二块网卡，设置如图。</p>
-<p> <img src="https://img-blog.csdn.net/20180911002500460?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-</li>
-</ol>
-<h3 id="3-配置基础虚拟机"><a href="#3-配置基础虚拟机" class="headerlink" title="3. 配置基础虚拟机"></a>3. 配置基础虚拟机</h3><ol>
-<li><p>加载 iso 文件。</p>
-<p><img src="https://img-blog.csdn.net/20180911003009300?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-</li>
-<li><p>启动虚拟机，会进入centos的安装程序。</p>
-<p>（注意，光标键盘会被 VBox 捕捉，一般按 <code>右Ctrl</code>键释放。）</p>
-<p>接下来按照安装程序的指示一步一步安装。</p>
-</li>
-<li><p>配置【安装位置】，选择自动分区。</p>
-<p><img src="https://img-blog.csdn.net/2018091100350443?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>点进去后保留默认配置即可。</p>
-</li>
-<li><p>配置【网络和主机名】。</p>
-<p><img src="https://img-blog.csdn.net/20180911003958353?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>要打开网卡，和修改主机名。</p>
-<p>把第二块网卡也打开。<strong>注意：如果前面没有勾选DHCP服务器，则可能出现第二块网卡一直连接不上的情况。勾选后，第二块网卡应该可以自动连接。</strong></p>
-<p>点击【配置】，配置第二块网卡。</p>
-<p><img src="https://img-blog.csdn.net/20180911004609160?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>然后会变成这样：</p>
-<p><img src="https://img-blog.csdn.net/20180911004706970?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-</li>
-<li><p>完成设置，【开始安装】。设置 root 用户密码。可创建另外一个用户。</p>
-</li>
-<li><p>安装完成后重启，登录 root 。</p>
-</li>
-<li><p>升级 OS 系统内核。</p>
-<p><code>yum install wget</code>获取 wget 。</p>
-<p><code>yum update</code>升级 OS 内核。</p>
-</li>
-<li><p>检查网络。</p>
-<p><code>ping www.baidu.com</code>检查外网</p>
-<p><code>ping 192.168.100.1</code>检查内网</p>
-<p><img src="https://img-blog.csdn.net/20180911230041932?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p><strong>注意</strong>：如果ping不通内网，和本机的防火墙有关系，可以通过关闭防火墙或<strong>设置防火墙的入站规则</strong>来解决。</p>
-<p>防火墙的规则设置，我参考了这篇文章：<a href="https://www.jianshu.com/p/c5344cfffc20" target="_blank" rel="noopener">VirtualBox虚拟机ping不通宿主机解决方案</a></p>
-<p><img src="https://img-blog.csdn.net/20180911230724920?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>如上，在入站规则里找到<strong>文件和打印机共享(回显请求 - ICMPv4-In)</strong>，右键启用规则。即可ping通内网。</p>
-<p><code>nmcli</code>查看两块网卡的连接情况</p>
-<p><img src="https://img-blog.csdn.net/20180911231904122?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>第二块网卡如图所示未连接，需要使用centos自带的网络配置工具 <code>nmtui</code>来配置网络。</p>
-</li>
-<li><p><code>nmtui</code>配置网络。</p>
-<p><img src="https://img-blog.csdn.net/20180911233611506?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>【Edit a connection】-&gt;【enp0s8】-&gt;【Edit…】，可以看到以下信息：</p>
-<p><img src="https://img-blog.csdn.net/20180911233757566?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>这就是之前在第4步时关于第二块网卡的配置。以后可以在这里修改配置。（【Set system hostname】里的主机名也是之前安装时设置的。）</p>
-<p>我们需要在下图的红色光标所指处，按下空格键，会出现【X】符号，表示设置自动连接。然后移到【OK】，保存配置。</p>
-<p><img src="https://img-blog.csdn.net/20180911234646127?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>返回主界面。</p>
-<p>【Activate a connection】-&gt;【enp0s8】-&gt;【Activate】，激活后在【enp0s8】左边会出现【*】。</p>
-<p><img src="https://img-blog.csdn.net/20180911234346298?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>退出nmtui，再次输入 <code>nmcli</code>。</p>
-<p><img src="https://img-blog.csdn.net/20180911235612145?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>可见第二块网卡已成功连接。</p>
-<p>现在我们已经配置好网络了！</p>
-</li>
-</ol>
-<h3 id="4-复制虚拟机并重新配置"><a href="#4-复制虚拟机并重新配置" class="headerlink" title="4. 复制虚拟机并重新配置"></a>4. 复制虚拟机并重新配置</h3><p>右键点击centos-base虚拟机，选择【复制】。必须选择<strong>【重新初始化所有网卡的MAC地址】</strong>。</p>
-<p><img src="https://img-blog.csdn.net/20180912000506165?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>下一步，选择【链接复制】。</p>
-<p>复制完成后，需要配置新虚拟机的主机名和第二块网卡。在 <code>nmtui</code>中配置。</p>
-<p><img src="https://img-blog.csdn.net/20180912000915198?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>​<br>将enp0s8的IPv4地址修改成 <code>192.168.100.3/24</code>。如下图所示。（3改成其他的数字也可，但不要与前面步骤中设定的1和2重复。）<br>​<br><img src="https://img-blog.csdn.net/20180912001457193?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<h3 id="5-配置远程桌面访问虚拟机"><a href="#5-配置远程桌面访问虚拟机" class="headerlink" title="5. 配置远程桌面访问虚拟机"></a>5. 配置远程桌面访问虚拟机</h3><p>从这里下载 VirtualBox 的扩展包：<a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">Download VirtualBox</a></p>
-<p><img src="https://img-blog.csdn.net/20180912081637934?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>【管理】-&gt;【全局设定】-&gt;【扩展】，添加扩展包。</p>
-<p><img src="https://img-blog.csdn.net/20180912082850477?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>安装完成后，重启宿主机。</p>
-<p>虚拟机可选择【无界面启动】，然后在另一台终端的远程桌面里输入 <code>ip:端口</code>，就可以访问虚拟机啦：）</p>
-<p>比如，我在另一台连上校园网的笔记本，输入如下：</p>
-<p><img src="https://img-blog.csdn.net/20180913002450323?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p><code>172.18.155.109</code>是我的虚拟机的宿主机的校园网ip，<code>4235</code>是前面配置时设定的端口。</p>
-<h3 id="6-配置SSH访问虚拟机"><a href="#6-配置SSH访问虚拟机" class="headerlink" title="6. 配置SSH访问虚拟机"></a>6. 配置SSH访问虚拟机</h3><p>在centos里设置ssh访问：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
-<p>把下图红框所在行的【#】号去掉：</p>
-<p><img src="https://img-blog.csdn.net/20180913003405166?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>如果你登录的是root，还要把这行的【#】也去掉：</p>
-<p><img src="https://img-blog.csdn.net/20180913003416566?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>之后，在bash输入 <code>ssh 用户名@虚拟机ip地址</code>即可。</p>
-<p><img src="https://img-blog.csdn.net/20180913003532877?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<h2 id="4-最后"><a href="#4-最后" class="headerlink" title="4. 最后"></a>4. 最后</h2><p>参考了老师的教程：<a href="https://pmlpml.github.io/ServiceComputingOnCloud/ex-install-cloud" target="_blank" rel="noopener">私有云</a></p>
-<p>推荐两个大佬的博客，额外介绍了一些概念：</p>
-<p><a href="https://icytown.com/linux/centos-vps-build/" target="_blank" rel="noopener">MegaShow - Linux | 配置CentOS私有云</a></p>
-<p><a href="https://blog.zhenly.cn/Linux/linux_virtualbox/" target="_blank" rel="noopener">Zhenly - Linux | CentOS虚拟机私有云环境搭建</a> （介绍了外网访问的设置）</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/13/virtualbox-install-cloud/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
