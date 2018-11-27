@@ -296,6 +296,263 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/11/27/leetcode-41/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuyu">
+      <meta itemprop="description" content="鱼鱼爱吃鱼">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yuyuforest">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/27/leetcode-41/" itemprop="url">
+                  LeetCode | 41 First Missing Positive
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-27 11:49:44 / 修改时间：11:50:36" itemprop="dateCreated datePublished" datetime="2018-11-27T11:49:44+08:00">2018-11-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode.com/problems/first-missing-positive/description/" target="_blank" rel="noopener">First Missing Positive</a></p>
+<p>Given an unsorted integer array, find the smallest missing positive integer.</p>
+<p><strong>Example 1:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,0]</span><br><span class="line">Output: 3</span><br></pre></td></tr></table></figure></p>
+<p><strong>Example 2:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,4,-1,1]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure></p>
+<p><strong>Example 3:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,8,9,11,12]</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure></p>
+<p><strong>Note:</strong></p>
+<p>Your algorithm should run in O(n) time and uses constant extra space.</p>
+<p><strong>Difficulty:</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">## 分析</span><br><span class="line"></span><br><span class="line">我们要找到无序数组升序排列后缺少的第一个正数。</span><br><span class="line"></span><br><span class="line">在考虑算法时，可以忽略那些 0 和负数。输入数列有几种情况：</span><br><span class="line"></span><br><span class="line">- 所有的正数可以组成一个连续的数列</span><br><span class="line"></span><br><span class="line">  - 该数列从 1 开始，如 [ 1 2 3 4 5 ] ，答案为 6</span><br><span class="line"></span><br><span class="line">  - 该数列不从 1 开始，如 [ 2 3 4 ] ，答案为 1</span><br><span class="line"></span><br><span class="line">- 所有的正数可以组成几个连续的数列</span><br><span class="line"></span><br><span class="line">  - 第一个数列从 1 开始，如 [ [ 1 2 ] [ 5 6 7 ] ] ，答案为 3</span><br><span class="line"></span><br><span class="line">  - 第一个数列不从 1 开始，如 [ [ 2 3 4 ] [ 9 10 11 ] ] ，答案为 1</span><br><span class="line"></span><br><span class="line">总的来说，就是要找这个无序数列忽略非正数进行排序后，**第一个连续的数列，并看它的开头和结尾**。</span><br><span class="line"></span><br><span class="line">另外，输入数列中可能有重复的数字，对某些算法来说要考虑这一情况。我有一次的WA对应的输入是 [ 2 2 4 0 1 3 3 3 4 3 ] 。</span><br><span class="line"></span><br><span class="line">### 算法1</span><br><span class="line"></span><br><span class="line">这个算法的思想是，建立一个 ```unsiged int```类型的数组 ```record```，让数组中第 i 个（从 0 开始计）数的二进制的第 n 位（最右边为第 1 位）代表数列中是否存在这个数字 ```32 * i + j```。如果为 1 ，代表存在，否则不存在。</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure></p>
+<p>record[0] =  1 = 0b0…0000001    // 代表数列中存在 1<br>record[2] = 38 = 0b0…0100110    // 代表数列中存在 32<em>2+2、32</em>2+3、32*2+6<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">record 数组中第一个不等于 ```0xFFFFFFFF```的数，即为正数轴第一次出现断点的地方。</span><br></pre></td></tr></table></figure></p>
+<p>#include <iostream></iostream></p>
+<p>#include <climits></climits></p>
+<p>#include <vector></vector></p>
+<p>#define N 100</p>
+<p>class Solution {<br>public:<br>    int firstMissingPositive(vector<int>&amp; nums) {<br>        int size = nums.size();<br>        unsigned int record[N] = {0};</int></p>
+<pre><code>    int max = 0;
+    int min = INT_MAX;
+
+    // 第一次遍历，去掉非正数，找到最大数和最小数
+    vector&lt;int&gt;::iterator iter = nums.begin();
+    while(iter != nums.end()){
+        int i = *iter;
+        if(i &lt;= 0){
+            nums.erase(iter);
+        }
+        else{
+            if(i &lt; min) min = i;
+            if(i &gt; max) max = i;
+            iter++;
+        }
+    }
+
+    if(min != 1) return 1;
+
+    // 第二次遍历，利用 record 数组记录数列中的正数
+    iter = nums.begin();
+    for(; iter != nums.end(); iter++){
+        int n = *iter;
+        int i = n - 1;
+
+        int quotient = i / 32;
+        int reminder = i % 32;
+        if(quotient &lt; N) record[quotient] |= (1 &lt;&lt; reminder);
+    }
+
+    // 确定 record 在逻辑上最大的索引，避免溢出
+    int indexmax = (max - 1) / 32;
+    if(indexmax &gt;= size) indexmax = size - 1;
+
+    int result = 0;
+    for(int index = 0; index &lt;= indexmax; index++){
+        if(record[index] &lt; UINT_MAX){
+            // 找到 record 中第一个不是所有位都为 1 的数
+            result = index * 32;
+
+            // 寻找这个数中第一个为0的位
+            while(record[index] &amp; 1){
+                record[index] &gt;&gt;= 1;
+                result++;
+            }
+            break;
+        }
+    }
+    result++;
+    return result;
+}
+</code></pre><p>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这个算法中的 record 数组大小 N 是常量，如果所输入的序列中的第一个连续数列的规模超出了 32*N ，就可能会出错。考虑到网站测试的例子规模，我姑且把它设为 100 。或者也可以先确定输入序列的规模，再确定数组大小。</span><br><span class="line"></span><br><span class="line">假设 n 为输入数列的大小，k 为第一个缺失的正数，则时间复杂度为$O(n)+O(k)$。</span><br><span class="line"></span><br><span class="line">该算法用时 4 ms。</span><br><span class="line"></span><br><span class="line">### 算法2</span><br><span class="line"></span><br><span class="line">这一算法的思路是，把数列中的数字和索引对应起来。比如，把数字 1 放到第 1 个位置（即 ```nums[0]```），把数字 2 放到第 2 个位置（ ```nums[1]```），以此类推。然后对产生的新数组，逐个比较索引和元素。由第一个没有应有的元素的索引即可得到所求的答案。</span><br><span class="line"></span><br><span class="line">对某些和顺序有关的算法题，数组的索引可能很有用！</span><br></pre></td></tr></table></figure></p>
+<p>class Solution {<br>public:<br>    int firstMissingPositive(vector<int>&amp; nums) {<br>        const int size = nums.size();<br>        if(size == 0) return 1;</int></p>
+<pre><code>    int result = 0;
+
+    int newnums[size] = {0};
+
+    for(int i = 0; i &lt; size; i++){
+        if(nums[i] &lt;= size &amp;&amp; nums[i] &gt; 0){
+            newnums[nums[i] - 1] = 1; // 1 表示存在与该索引对应的元素
+        }
+    }
+
+    for(int i = 0; i &lt; size; i++){
+        if(newnums[i] != 1){  // 第一个不存在对应元素的索引
+            result = i + 1;
+            break;
+        }
+    }
+
+    if(result == 0) result = size + 1;
+
+    return result;
+}
+</code></pre><p>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">显然，与算法 1 相比，算法 2 的思路更简便。 但是算法 1 可以一次性扫描32位数字，对第一个连续数列的规模比较大的情况来说，可能可以更快地确定答案所在的范围。</span><br><span class="line"></span><br><span class="line">假设 n 为输入数列的大小，k 为第一个缺失的正数，则时间复杂度为$O(n)+O(k)$。</span><br><span class="line"></span><br><span class="line">该算法用时 4 ms。</span><br><span class="line"></span><br><span class="line">## 其他算法</span><br><span class="line"></span><br><span class="line">在讨论区有一个算法：</span><br><span class="line"></span><br><span class="line">[My short c++ solution, O(1) space, and O(n) time](https://leetcode.com/problems/first-missing-positive/discuss/17071/My-short-c++-solution-O%281%29-space-and-O%28n%29-time)</span><br></pre></td></tr></table></figure></p>
+<p>// Put each number in its right place.<br>// For example:<br>// When we find 5, then swap it with A[4].<br>// At last, the first place where its number is not right, return the place + 1.</p>
+<p>class Solution<br>{<br>public:<br>    int firstMissingPositive(int A[], int n)<br>    {<br>        for(int i = 0; i &lt; n; ++ i)<br>            while(A[i] &gt; 0 &amp;&amp; A[i] &lt;= n &amp;&amp; A[A[i] - 1] != A[i])<br>                swap(A[i], A[A[i] - 1]);</p>
+<pre><code>    for(int i = 0; i &lt; n; ++ i)
+        if(A[i] != i + 1)
+            return i + 1;
+
+    return n + 1;
+}
+</code></pre><p>};<br><code>`</code><br>以 [ 2 2 4 0 1 3 3 3 4 3 ] 为例，经过第一轮 for 循环排序后产生 [ 1 2 3 4 2 0 3 3 4 3 ] ，经过第二轮 for 循环查找到 5 。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然所标的难度是 hard ，但是找到关键点（第一个连续的数列）后就其实很简单。</p>
+<p>平时还是要多练习算法，锻炼脑筋，争取更快地找到切入口<em>(:з」∠)</em></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/11/25/leetcode-23/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2079,165 +2336,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/10/13/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuyu">
-      <meta itemprop="description" content="鱼鱼爱吃鱼">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yuyuforest">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/13/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-13 00:35:07" itemprop="dateCreated datePublished" datetime="2018-10-13T00:35:07+08:00">2018-10-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-10-19 15:56:32" itemprop="dateModified" datetime="2018-10-19T15:56:32+08:00">2018-10-19</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/13/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2284,7 +2389,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
