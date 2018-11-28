@@ -296,6 +296,205 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/11/28/leetcode-149/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuyu">
+      <meta itemprop="description" content="鱼鱼爱吃鱼">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yuyuforest">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/28/leetcode-149/" itemprop="url">
+                  LeetCode | 149 Max Points on a Line
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-28 15:10:45 / 修改时间：15:12:54" itemprop="dateCreated datePublished" datetime="2018-11-28T15:10:45+08:00">2018-11-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode.com/problems/max-points-on-a-line/description/" target="_blank" rel="noopener">Max Points on a Line</a></p>
+<p>Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,1],[2,2],[3,3]]</span><br><span class="line">Output: 3</span><br><span class="line">Explanation:</span><br><span class="line">^</span><br><span class="line">|</span><br><span class="line">|        o</span><br><span class="line">|     o</span><br><span class="line">|  o  </span><br><span class="line">+-------------&gt;</span><br><span class="line">0  1  2  3  4</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation:</span><br><span class="line">^</span><br><span class="line">|</span><br><span class="line">|  o</span><br><span class="line">|     o        o</span><br><span class="line">|        o</span><br><span class="line">|  o        o</span><br><span class="line">+-------------------&gt;</span><br><span class="line">0  1  2  3  4  5  6</span><br></pre></td></tr></table></figure>
+<p><strong>Difficulty:</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">---</span><br><span class="line"># 分析</span><br><span class="line"></span><br><span class="line">要求出在同一条直线上最多的点数。</span><br><span class="line"></span><br><span class="line">有一些需要注意的特殊情况：</span><br><span class="line"></span><br><span class="line">**1. 输入中可能有多个坐标相同的点，它们应当被看作不同的点。**</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure></p>
+<p>Input: [[0,0],[1,1],[0,0]]<br>Expected Output: 3</p>
+<p>Input: [[1,1],[1,1],[1,1]]<br>Expected Output: 3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**2. 输入中可能有很接近的两条直线。**</span><br></pre></td></tr></table></figure></p>
+<p>Input: [[0,0],[94911151,94911150],[94911152,94911151]]<br>Expected Output: 2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果直接用 ```double```除法去算这三个点两两相连产生的直线的斜率和截距，就会得出错误的输出：3。</span><br><span class="line"></span><br><span class="line">所以，需要使用分数来表示直线的斜率和截距（如果你需要记录它们的话）。</span><br><span class="line"></span><br><span class="line">## 12ms算法</span><br><span class="line"></span><br><span class="line">**算法思路：**</span><br><span class="line"></span><br><span class="line">1. 使用自定义的结构体 ```Line```来表示直线，使用 ```map&lt;Line, int&gt;```来记录每条直线上点对的个数。</span><br><span class="line"></span><br><span class="line">2. 对每个点 ```points[i]```，从 ```j=i+1```开始向后扫描 ```points[j]```，设输入有 n 个点，第1个点要往后扫描 (n-1) 个点，第2个点要往后扫描 (n-2) 个点，以此类推，共扫描 $n(n-1)/2$ 个点对。</span><br><span class="line"></span><br><span class="line">3. 每扫描一个点对，就检测这个点对的连线。在 ```map```里将这条线对应的值增加1，即有新的一个点对在这条线上。</span><br><span class="line"></span><br><span class="line">4. 如果某个点对中的两个点相同，所有经过这个点的直线在 ```map```中的值都要增加1。</span><br><span class="line"></span><br><span class="line">5. 最后，找出map中映射值最大的一个键，即穿过点数最多的线。假设这条线穿过 k 个点，键的映射值为 m ，那么这条直线上会有 $k(k-1)/2$ 个点对，有 $k(k-1)/2=m$ ，可算得 $k=(\sqrt&#123;8m+1&#125;+1)/2$ 。</span><br><span class="line"></span><br><span class="line">```C++</span><br><span class="line">/**</span><br><span class="line"> * Definition for a point.</span><br><span class="line"> * struct Point &#123;</span><br><span class="line"> *     int x;</span><br><span class="line"> *     int y;</span><br><span class="line"> *     Point() : x(0), y(0) &#123;&#125;</span><br><span class="line"> *     Point(int a, int b) : x(a), y(b) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">typedef pair&lt;int,int&gt; paint;</span><br><span class="line"></span><br><span class="line">// 求最大公约数 </span><br><span class="line">int measure(int x, int y)</span><br><span class="line">&#123;	</span><br><span class="line">	int z = y;</span><br><span class="line">	while(x%y!=0)</span><br><span class="line">	&#123;</span><br><span class="line">		z = x%y;</span><br><span class="line">		x = y;</span><br><span class="line">		y = z;	</span><br><span class="line">	&#125;</span><br><span class="line">	return z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct Line &#123;</span><br><span class="line">    paint a;    // 斜率(当直线为竖线时，a=(x,0))</span><br><span class="line">    paint b;    // 截距(当直线为竖线时，b=(1,0))</span><br><span class="line">    </span><br><span class="line">    Line() : a(paint(0, 0)), b(paint(0, 0))&#123;&#125;</span><br><span class="line">    Line(int m, int n, int x, int y) : a(paint(m, n)), b(paint(x, y)) &#123;&#125;</span><br><span class="line">    bool operator &lt; (const Line &amp;l2) const&#123;</span><br><span class="line">    	return a &lt; l2.a || a == l2.a &amp;&amp; b &lt; l2.b;</span><br><span class="line">	&#125;</span><br><span class="line">	double get(int x) const&#123;    // 获取直线上与横坐标x对应的纵坐标</span><br><span class="line">		int gcd = measure(a.second, b.second);</span><br><span class="line">		int aa = b.second / gcd;</span><br><span class="line">		int bb = a.second / gcd;</span><br><span class="line">		int m = a.first * x * aa + b.first * bb;</span><br><span class="line">		int n = a.second * aa;</span><br><span class="line">		return (double)m / (double)n;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxPoints(vector&lt;Point&gt;&amp; points) &#123;</span><br><span class="line">	</span><br><span class="line">    	if(points.size() &lt; 3) return points.size();</span><br><span class="line">    	</span><br><span class="line">        map&lt;Line, int&gt; lines;   // 键为直线，映射值为在这条直线上的点对的个数</span><br><span class="line">        </span><br><span class="line">        for(int i = 0; i &lt; points.size() - 1; i++)&#123;</span><br><span class="line">        	int same = 0;   // 记录扫描points[j]时遇到的与points[i]相同的点</span><br><span class="line">        	set&lt;int*&gt; s;    // 记录points[i]与points[j]的连线在map中的映射值的指针</span><br><span class="line">        	for(int j = i + 1; j &lt; points.size(); j++)&#123;</span><br><span class="line">        		int deltax = points[i].x - points[j].x;</span><br><span class="line">        		int deltay = points[i].y - points[j].y;</span><br><span class="line">        		</span><br><span class="line">        		if(deltax == 0 &amp;&amp; deltay == 0)&#123; // 两个点相同</span><br><span class="line">        			same++;</span><br><span class="line">				&#125;</span><br><span class="line">				else if(deltax == 0 &amp;&amp; deltay != 0)&#123;    // 两个点在同一竖线上</span><br><span class="line">					int x = points[i].x;</span><br><span class="line">        			int&amp; num = lines[Line(x, 0, 1, 0)];</span><br><span class="line">					num += 1;</span><br><span class="line">        			s.insert(&amp;num);</span><br><span class="line">				&#125;</span><br><span class="line">				else&#123;</span><br><span class="line">        			int gcd = measure(deltay, deltax);</span><br><span class="line">        			int a1 = deltay / gcd;</span><br><span class="line">        			int a2 = deltax / gcd;</span><br><span class="line">        			</span><br><span class="line">        			int m = points[i].y * deltax - deltay * points[i].x;</span><br><span class="line">        			int gcd2 = measure(m, deltax);</span><br><span class="line">        			int b1 = m / gcd2;</span><br><span class="line">        			int b2 = deltax / gcd2;</span><br><span class="line">        			</span><br><span class="line">        			int&amp; num = lines[Line(a1, a2, b1, b2)];</span><br><span class="line">					num += 1;</span><br><span class="line">        			s.insert(&amp;num);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			// 有same个与points[i]相同的点，相当于还有same个点对在经过这个点的直线上</span><br><span class="line">			// 需要将直线的映射值增加相应的数量</span><br><span class="line">			for(int* num : s)&#123;  </span><br><span class="line">				*num += same;</span><br><span class="line">			&#125;</span><br><span class="line">			// 如果集合s为空，说明扫描到的points[j]全都与points[i]相同</span><br><span class="line">			// 需要扫描lines，看是否有经过该点的直线</span><br><span class="line">			if(s.empty())&#123;</span><br><span class="line">				for(auto&amp; l : lines)&#123;</span><br><span class="line">					if(l.first.get(points[i].x) == points[i].y)&#123;</span><br><span class="line">						l.second += same;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		// 输入的所有点全都相同的情况</span><br><span class="line">		if(lines.size() == 0) return points.size();</span><br><span class="line">		</span><br><span class="line">		// 找出最大的点对数</span><br><span class="line">		int max = 1;</span><br><span class="line">		map&lt;Line, int&gt;::iterator iter = lines.begin();</span><br><span class="line">		while(iter != lines.end())&#123;</span><br><span class="line">			if(iter-&gt;second &gt; max) max = iter-&gt;second;</span><br><span class="line">			iter++;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		// 由点对数量算出点数</span><br><span class="line">		max = (sqrt(8 * max + 1) + 1) / 2;</span><br><span class="line">		</span><br><span class="line">		return max;</span><br><span class="line">		</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>算法复杂度为$O(n^2)$。</p>
+<h1 id="其他优秀算法"><a href="#其他优秀算法" class="headerlink" title="其他优秀算法"></a>其他优秀算法</h1><h2 id="8ms算法"><a href="#8ms算法" class="headerlink" title="8ms算法"></a>8ms算法</h2><h3 id="sample①"><a href="#sample①" class="headerlink" title="sample①"></a>sample①</h3><p><strong>算法思路：</strong></p>
+<ol>
+<li><p>对每个点对，遍历points，看有几个点和这个点对在同一直线上。</p>
+</li>
+<li><p>遍历每个点对，进行上述操作，找出最大的点数。</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a point.</span></span><br><span class="line"><span class="comment"> * struct Point &#123;</span></span><br><span class="line"><span class="comment"> *     int x;</span></span><br><span class="line"><span class="comment"> *     int y;</span></span><br><span class="line"><span class="comment"> *     Point() : x(0), y(0) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     Point(int a, int b) : x(a), y(b) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxPoints</span><span class="params">(<span class="built_in">vector</span>&lt;Point&gt;&amp; points)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> res = <span class="number">0</span> ;</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; points.size() ; i ++)&#123; <span class="comment">//first point.</span></span><br><span class="line">        <span class="keyword">int</span> duplicate = <span class="number">1</span> ; </span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> j = i + <span class="number">1</span> ; j &lt; points.size() ; j++)&#123; <span class="comment">//second point.</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">int</span> count = <span class="number">0</span> ;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> x1 = points[i].x , y1 = points[i].y ;  <span class="comment">//use long type to avoid overflow.</span></span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> x2 = points[j].x , y2 = points[j].y ; </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>( x1 == x2 &amp;&amp; y1 == y2 )&#123; <span class="comment">//if two points are duplicated.</span></span><br><span class="line">                duplicate ++ ;</span><br><span class="line">                <span class="keyword">continue</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; points.size() ; k++)&#123; <span class="comment">//find the third point.</span></span><br><span class="line">                <span class="keyword">int</span> x3 = points[k].x , y3 = points[k].y ;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>( x1 * y2 + x2 * y3 + x3 * y1 - x3 * y2 - x2 * y1 - x1 * y3 == <span class="number">0</span> ) <span class="comment">//uses determinant multiplication.</span></span><br><span class="line">                    count ++ ;</span><br><span class="line">            &#125;</span><br><span class="line">            res = max(res , count) ; </span><br><span class="line">        &#125;</span><br><span class="line">        res = max(res , duplicate) ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res ;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>虽然算法复杂度为$O(n^3)$，但是操作比较简单，不用排除重复的直线；且没有使用有复杂操作的STL，用时反而较短。思路也很简捷。</p>
+<h3 id="sample②"><a href="#sample②" class="headerlink" title="sample②"></a>sample②</h3><p><strong>算法思路：</strong></p>
+<ol>
+<li><p>对每个 <code>points[i]</code> ，建立一个 <code>unordered_map&lt;int, unordered_map&lt;int, int&gt;&gt;</code> 类型的 <code>line</code> ，<code>line[x][y]</code> 记录了与 <code>points[i]</code> 有斜率为 <code>y/x</code> 的连线的 <code>points[j]</code> 的个数。因为过一个点的两条不同直线必有不同的斜率，所以可以确定这些 <code>points[j]</code> 都在同一条直线上。</p>
+</li>
+<li><p>因为max points事实上是确定的，所以对每个 <code>points[i]</code> ，可以不从 <code>j = 0</code> 开始扫描 <code>points[j]</code> 。因为只要扫描 <code>points[i]</code> 扫描到了max points对应的直线的第一个点，那么这轮循环所确定的 <code>maxcnt</code> 必然是最终答案，所以对前面或后面的<code>points[i]</code>，是否从 <code>j = 0</code> 开始扫描 <code>points[j]</code> 都是没关系的。</p>
+</li>
+<li><p>每次循环时都把计算出的点数与上一轮循环确定的 <code>maxcnt</code> 或 <code>count</code> 比较，层层循环最终确定 <code>maxcnt</code> 。</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">gcd</span> <span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x &gt; y)</span><br><span class="line">            <span class="built_in">std</span>::swap(x, y);</span><br><span class="line">        <span class="keyword">while</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = x;</span><br><span class="line">            x = y % x;</span><br><span class="line">            y = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxPoints</span><span class="params">(<span class="built_in">vector</span>&lt;Point&gt;&amp; points)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = points.size(), maxcnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> overlap = <span class="number">0</span>, count = <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; line;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> dx = points[j].x - points[i].x;</span><br><span class="line">                <span class="keyword">int</span> dy = points[j].y - points[i].y;</span><br><span class="line">                <span class="keyword">if</span> (dx == <span class="number">0</span> &amp;&amp; dy == <span class="number">0</span>)</span><br><span class="line">                    overlap++;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (dx &lt; <span class="number">0</span>)</span><br><span class="line">                        dx = -dx, dy = -dy;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (dx == <span class="number">0</span>)</span><br><span class="line">                        dy = <span class="built_in">std</span>::<span class="built_in">abs</span>(dy);</span><br><span class="line">                    <span class="keyword">int</span> dvs = gcd(dx, <span class="built_in">std</span>::<span class="built_in">abs</span>(dy));</span><br><span class="line">                    <span class="keyword">if</span> (dvs != <span class="number">0</span>)</span><br><span class="line">                        dx /= dvs, dy /= dvs;</span><br><span class="line">                    count = <span class="built_in">std</span>::max(count, ++line[dx][dy]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            maxcnt = <span class="built_in">std</span>::max(maxcnt, count + overlap + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxcnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>算法复杂度为$O(n^2)$。</p>
+<h2 id="4ms算法"><a href="#4ms算法" class="headerlink" title="4ms算法"></a>4ms算法</h2><h3 id="sample①-1"><a href="#sample①-1" class="headerlink" title="sample①"></a>sample①</h3><p><strong>算法思路：</strong></p>
+<p>类似于上面的8ms算法的sample②。</p>
+<p>但是因为没有采用嵌套的 <code>unordered_map</code> 结构，而是使用 <code>pair&lt;int, int&gt;</code> 来表示斜率，所以比前一个算法更快。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxPoints</span><span class="params">(<span class="built_in">vector</span>&lt;Point&gt;&amp; points)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; points.size(); ++i) &#123;</span><br><span class="line">            Point pt1 = points[i];</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;<span class="built_in">std</span>::pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">int</span>, pair_hash&gt; slope_map;</span><br><span class="line">            <span class="keyword">int</span> same_count = <span class="number">0</span>, v_count = <span class="number">0</span>, h_count = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">size_t</span> j = i + <span class="number">1</span>; j &lt; points.size(); ++j) &#123;</span><br><span class="line">                Point pt2 = points[j];</span><br><span class="line">                <span class="keyword">if</span> (pt2.x == pt1.x &amp;&amp; pt2.y == pt1.y) &#123;</span><br><span class="line">                ++same_count;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pt2.x == pt1.x) &#123;</span><br><span class="line">                  ++v_count;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pt2.y == pt1.y) &#123;</span><br><span class="line">                  ++h_count;</span><br><span class="line">                &#125;  <span class="keyword">else</span> &#123;</span><br><span class="line">                  <span class="keyword">int</span> dx = pt2.x - pt1.x;</span><br><span class="line">                  <span class="keyword">int</span> dy = pt2.y - pt1.y;</span><br><span class="line">                  <span class="keyword">int</span> gcd = __gcd(dx, dy);</span><br><span class="line">                  <span class="built_in">std</span>::pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; key(dx / gcd, dy / gcd);</span><br><span class="line">                  ++slope_map[key];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> max_slope_count = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> it = slope_map.begin(); it != slope_map.end(); ++it) &#123;</span><br><span class="line">                max_slope_count = <span class="built_in">std</span>::max(max_slope_count, it-&gt;second);</span><br><span class="line">            &#125;</span><br><span class="line">            max_slope_count = <span class="built_in">std</span>::max(max_slope_count, v_count);</span><br><span class="line">            max_slope_count = <span class="built_in">std</span>::max(max_slope_count, h_count);</span><br><span class="line">            result = <span class="built_in">std</span>::max(result, max_slope_count + <span class="number">1</span> + same_count);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pair_hash</span> &#123;</span></span><br><span class="line">        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> V&gt; </span><br><span class="line">        <span class="keyword">size_t</span> <span class="keyword">operator</span>() (<span class="keyword">const</span> <span class="built_in">std</span>::pair&lt;U, V&gt; &amp; key_) <span class="keyword">const</span> &#123;</span><br><span class="line">            <span class="keyword">size_t</span> result = <span class="built_in">std</span>::hash&lt;U&gt;()(key_.first);</span><br><span class="line">            result += result * <span class="number">31</span> + <span class="built_in">std</span>::hash&lt;V&gt;()(key_.second);</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>算法复杂度为 $O(n^2)$ 。</p>
+<h3 id="sample②-1"><a href="#sample②-1" class="headerlink" title="sample②"></a>sample②</h3><p><strong>算法思路：</strong></p>
+<p>在总体思路上，也类似于上面的8ms算法的sample②和4ms算法的sample①，只是细节处有所不同。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 算法是，遍历每个点，每个点都有一个map，以该点为基点往下找点，组成一条直线，并在map里找到这条直线，并将它的数目加1.</span></span><br><span class="line"><span class="comment">// 需要注意的是，第一，最后map里的点，是不包括该点的，此外，往下找点时，如果遇到跟该点一样的点，也需要做另外处理。最后的数目，需要加上该点以及它的duplicate的数目</span></span><br><span class="line"><span class="comment">// 第二，斜率如果用double存储，精度会不够</span></span><br><span class="line"><span class="comment">// 这里斜率多写了一个结构体，会约掉最大公约数，这样的话，只有y和x都相等的情况下，才相等。然后再用 斜率a = ay * bx和斜率 b = by * ax来进行比较，这里就算相等，也当是小于来看待！！！，comparator只需要在小于的情况下返回true，大于等于是false！！</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a point.</span></span><br><span class="line"><span class="comment"> * struct Point &#123;</span></span><br><span class="line"><span class="comment"> *     int x;</span></span><br><span class="line"><span class="comment"> *     int y;</span></span><br><span class="line"><span class="comment"> *     Point() : x(0), y(0) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     Point(int a, int b) : x(a), y(b) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">gcd</span> <span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (b == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> a;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> gcd(b, a % b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Slope</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        Slope() : x(<span class="number">0</span>), y(<span class="number">0</span>) &#123;&#125;;</span><br><span class="line">        Slope(<span class="keyword">int</span> ix, <span class="keyword">int</span> iy)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> g = gcd(ix, iy);</span><br><span class="line">            y = iy / g;</span><br><span class="line">            x = ix / g;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">int</span> y;</span><br><span class="line">        <span class="keyword">int</span> x;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">MyCmp</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Slope &amp;a, <span class="keyword">const</span> Slope &amp;b)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">        </span>&#123;         </span><br><span class="line">            <span class="keyword">if</span> (a.x == b.x &amp;&amp; a.y == b.y)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> da = a.y * b.x;</span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> db = b.y * a.x;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> da &lt;= db;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxPoints</span><span class="params">(<span class="built_in">vector</span>&lt;Point&gt;&amp; points)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (points.size() &lt; <span class="number">3</span>)</span><br><span class="line">            <span class="keyword">return</span> points.size();</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; points.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">map</span>&lt;Slope, <span class="keyword">int</span>, MyCmp&gt; lines;</span><br><span class="line">            <span class="keyword">int</span> duplicated = <span class="number">1</span>; <span class="comment">// 1 means point i itself. if We encounter point i's duplicates later, plus one;</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; points.size(); j++)</span><br><span class="line">            &#123;</span><br><span class="line">                Slope slope;</span><br><span class="line">                <span class="keyword">if</span> (points[i].x == points[j].x &amp;&amp; points[i].y == points[j].y)</span><br><span class="line">                &#123;</span><br><span class="line">                    duplicated++;   <span class="comment">//产生duplicate，不需要再进行斜率的考虑了</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                slope = Slope(points[i].y - points[j].y, points[i].x - points[j].x);</span><br><span class="line">                </span><br><span class="line">                lines[slope]++;</span><br><span class="line">            &#125;</span><br><span class="line">            res = max(res, duplicated);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> it : lines)</span><br><span class="line">            &#123;</span><br><span class="line">                res = max(res, it.second + duplicated);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>比较一下12ms和8ms②、4ms①②的算法，可以看出，前者在循环之外使用 <code>map</code> 来记录所有的直线，在循环结束后再寻找max points，就需要考虑截距的问题，而且占用空间也比较多；后者在 <code>points[i]</code> 循环内使用 <code>map</code> 或 <code>unordered_map</code> ，每循环一次更新一次max points，就没有前者的这些问题。</p>
+<p>这次做的并不算好，仅仅beats不到一半的提交。</p>
+<p>但通过研读多个sample算法、比较思路，从别人的不同的角度去看问题，我也很有收获。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/11/27/leetcode-41/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1843,186 +2042,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/10/13/virtualbox-install-cloud/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuyu">
-      <meta itemprop="description" content="鱼鱼爱吃鱼">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yuyuforest">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/13/virtualbox-install-cloud/" itemprop="url">
-                  服务计算 | VirtualBox+CentOS搭建私有云
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-13 14:49:58" itemprop="dateCreated datePublished" datetime="2018-10-13T14:49:58+08:00">2018-10-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-25 21:15:23" itemprop="dateModified" datetime="2018-11-25T21:15:23+08:00">2018-11-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/环境配置/" itemprop="url" rel="index"><span itemprop="name">环境配置</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><blockquote>
-<ol>
-<li>初步了解虚拟化技术，理解云计算的相关概念</li>
-<li>为后续课程提供统一的编程与实验环境</li>
-<li>理解系统工程师面临的困境</li>
-</ol>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/13/virtualbox-install-cloud/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2076,7 +2095,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
