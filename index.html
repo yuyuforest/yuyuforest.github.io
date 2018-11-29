@@ -296,6 +296,239 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/11/29/leetcode-126/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuyu">
+      <meta itemprop="description" content="鱼鱼爱吃鱼">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yuyuforest">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/29/leetcode-126/" itemprop="url">
+                  LeetCode | 126 Word Ladder II
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-29 10:20:57 / 修改时间：10:23:04" itemprop="dateCreated datePublished" datetime="2018-11-29T10:20:57+08:00">2018-11-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在这道题上走了不少弯路，只能说自己的思维确实还需要锻炼。</p>
+<p>这篇博客详细地描述了我的思路过程，当是一个记录，也希望它能提醒我以后进行更为全面高效的思考。</p>
+<p>下面来看看题目：</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode.com/problems/word-ladder-ii/description/" target="_blank" rel="noopener">Word Ladder II</a></p>
+<p>Given two words (beginWord and endWord), and a dictionary’s word list, find all shortest transformation sequence(s) from beginWord to endWord, such that:</p>
+<ol>
+<li>Only one letter can be changed at a time</li>
+<li>Each transformed word must exist in the word list. Note that beginWord is not a transformed word.</li>
+</ol>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Return an empty list if there is no such transformation sequence.</li>
+<li>All words have the same length.</li>
+<li>All words contain only lowercase alphabetic characters.</li>
+<li>You may assume no duplicates in the word list.</li>
+<li>You may assume beginWord and endWord are non-empty and are not the same.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord = &quot;hit&quot;,</span><br><span class="line">endWord = &quot;cog&quot;,</span><br><span class="line">wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;hit&quot;,&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;cog&quot;],</span><br><span class="line">  [&quot;hit&quot;,&quot;hot&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord = &quot;hit&quot;</span><br><span class="line">endWord = &quot;cog&quot;</span><br><span class="line">wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]</span><br><span class="line"></span><br><span class="line">Output: []</span><br><span class="line"></span><br><span class="line">Explanation: The endWord &quot;cog&quot; is not in wordList, therefore no possible transformation.</span><br></pre></td></tr></table></figure>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>我们先定义如何检测两个字符串是否只有一个不同处：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s1, <span class="keyword">const</span> <span class="built_in">string</span>&amp; s2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = s1.length();</span><br><span class="line">	<span class="keyword">int</span> diff = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(s1[i] != s2[i]) diff++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> diff == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="构建两端之间的最短路径图"><a href="#构建两端之间的最短路径图" class="headerlink" title="构建两端之间的最短路径图"></a>构建两端之间的最短路径图</h2><p>因为要找 <code>begin</code> 与 <code>end</code> 之间的最短路径，所以要用 <code>BFS</code> 算法，即广度优先搜索算法。</p>
+<p>那么，就可以把每个单词视作一个节点，这个问题本质上是一个图论问题。</p>
+<p>为了方便，我们用 <code>vector</code> 的索引代表每个单词。使用 <code>vector&lt;int&gt;</code> 表示 <code>vertex</code> ，即节点的前驱节点列表，<code>vector&lt;vertex&gt;[i]</code> 表示第 <code>i</code> 个节点的前驱节点列表。</p>
+<p>由于要找所有最短路径，且可能有多个节点通往 <code>end</code> ，所以在找到 <code>end</code> 之后，还不能停下来，要继续找到其他在前一层的、同样通往 <code>end</code> 的节点。</p>
+<p>同理，对其他节点，可能有多个前驱节点，所以在进行 <code>BFS</code> 时，如果某一个节点有已经加入 <code>BFS</code> 搜索队列（即 <code>distance</code> 值已更改）的后继节点，也要把该节点加入这个后继节点的前驱节点列表。只有未加入 <code>BFS</code> 搜索队列的后继节点，才需要加入 <code>BFS</code> 搜索队列、更新 <code>distance</code> 值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vertex;	<span class="comment">// prev-list</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">vector</span>&lt;vertex&gt; buildGraph(<span class="keyword">bool</span>&amp; accessible, <span class="keyword">const</span> <span class="keyword">int</span>&amp; begin, <span class="keyword">const</span> <span class="keyword">int</span>&amp; end, </span><br><span class="line">			<span class="keyword">const</span> <span class="keyword">int</span>&amp; size, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; dictionary);</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">findPaths</span><span class="params">(...)</span></span>;	<span class="comment">// 具体参数因算法不同而有所改变，参见后面代码块</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; Solution::findLadders(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;vertex&gt; Solution::buildGraph(<span class="keyword">bool</span>&amp; accessible, <span class="keyword">const</span> <span class="keyword">int</span>&amp; begin, <span class="keyword">const</span> <span class="keyword">int</span>&amp; end, </span><br><span class="line">			<span class="keyword">const</span> <span class="keyword">int</span>&amp; size, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; dictionary)&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;vertex&gt; vers;	<span class="comment">// saves prev-lists of vertexes</span></span><br><span class="line">	vers.assign(size, vertex());</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> distance[size];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)&#123;</span><br><span class="line">		distance[i] = INT_MAX;</span><br><span class="line">	&#125; </span><br><span class="line">	distance[begin] = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; bfs;</span><br><span class="line">	bfs.push(begin);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> levelFlag = <span class="number">-1</span>;		<span class="comment">// records the distance from the end to the begin</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// builds a graph and makes bfs</span></span><br><span class="line">	<span class="keyword">while</span>(!bfs.empty())&#123;</span><br><span class="line">		<span class="keyword">int</span> index = bfs.front();</span><br><span class="line">		bfs.pop();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(distance[index] == levelFlag) <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(cmp(dictionary[index], dictionary[end]))&#123;</span><br><span class="line">			vers[end].push_back(index);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">// cout &lt;&lt; "[" &lt;&lt; dictionary[index] &lt;&lt; " " &lt;&lt; dictionary[end] &lt;&lt; "]" &lt;&lt; endl;</span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(distance[end] &gt; distance[index] + <span class="number">1</span>)&#123;	<span class="comment">// end is found for the first time</span></span><br><span class="line">				levelFlag = distance[end] = distance[index] + <span class="number">1</span>;</span><br><span class="line">				bfs.push(end);</span><br><span class="line">				accessible = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(i != index &amp;&amp; cmp(dictionary[index], dictionary[i]))&#123;</span><br><span class="line">				<span class="keyword">if</span>(distance[i] &gt;= distance[index] + <span class="number">1</span>)&#123;	<span class="comment">// index -&gt; i</span></span><br><span class="line">					</span><br><span class="line">					<span class="comment">// cout &lt;&lt; "[" &lt;&lt; index &lt;&lt; " " &lt;&lt; dictionary[index] &lt;&lt; " " </span></span><br><span class="line">					<span class="comment">// &lt;&lt; i &lt;&lt; " " &lt;&lt; dictionary[i] &lt;&lt; "]" &lt;&lt; endl;</span></span><br><span class="line">					</span><br><span class="line">					vers[i].push_back(index);</span><br><span class="line">					</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(distance[i] &gt; distance[index] + <span class="number">1</span>)&#123;</span><br><span class="line">					distance[i] = distance[index] + <span class="number">1</span>;</span><br><span class="line">					bfs.push(i);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> vers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="记录所有路径"><a href="#记录所有路径" class="headerlink" title="记录所有路径"></a>记录所有路径</h2><p>通过从 <code>end</code> 开始，使用前驱节点列表向前回溯，就不用考虑那些不在最短路径上的节点。这样，产生的路径与期望路径是相反的，我们需要在最后对每条路径进行逆序操作。</p>
+<p>举个比较复杂的、可能的图的例子：</p>
+<p><img src="https://img-blog.csdn.net/20181003142552172?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
+<p>图中存在环，需要考虑在遍历时选择分支和分支汇合的问题。</p>
+<h3 id="歧路：节点分裂"><a href="#歧路：节点分裂" class="headerlink" title="歧路：节点分裂"></a>歧路：节点分裂</h3><p>我曾经考虑过，把有多个入度（在这里，如果 <code>A</code> 在 <code>B</code> 的前驱节点列表里，则在从 <code>end</code> 开始的回溯过程中有从 <code>B</code> 指向 <code>A</code> 的边，这会产生一个入度）的节点分裂出多个副本，以此得到没有分支汇合的树。在 <code>end</code> 和 <code>begin</code> 之间，将产生多条独立而无交叉的路径。</p>
+<p>类似下图：</p>
+<p><img src="https://img-blog.csdn.net/20181003144934448?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
+<p>但其实这是歧路，难以实现。我们需要考虑到更复杂的情况，即有多个入度大于1的节点。</p>
+<p>① 如下图，若在进行 <code>BFS</code> 从 <code>begin</code> 走到 <code>end</code> 的过程中，对有多个后继节点的节点进行分裂，那么到了后面依旧会再现嵌套环的结构。</p>
+<p>（ <code>A</code> 为 <code>begin</code> ，<code>H</code> 为 <code>end</code> ，从 <code>u</code> 指向 <code>v</code> 的箭头表示 <code>u</code> 的前驱节点列表中有 <code>v</code> ，<code>u</code> 是 <code>BFS</code> 过程中 <code>v</code> 的后继节点，从 <code>end</code> 开始回溯时会从 <code>u</code> 走到 <code>v</code> 。）</p>
+<p><img src="https://img-blog.csdn.net/20181003150937723?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
+<p>② 如果在进行从 <code>end</code> 回溯到 <code>begin</code> 的过程时，将遇到的入度大于1的节点分裂，保持每个节点只有一个入度。</p>
+<p>这样虽然可以消除嵌套环，但是就需要更复杂的数据结构，比如每个节点维持一个前驱节点列表和后继节点列表。空间耗费比起①又会更大一些。</p>
+<p>而且，进行节点分裂后一样需要进行 <code>DFS</code> 遍历，因为仍然存在分支，只是分支不会汇合了。</p>
+<h3 id="正途：不删除边的DFS算法"><a href="#正途：不删除边的DFS算法" class="headerlink" title="正途：不删除边的DFS算法"></a>正途：不删除边的DFS算法</h3><p>老老实实地重新审视这些图。</p>
+<p>自己重新走一遍图，可以发现遵循的仍是 <code>DFS</code> 算法。但以前做对树的 <code>DFS</code> 遍历时，通常会选择在出栈时把已访问的节点从树中删除。然而对这个有分支汇合形成环的图，不能把节点从图中删掉，因为可能之后还要再回来访问。</p>
+<p>那么，就可能需要辅助的数据结构来记录分支的访问情况。</p>
+<h4 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h4><p>利用递归的函数栈，来实现 <code>DFS</code> 访问。只改变记录路径的 <code>words</code> ，不改变图 <code>graph</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Solution::findPaths(<span class="keyword">const</span> <span class="keyword">int</span>&amp; index, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; result, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words,</span><br><span class="line">			<span class="keyword">const</span> <span class="built_in">vector</span>&lt;vertex&gt;&amp; graph, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; dictionary)&#123;</span><br><span class="line">	words.push_back(dictionary[index]);</span><br><span class="line">	<span class="keyword">const</span> vertex&amp; <span class="built_in">list</span> = graph[index];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">const</span> <span class="keyword">int</span>&amp; v : <span class="built_in">list</span>)&#123;</span><br><span class="line">		findPaths(v, result, words, graph, dictionary);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(index == graph.size() - <span class="number">1</span>)&#123;	<span class="comment">// index == begin</span></span><br><span class="line">		result.push_back(words);</span><br><span class="line">	&#125;</span><br><span class="line">	words.pop_back();</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; Solution::findLadders(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// finds if endWord is in dictionary</span></span><br><span class="line">	<span class="keyword">int</span> e = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; wordList.size(); i++)&#123;</span><br><span class="line">   		<span class="keyword">if</span>(wordList[i] == endWord)&#123;</span><br><span class="line">   			e = i;</span><br><span class="line">   			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(e == <span class="number">-1</span>) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;();</span><br><span class="line">	</span><br><span class="line">   	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; dictionary = wordList;</span><br><span class="line">   	dictionary.push_back(beginWord);</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> size = dictionary.size();</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> begin = size - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> end = e;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">bool</span> accessible = <span class="literal">false</span>;	<span class="comment">// presents if the end is accessible</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// builds a graph by bfs</span></span><br><span class="line">	<span class="keyword">const</span> <span class="built_in">vector</span>&lt;vertex&gt; graph = buildGraph(accessible, begin, end, size, dictionary);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(!accessible) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// finds all the shortest paths by dfs</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; result;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; words;</span><br><span class="line">	findPaths(end, result, words, graph, dictionary);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; v : result)&#123;</span><br><span class="line">		reverse(v.begin(), v.end());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用时 $496ms$ 。</p>
+<p>整个算法的时间复杂度为 $O(V+E)$ ，$V$ 指节点数，$E$ 指边数。</p>
+<h4 id="循环-amp-栈实现"><a href="#循环-amp-栈实现" class="headerlink" title="循环&amp;栈实现"></a>循环&amp;栈实现</h4><p>递归的缺点是，调用函数时的栈操作比较耗时。现在尝试使用循环来实现 <code>DFS</code> 算法。</p>
+<p>在循环中，不像递归那样可以直接扫描前驱节点列表进入不同的分支。我们需要一个栈，来记录在每个岔路口选择的分支。</p>
+<p>以下面这张图为例，</p>
+<p><img src="https://img-blog.csdn.net/20181003142552172?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
+<p>有如下分支栈的变化：</p>
+<p><img src="https://img-blog.csdn.net/20181003163959560?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
+<p>在以下算法中，我们有两个<code>int</code> 类型的栈 <code>dfs</code> 和 <code>branch</code> 。</p>
+<p><code>dfs</code> 栈记录遍历时遇到的节点，<code>branch</code> 栈记录遇到岔路口（有多个前驱节点的节点）时，选择的分支。</p>
+<ol>
+<li><p>遍历时，将 <code>dfs</code> 栈顶节点的第一个前驱节点推入 <code>dfs</code> 栈，如果 <code>dfs</code> 栈顶节点有多个前驱节点，则将 <code>0</code> 推入 <code>branch</code> 栈，表示选择第一个分支。一直入 <code>dfs</code> 栈直到 <code>begin</code> 入栈。</p>
+</li>
+<li><p>然后对 <code>dfs</code> 进行出栈操作，期间如果遇到有多个前驱节点的节点，则将 <code>branch</code> 栈的栈顶与该节点的前驱节点个数比较，看是否已经走过了最后一个分支。</p>
+<p>如果是最后一个分支，那么 <code>branch</code> 出栈，<code>dfs</code> 继续出栈，直到遇到下一个有未遍历的分支的岔路口。这个节点不出栈。</p>
+</li>
+<li><p>停止出栈操作，将 <code>branch</code> 的栈顶自增，记结果为 <code>top</code> 。表示选择 <code>dfs</code> 栈顶节点的第 <code>top+1</code> 个分支。</p>
+<p>将 <code>dfs</code> 栈顶节点的第 <code>top+1</code> 个前驱节点推入 <code>dfs</code> 栈，如果该节点也有多个前驱节点，则将 <code>0</code> 推入 <code>branch</code> 栈。</p>
+</li>
+<li><p>重复以上过程，直到 <code>dfs</code> 栈为空。</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Solution::findPaths(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; result, <span class="keyword">const</span> <span class="keyword">int</span> end,</span><br><span class="line">		<span class="keyword">const</span> <span class="built_in">vector</span>&lt;vertex&gt;&amp; graph, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; dictionary)&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> begin = graph.size() - <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; words;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; dfs;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; branch;</span><br><span class="line">	dfs.push(end);</span><br><span class="line">	<span class="comment">// cout &lt;&lt; "push " &lt;&lt; end &lt;&lt; " " &lt;&lt; dictionary[end] &lt;&lt; endl;</span></span><br><span class="line">	words.push_back(dictionary[end]);</span><br><span class="line">	<span class="keyword">if</span>(graph[end].size() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">		branch.push(<span class="number">0</span>);</span><br><span class="line">		<span class="comment">// cout &lt;&lt; "branch push 0" &lt;&lt; endl;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="comment">// push</span></span><br><span class="line">		<span class="keyword">while</span>(dfs.top() != begin)&#123;</span><br><span class="line">			<span class="keyword">const</span> <span class="keyword">int</span>&amp; prev = dfs.top();</span><br><span class="line">			<span class="keyword">const</span> <span class="keyword">int</span>&amp; next = graph[prev][<span class="number">0</span>];</span><br><span class="line">			dfs.push(next);</span><br><span class="line">			words.push_back(dictionary[next]);</span><br><span class="line">			<span class="comment">// cout &lt;&lt; "push " &lt;&lt; next &lt;&lt; " " &lt;&lt; dictionary[next] &lt;&lt; endl;</span></span><br><span class="line">			<span class="keyword">if</span>(graph[next].size() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">				branch.push(<span class="number">0</span>);</span><br><span class="line">				<span class="comment">// cout &lt;&lt; "branch push 0" &lt;&lt; endl;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		result.push_back(words);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// pop till meets a vertex with unchoosed branch</span></span><br><span class="line">		<span class="keyword">while</span>(!dfs.empty())&#123;</span><br><span class="line">			<span class="keyword">const</span> <span class="keyword">int</span>&amp; prev = dfs.top();</span><br><span class="line">			<span class="keyword">if</span>(graph[prev].size() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">				<span class="keyword">if</span>(graph[prev].size() != branch.top() + <span class="number">1</span>)&#123;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span>&#123;</span><br><span class="line">					<span class="comment">// cout &lt;&lt; "branch pop" &lt;&lt; branch.top();</span></span><br><span class="line">					branch.pop();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// cout &lt;&lt; " pop " &lt;&lt; dfs.top() &lt;&lt; " " &lt;&lt; words.back() &lt;&lt; endl;</span></span><br><span class="line">			dfs.pop();</span><br><span class="line">			words.pop_back();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(dfs.empty()) <span class="keyword">break</span>;</span><br><span class="line">		<span class="comment">// cout &lt;&lt; dfs.top() &lt;&lt; endl; </span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">// turn to another branch</span></span><br><span class="line">		<span class="keyword">int</span> top = branch.top();</span><br><span class="line">		top++;</span><br><span class="line">		branch.pop();</span><br><span class="line">		branch.push(top);</span><br><span class="line">		<span class="comment">// cout &lt;&lt; branch.top() &lt;&lt; " branch top" &lt;&lt; endl; </span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">const</span> <span class="keyword">int</span>&amp; prev = dfs.top();</span><br><span class="line">		<span class="keyword">const</span> <span class="keyword">int</span>&amp; next = graph[prev][top];</span><br><span class="line">		dfs.push(next);</span><br><span class="line">		words.push_back(dictionary[next]);</span><br><span class="line">		<span class="comment">// cout &lt;&lt; "push " &lt;&lt; next &lt;&lt; " " &lt;&lt; dictionary[next] &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">if</span>(graph[next].size() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">			branch.push(<span class="number">0</span>);</span><br><span class="line">			<span class="comment">// cout &lt;&lt; "branch push 0" &lt;&lt; endl;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; Solution::findLadders(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// finds if endWord is in dictionary</span></span><br><span class="line">	<span class="keyword">int</span> e = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; wordList.size(); i++)&#123;</span><br><span class="line">   		<span class="keyword">if</span>(wordList[i] == endWord)&#123;</span><br><span class="line">   			e = i;</span><br><span class="line">   			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(e == <span class="number">-1</span>) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;();</span><br><span class="line">	</span><br><span class="line">   	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; dictionary = wordList;</span><br><span class="line">   	dictionary.push_back(beginWord);</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> size = dictionary.size();</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> begin = size - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> end = e;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">bool</span> accessible = <span class="literal">false</span>;	<span class="comment">// presents if the end is accessible</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// builds a graph by bfs</span></span><br><span class="line">	<span class="keyword">const</span> <span class="built_in">vector</span>&lt;vertex&gt; graph = buildGraph(accessible, begin, end, size, dictionary);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(!accessible) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// finds all the shortest paths by dfs</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; result;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; words;</span><br><span class="line">	findPaths(result, end, graph, dictionary);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; v : result)&#123;</span><br><span class="line">		reverse(v.begin(), v.end());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用时 $316ms$ 。</p>
+<p>整个算法的时间复杂度为 $O(V+E)$ 。</p>
+<h1 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h1><p>现附上测试代码，方便后来人：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; result)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; v : result)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">string</span>&amp; s : v)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; s &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">string</span> b1 = <span class="string">"hit"</span>, e1 = <span class="string">"cog"</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; l1;</span><br><span class="line">	l1.push_back(<span class="string">"hot"</span>); l1.push_back(<span class="string">"dot"</span>); l1.push_back(<span class="string">"dog"</span>);</span><br><span class="line">	l1.push_back(<span class="string">"lot"</span>); l1.push_back(<span class="string">"log"</span>); l1.push_back(<span class="string">"cog"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">string</span> b2 = <span class="string">"hit"</span>, e2 = <span class="string">"cog"</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; l2;</span><br><span class="line">	l2.push_back(<span class="string">"hot"</span>); l2.push_back(<span class="string">"dot"</span>); l2.push_back(<span class="string">"dog"</span>); </span><br><span class="line">	l2.push_back(<span class="string">"lot"</span>); l2.push_back(<span class="string">"log"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">string</span> b3 = <span class="string">"red"</span>, e3 = <span class="string">"tax"</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; l3;</span><br><span class="line">	l3.push_back(<span class="string">"ted"</span>); l3.push_back(<span class="string">"tex"</span>); l3.push_back(<span class="string">"red"</span>);</span><br><span class="line">	l3.push_back(<span class="string">"tax"</span>); l3.push_back(<span class="string">"tad"</span>); l3.push_back(<span class="string">"den"</span>);</span><br><span class="line">	l3.push_back(<span class="string">"rex"</span>); l3.push_back(<span class="string">"pee"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">string</span> b4 = <span class="string">"magic"</span>, e4 = <span class="string">"pearl"</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; l4;</span><br><span class="line">	<span class="built_in">string</span> strs[<span class="number">20</span>] = &#123;<span class="string">"magic"</span>,<span class="string">"manic"</span>,<span class="string">"mania"</span>,<span class="string">"maria"</span>,<span class="string">"marta"</span>,<span class="string">"maris"</span>,<span class="string">"marty"</span>,<span class="string">"paris"</span>,<span class="string">"marks"</span>,<span class="string">"party"</span>,</span><br><span class="line">		<span class="string">"marry"</span>,<span class="string">"parks"</span>,<span class="string">"parry"</span>,<span class="string">"merry"</span>,<span class="string">"perks"</span>,<span class="string">"perry"</span>,<span class="string">"peaks"</span>,<span class="string">"peary"</span>,<span class="string">"pears"</span>,<span class="string">"pearl"</span>&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++)&#123;</span><br><span class="line">		l4.push_back(strs[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">string</span> b5 = <span class="string">"qa"</span>, e5 = <span class="string">"sq"</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; l5;</span><br><span class="line">	<span class="built_in">string</span> qq[<span class="number">95</span>] = &#123;<span class="string">"si"</span>,<span class="string">"go"</span>,<span class="string">"se"</span>,<span class="string">"cm"</span>,<span class="string">"so"</span>,<span class="string">"ph"</span>,<span class="string">"mt"</span>,<span class="string">"db"</span>,<span class="string">"mb"</span>,<span class="string">"sb"</span>,</span><br><span class="line">		<span class="string">"kr"</span>,<span class="string">"ln"</span>,<span class="string">"tm"</span>,<span class="string">"le"</span>,<span class="string">"av"</span>,<span class="string">"sm"</span>,<span class="string">"ar"</span>,<span class="string">"ci"</span>,<span class="string">"ca"</span>,<span class="string">"br"</span>,</span><br><span class="line">		<span class="string">"ti"</span>,<span class="string">"ba"</span>,<span class="string">"to"</span>,<span class="string">"ra"</span>,<span class="string">"fa"</span>,<span class="string">"yo"</span>,<span class="string">"ow"</span>,<span class="string">"sn"</span>,<span class="string">"ya"</span>,<span class="string">"cr"</span>,</span><br><span class="line">		<span class="string">"po"</span>,<span class="string">"fe"</span>,<span class="string">"ho"</span>,<span class="string">"ma"</span>,<span class="string">"re"</span>,<span class="string">"or"</span>,<span class="string">"rn"</span>,<span class="string">"au"</span>,<span class="string">"ur"</span>,<span class="string">"rh"</span>,</span><br><span class="line">		<span class="string">"sr"</span>,<span class="string">"tc"</span>,<span class="string">"lt"</span>,<span class="string">"lo"</span>,<span class="string">"as"</span>,<span class="string">"fr"</span>,<span class="string">"nb"</span>,<span class="string">"yb"</span>,<span class="string">"if"</span>,<span class="string">"pb"</span>,</span><br><span class="line">		<span class="string">"ge"</span>,<span class="string">"th"</span>,<span class="string">"pm"</span>,<span class="string">"rb"</span>,<span class="string">"sh"</span>,<span class="string">"co"</span>,<span class="string">"ga"</span>,<span class="string">"li"</span>,<span class="string">"ha"</span>,<span class="string">"hz"</span>,</span><br><span class="line">		<span class="string">"no"</span>,<span class="string">"bi"</span>,<span class="string">"di"</span>,<span class="string">"hi"</span>,<span class="string">"qa"</span>,<span class="string">"pi"</span>,<span class="string">"os"</span>,<span class="string">"uh"</span>,<span class="string">"wm"</span>,<span class="string">"an"</span>,</span><br><span class="line">		<span class="string">"me"</span>,<span class="string">"mo"</span>,<span class="string">"na"</span>,<span class="string">"la"</span>,<span class="string">"st"</span>,<span class="string">"er"</span>,<span class="string">"sc"</span>,<span class="string">"ne"</span>,<span class="string">"mn"</span>,<span class="string">"mi"</span>,</span><br><span class="line">		<span class="string">"am"</span>,<span class="string">"ex"</span>,<span class="string">"pt"</span>,<span class="string">"io"</span>,<span class="string">"be"</span>,<span class="string">"fm"</span>,<span class="string">"ta"</span>,<span class="string">"tb"</span>,<span class="string">"ni"</span>,<span class="string">"mr"</span>,</span><br><span class="line">		<span class="string">"pa"</span>,<span class="string">"he"</span>,<span class="string">"lr"</span>,<span class="string">"sq"</span>,<span class="string">"ye"</span>&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">95</span>; i++)&#123;</span><br><span class="line">		l5.push_back(qq[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Solution s;</span><br><span class="line">	print(s.findLadders(b1,e1,l1));</span><br><span class="line">	print(s.findLadders(b2,e2,l2));</span><br><span class="line">	print(s.findLadders(b3,e3,l3));</span><br><span class="line">	print(s.findLadders(b4,e4,l4));</span><br><span class="line">	print(s.findLadders(b5,e5,l5));</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>正确的输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">hit hot dot dog cog</span><br><span class="line">hit hot lot log cog</span><br><span class="line"></span><br><span class="line">red ted tex tax</span><br><span class="line">red rex tex tax</span><br><span class="line">red ted tad tax</span><br><span class="line"></span><br><span class="line">magic manic mania maria marta marty party parry perry peary pearl</span><br><span class="line">magic manic mania maria marta marty marry parry perry peary pearl</span><br><span class="line">magic manic mania maria marta marty marry merry perry peary pearl</span><br><span class="line">magic manic mania maria maris paris parks perks peaks pears pearl</span><br><span class="line">magic manic mania maria maris marks parks perks peaks pears pearl</span><br><span class="line"></span><br><span class="line">qa ca cm sm sq</span><br><span class="line">qa fa fm sm sq</span><br><span class="line">qa ta tm sm sq</span><br><span class="line">qa pa pm sm sq</span><br><span class="line">qa ca ci si sq</span><br><span class="line">qa ba bi si sq</span><br><span class="line">qa ma mi si sq</span><br><span class="line">qa ha hi si sq</span><br><span class="line">qa na ni si sq</span><br><span class="line">qa la li si sq</span><br><span class="line">qa ta ti si sq</span><br><span class="line">qa pa pi si sq</span><br><span class="line">qa ca cr sr sq</span><br><span class="line">qa ba br sr sq</span><br><span class="line">qa fa fr sr sq</span><br><span class="line">qa ma mr sr sq</span><br><span class="line">qa la lr sr sq</span><br><span class="line">qa ca co so sq</span><br><span class="line">qa ya yo so sq</span><br><span class="line">qa ma mo so sq</span><br><span class="line">qa ga go so sq</span><br><span class="line">qa ha ho so sq</span><br><span class="line">qa na no so sq</span><br><span class="line">qa la lo so sq</span><br><span class="line">qa ta to so sq</span><br><span class="line">qa pa po so sq</span><br><span class="line">qa ba be se sq</span><br><span class="line">qa ra re se sq</span><br><span class="line">qa fa fe se sq</span><br><span class="line">qa ya ye se sq</span><br><span class="line">qa ma me se sq</span><br><span class="line">qa ga ge se sq</span><br><span class="line">qa ha he se sq</span><br><span class="line">qa na ne se sq</span><br><span class="line">qa la le se sq</span><br><span class="line">qa ra rn sn sq</span><br><span class="line">qa ma mn sn sq</span><br><span class="line">qa la ln sn sq</span><br><span class="line">qa ra rh sh sq</span><br><span class="line">qa ta th sh sq</span><br><span class="line">qa pa ph sh sq</span><br><span class="line">qa ra rb sb sq</span><br><span class="line">qa ya yb sb sq</span><br><span class="line">qa ma mb sb sq</span><br><span class="line">qa na nb sb sq</span><br><span class="line">qa ta tb sb sq</span><br><span class="line">qa pa pb sb sq</span><br><span class="line">qa ma mt st sq</span><br><span class="line">qa la lt st sq</span><br><span class="line">qa pa pt st sq</span><br><span class="line">qa ta tc sc sq</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/11/28/leetcode-149/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1900,181 +2133,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/10/13/golang-install/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuyu">
-      <meta itemprop="description" content="鱼鱼爱吃鱼">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yuyuforest">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/13/golang-install/" itemprop="url">
-                  Windows下Go语言的安装和运行
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-13 23:16:34" itemprop="dateCreated datePublished" datetime="2018-10-13T23:16:34+08:00">2018-10-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-27 14:24:41" itemprop="dateModified" datetime="2018-11-27T14:24:41+08:00">2018-11-27</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/环境配置/" itemprop="url" rel="index"><span itemprop="name">环境配置</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Go语言的安装与配置"><a href="#Go语言的安装与配置" class="headerlink" title="Go语言的安装与配置"></a>Go语言的安装与配置</h1><p><a href="https://golang.org/dl/" target="_blank" rel="noopener">Go语言下载</a>                 </p>
-<p>我下的是 <code>go1.11.windows-amd64.msi</code> 。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/13/golang-install/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2128,7 +2186,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
