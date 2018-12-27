@@ -108,27 +108,25 @@
 
 
 
-  <meta name="description" content="题目：https://leetcode.com/problems/permutations/description/ Given a collection of distinct integers, return all possible permutations. Difficulty: Medium">
+  <meta name="description" content="题目Remove Duplicate Letters Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest">
 <meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode | 46 Permutations">
-<meta property="og:url" content="https://yuyuforest.github.io/2018/09/09/leetcode-46/index.html">
+<meta property="og:title" content="LeetCode | 316 Remove Duplicate Letters">
+<meta property="og:url" content="https://yuyuforest.github.io/2018/11/16/leetcode-316/index.html">
 <meta property="og:site_name" content="yuyuforest">
-<meta property="og:description" content="题目：https://leetcode.com/problems/permutations/description/ Given a collection of distinct integers, return all possible permutations. Difficulty: Medium">
+<meta property="og:description" content="题目Remove Duplicate Letters Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://img-blog.csdn.net/20180909225215166?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2018-09-10T02:43:40.000Z">
+<meta property="og:updated_time" content="2018-11-17T07:14:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode | 46 Permutations">
-<meta name="twitter:description" content="题目：https://leetcode.com/problems/permutations/description/ Given a collection of distinct integers, return all possible permutations. Difficulty: Medium">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20180909225215166?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta name="twitter:title" content="LeetCode | 316 Remove Duplicate Letters">
+<meta name="twitter:description" content="题目Remove Duplicate Letters Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yuyuforest.github.io/2018/09/09/leetcode-46/"/>
+  <link rel="canonical" href="https://yuyuforest.github.io/2018/11/16/leetcode-316/"/>
 
 
 
@@ -138,7 +136,7 @@
   };
 </script>
 
-  <title>LeetCode | 46 Permutations | yuyuforest</title>
+  <title>LeetCode | 316 Remove Duplicate Letters | yuyuforest</title>
   
 
 
@@ -299,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/09/09/leetcode-46/">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/11/16/leetcode-316/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuyu">
@@ -316,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode | 46 Permutations
+          <h1 class="post-title" itemprop="name headline">LeetCode | 316 Remove Duplicate Letters
               
             
           </h1>
@@ -341,7 +339,7 @@
                 
               
 
-              <time title="创建时间：2018-09-09 22:58:14" itemprop="dateCreated datePublished" datetime="2018-09-09T22:58:14+08:00">2018-09-09</time>
+              <time title="创建时间：2018-11-16 21:11:16" itemprop="dateCreated datePublished" datetime="2018-11-16T21:11:16+08:00">2018-11-16</time>
             
 
             
@@ -358,7 +356,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-09-10 10:43:40" itemprop="dateModified" datetime="2018-09-10T10:43:40+08:00">2018-09-10</time>
+                <time title="修改时间：2018-11-17 15:14:45" itemprop="dateModified" datetime="2018-11-17T15:14:45+08:00">2018-11-17</time>
               
             
           </span>
@@ -409,22 +407,89 @@
       
 
       
-        <h3 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h3><p><a href="https://leetcode.com/problems/permutations/description/" target="_blank" rel="noopener">https://leetcode.com/problems/permutations/description/</a></p>
-<p>Given a collection of <strong>distinct</strong> integers, return all possible permutations.</p>
-<p><strong>Difficulty:</strong> Medium</p>
+        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode.com/problems/remove-duplicate-letters/" target="_blank" rel="noopener">Remove Duplicate Letters</a></p>
+<p>Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.</p>
 <a id="more"></a>
-<p><strong>Example:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3]</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [1,2,3],</span><br><span class="line">  [1,3,2],</span><br><span class="line">  [2,1,3],</span><br><span class="line">  [2,3,1],</span><br><span class="line">  [3,1,2],</span><br><span class="line">  [3,2,1]</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>即是求给出的一组不同整数的所有不同排列。</p>
-<hr>
-<h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h3><p>以[1 2 3]为例，我们手算时一般会这么做：</p>
-<p>1 2 3<br>1 3 2<br>2 1 3<br>2 3 1<br>3 1 2<br>3 2 1</p>
-<p>但是本人认为按这个有序的步骤来编写程序，需要额外的标记来指明每次需要取哪个数字放到某一位上，比较麻烦。</p>
-<p>经过观察，有如下规律：（第几位指从左到右的第几个数字）</p>
-<p><img src="https://img-blog.csdn.net/20180909225215166?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="排列的生成规律"></p>
-<p>总的来说，就是要不断进行不同的数位交换。每次交换后产生的新排列们也参与之后的交换。</p>
-<p>所以，有以下算法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; permute(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; result;</span><br><span class="line">    	result.push_back(nums);</span><br><span class="line">        <span class="keyword">int</span> size = nums.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = size - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        	<span class="keyword">int</span> ss = result.size();</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; ss; k++)&#123;	<span class="comment">// 先前的结果集合中的每个排列都要参与接下来的交换</span></span><br><span class="line">        		<span class="keyword">for</span>(<span class="keyword">int</span> j = size - <span class="number">1</span>; j &gt; i; j--)&#123;</span><br><span class="line">	        		<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nn = result[k];</span><br><span class="line">	        		<span class="keyword">int</span> tmp = nn[j];	<span class="comment">// 交换第i位和第j位</span></span><br><span class="line">	        		nn[j] = nn[i];</span><br><span class="line">					nn[i] = tmp;</span><br><span class="line">					result.push_back(nn);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">	        	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为$O(n!)$，其中n为给出的数字个数。<br>用时为8ms。</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;bcabc&quot;</span><br><span class="line">Output: &quot;abc&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;cbacdcbc&quot;</span><br><span class="line">Output: &quot;acdb&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>Difficulty:</strong> <code>Hard</code></p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>题目的关键是，要给出词典顺序最小的结果字符串。</p>
+<p>我一开始的想法是，从后往前检查，把搜到的第一个不唯一的字符 <code>s[i]</code> ，和它前面的一个副本 <code>s[j]</code> ，比较 <code>s[j..i-1]</code> 和 <code>s[j+1...i]</code> ，从而决定要选择哪个位置，去除哪个字符。</p>
+<p>比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bcabc -&gt; (remove b) -&gt; babc  -&gt; (remove b) -&gt; abc</span><br><span class="line">cbacdcbc -&gt; (remove c) -&gt; cbacdbc -&gt; (remove c) -&gt; cbacdb -&gt; (remove b) -&gt; cacdb -&gt; (remove c) -&gt; acdb</span><br></pre></td></tr></table></figure>
+<p>但是有一个反例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defcbeabdc -&gt; (remove c) -&gt; defbeabdc -&gt; (remove d) -&gt; defbeabc </span><br><span class="line">	-&gt; (remove b) -&gt; defbeac -&gt; (remove e) -&gt; defbac</span><br></pre></td></tr></table></figure>
+<p>正确答案应为 <code>defabc</code> 。</p>
+<h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><p>在网站上我看到了这个递归的贪心算法，它的思路是这样的。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>每一次的贪心选择即为答案最左端的字母。如何进行贪心选择呢？由题目要求可以知道，这个贪心选择得到的字母应该尽可能地小。姑且称呼这个选择为“最小字母”，它应当是在一定范围内最小的字母。</p>
+<p>但是，这样的贪心选择必然有中止条件或限制范围。假想某个“最小字母”左边有唯一的字母，比如CBDDF，B左边有C，C在该字符串中是唯一的。这种情况下，以B作为贪心选择是不合理的。</p>
+<p>而如果“最小字母”左边的字母，在“最小字母”右边也有它们的重复，那么左边的这些字母完全可以舍去，它们不会比“最小字母”小，由它们无法得到字典顺序最小的答案字符串。比如CBABC，A左边的CB可以舍去。</p>
+<p>所以，字符串 <code>s</code> 中的 “最小字母” <code>s[pos]</code> 应该满足这样的条件：</p>
+<ul>
+<li><p><code>s[0...pos-1]</code> 中的字母，在字符串 <code>s</code> 中不是唯一的</p>
+</li>
+<li><p><code>s[pos...]</code> 中的字母包括了所有在字符串 <code>s</code> 中唯一的字母</p>
+</li>
+</ul>
+<p>（在字符串 <code>s</code> 中没有唯一字母的情况下，会有多个“最小字母”，比如abcacb。这时选择最左边的“最小字母”。）</p>
+<p>取出 <code>s[pos]</code> ，加入答案字符串中。把右边的子串 <code>s[pos+1...]</code> 中重复的字母 <code>s[pos]</code> 去掉后，对新的字符串重复上述操作。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><table>
+<thead>
+<tr>
+<th>答案字符串</th>
+<th>待处理字符串</th>
+<th>第一个唯一字母</th>
+<th>最小字母</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>defcbeabdc</td>
+<td>f</td>
+<td>d</td>
+</tr>
+<tr>
+<td>d</td>
+<td>efcbeabc</td>
+<td>f</td>
+<td>e</td>
+</tr>
+<tr>
+<td>de</td>
+<td>fcbabc</td>
+<td>f</td>
+<td>f</td>
+</tr>
+<tr>
+<td>def</td>
+<td>cbabc</td>
+<td>a</td>
+<td>a</td>
+</tr>
+<tr>
+<td>defa</td>
+<td>bc</td>
+<td>b</td>
+<td>b</td>
+</tr>
+<tr>
+<td>defab</td>
+<td>c</td>
+<td>c</td>
+<td>c</td>
+</tr>
+<tr>
+<td>defabc</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">removeDuplicateLetters</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> count[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)&#123;</span><br><span class="line">			count[s[i] - <span class="string">'a'</span>]++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(s[i] &lt; s[pos]) pos = i;</span><br><span class="line">			<span class="keyword">if</span>(--count[s[i] - <span class="string">'a'</span>] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">string</span> suffix;</span><br><span class="line">		<span class="keyword">if</span>(pos + <span class="number">1</span> &gt; s.length()) suffix = <span class="string">""</span>;</span><br><span class="line">		<span class="keyword">else</span> suffix = s.substr(pos + <span class="number">1</span>, s.length() - pos - <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">return</span> s.length() == <span class="number">0</span> ? <span class="string">""</span> : s[pos] + removeDuplicateLetters(removeOneLetter(suffix, s[pos]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="built_in">string</span> <span class="title">removeOneLetter</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">char</span> ch)</span></span>&#123;</span><br><span class="line">		<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> index = s.find(ch);</span><br><span class="line">			<span class="keyword">if</span>(index != <span class="number">-1</span>) s = s.erase(index, <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> s;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>因为 <code>removeDuplicateLetters</code> 的次数不会超过 $26$ ，在 <code>removeDuplicateLetters</code> 中遍历的长度不会超过 $n$ ，所以运算的总次数不会超过 $26*n$ ，该算法的时间复杂度为 $O(n)$ ，空间复杂度也为 $O(n)$ 。</p>
 
       
     </div>
@@ -458,8 +523,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/08/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/11/15/golang-analyse-gzip/" rel="next" title="服务计算 | gzip源代码分析">
+                <i class="fa fa-chevron-left"></i> 服务计算 | gzip源代码分析
               </a>
             
           </div>
@@ -467,10 +532,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/09/leetcode-23/" rel="prev" title="LeetCode | 23 Merge k Sorted Lists">
-                LeetCode | 23 Merge k Sorted Lists <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -670,7 +731,7 @@
               
 
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目："><span class="nav-number">1.</span> <span class="nav-text">题目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析："><span class="nav-number">2.</span> <span class="nav-text">分析：</span></a></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贪心算法"><span class="nav-number">3.</span> <span class="nav-text">贪心算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">3.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">3.2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-代码"><span class="nav-number">3.3.</span> <span class="nav-text">C++代码</span></a></li></ol></li></ol></div>
               
 
             </div>
