@@ -1568,7 +1568,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-16 22:52:56" itemprop="dateModified" datetime="2019-01-16T22:52:56+08:00">2019-01-16</time>
+                <time title="修改时间：2019-01-17 00:07:49" itemprop="dateModified" datetime="2019-01-17T00:07:49+08:00">2019-01-17</time>
               
             
           </span>
@@ -1620,142 +1620,14 @@
 
       
         
-          
-            <p><a href="https://github.com/yuyuforest/Unity/tree/master/Week9" target="_blank" rel="noopener">Github上的项目代码和视频链接</a></p>
-<h2 id="一、主体代码架构说明"><a href="#一、主体代码架构说明" class="headerlink" title="一、主体代码架构说明"></a>一、主体代码架构说明</h2><table>
-<thead>
-<tr>
-<th>类</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GameController</td>
-<td>场记，加载资源，管理得分和游戏状态</td>
-</tr>
-<tr>
-<td>PatrolFactory</td>
-<td>巡逻兵工厂</td>
-</tr>
-<tr>
-<td>PatrolEventManager</td>
-<td>事件发布者（抓捕成功和逃跑成功的事件）</td>
-</tr>
-<tr>
-<td>PlayerController</td>
-<td>玩家控制器，负责玩家的移动、碰撞检测、动画调用</td>
-</tr>
-<tr>
-<td>PatrolController</td>
-<td>巡逻兵控制器，负责检测巡逻兵的状态，动画调用</td>
-</tr>
-<tr>
-<td>PatrolBody</td>
-<td>检测巡逻兵的近距离碰撞，并告知PatrolController</td>
-</tr>
-<tr>
-<td>PatrolAction</td>
-<td>巡逻兵动作</td>
-</tr>
-<tr>
-<td>PatrolActionManager</td>
-<td>巡逻兵动作管理器</td>
-</tr>
-<tr>
-<td>UserGUI</td>
-<td>接收用户输入，传递给场记；显示得分</td>
-</tr>
-</tbody>
-</table>
-<p>其中<strong>GameController.cs</strong>和<strong>UserGui.cs</strong>挂载在Main Camera上。</p>
-<p>其余代码为基类或接口，和门面模式、动作管理器模式等有关，在此不作介绍。</p>
-<hr>
-<h2 id="二、发布与订阅模式"><a href="#二、发布与订阅模式" class="headerlink" title="二、发布与订阅模式"></a>二、发布与订阅模式</h2><p>本周使用了发布与订阅模式。</p>
-<h3 id="相关类图"><a href="#相关类图" class="headerlink" title="相关类图"></a>相关类图</h3><p><img src="https://img-blog.csdn.net/20180511234725712?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="发布与订阅模式的相关类图"></p>
-<h3 id="C-中的实现：delegate委托类型和event事件机制"><a href="#C-中的实现：delegate委托类型和event事件机制" class="headerlink" title="C#中的实现：delegate委托类型和event事件机制"></a>C#中的实现：delegate委托类型和event事件机制</h3><p>在C#中，可以通过delegate委托类型和event事件机制来实现。</p>
-<p>就我个人的粗浅理解来看，事件相当于一个列表，它可以存放多个有类似的签名、定义在不同类内的方法。定义某个委托类型，并用它创建事件，就是给这个列表指定方法的签名类型。这些方法内部可以有不同的实现/事件处理。</p>
-<p>比如说，有一个要求，篮子里的苹果必须是绿色的。苹果是方法，“绿色”是方法的签名，这个要求是一个委托。由这个要求指定的篮子，就是由这个委托定义的事件。深绿色、浅绿色、黄绿色等等，就是加到这个事件上的不同的事件处理程序了。它们有类似的签名（“绿色”），但是有不同的方法体（颜色的深浅等）。</p>
-<p>那么，在C#里，delegate相当于以上设计模式类图里的接口AttackHandle，event相当于Subject下的List&lt; AttackHandle &gt;。包含这个event的类就是Publisher，往这个event上添加自己的事件处理程序的类，就是Subscriber.</p>
-<h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>那么这种模式有什么意义呢？我觉得有以下几点好处：</p>
-<ul>
-<li>在有多个类需要处理某个事件时，可以只用一个事件就通知到它们，让它们各自作出反应，而不必在这些类里分别检测事件并处理。这样可以将事件源与事件处理者解耦。</li>
-<li>允许有不同的处理方法。</li>
-</ul>
-<h3 id="在本次游戏中的具体应用"><a href="#在本次游戏中的具体应用" class="headerlink" title="在本次游戏中的具体应用"></a>在本次游戏中的具体应用</h3><p><strong>PatrolEventManager.cs </strong> 发布者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public class PatrolEventManager : MonoBehaviour &#123;</span><br><span class="line">    public static PatrolEventManager instance;</span><br><span class="line">    public delegate void HuntAction();              //巡逻兵抓获成功</span><br><span class="line">    public static event HuntAction OnHuntAction;</span><br><span class="line">    public delegate void FleeAction();              //玩家逃跑成功</span><br><span class="line">    public static event FleeAction OnFleeAction;</span><br><span class="line"></span><br><span class="line">    // Use this for initialization</span><br><span class="line">    void Start () &#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// Update is called once per frame</span><br><span class="line">	void Update () &#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    public void flee()</span><br><span class="line">    &#123;</span><br><span class="line">        if (OnFleeAction != null)</span><br><span class="line">        &#123;</span><br><span class="line">            OnFleeAction();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void hunt()</span><br><span class="line">    &#123;</span><br><span class="line">        if (OnHuntAction != null)</span><br><span class="line">        &#123;</span><br><span class="line">            OnHuntAction();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void Hunt()</span><br><span class="line">    &#123;</span><br><span class="line">        instance.hunt();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void Flee()</span><br><span class="line">    &#123;</span><br><span class="line">        instance.flee();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>GameController.cs</strong> 订阅者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//注册事件处理程序</span><br><span class="line">public void OnEnable()</span><br><span class="line">&#123;</span><br><span class="line">  PatrolEventManager.OnHuntAction += hunt;</span><br><span class="line">  PatrolEventManager.OnFleeAction += flee;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//注销事件处理程序</span><br><span class="line">public void OnDisable()</span><br><span class="line">&#123;</span><br><span class="line">  PatrolEventManager.OnHuntAction -= hunt;</span><br><span class="line">  PatrolEventManager.OnFleeAction -= flee;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//玩家成功逃脱后的处理：加分</span><br><span class="line">void flee()</span><br><span class="line">&#123;</span><br><span class="line">  score += 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//玩家被抓到后的处理：结束游戏</span><br><span class="line">void hunt()</span><br><span class="line">&#123;</span><br><span class="line">  gameState = &quot;Game over!&quot;;</span><br><span class="line">  recycleAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>##三、游戏主要行为分析</p>
-<p>窃以为，本次游戏的难点在于角色的行为，以及相关碰撞体/触发器的使用。</p>
-<h3 id="1-巡逻兵的行为"><a href="#1-巡逻兵的行为" class="headerlink" title="1. 巡逻兵的行为"></a>1. 巡逻兵的行为</h3><blockquote>
-<ul>
-<li>在遇到障碍物（包括别的角色）时不弹开，也不穿过。</li>
-<li>在遇到墙时转向，继续巡逻。</li>
-<li>在玩家进入其追捕范围时，追捕玩家。</li>
-</ul>
-</blockquote>
-<h4 id="与其他物体-角色相遇的处理"><a href="#与其他物体-角色相遇的处理" class="headerlink" title="与其他物体/角色相遇的处理"></a>与其他物体/角色相遇的处理</h4><p>巡逻兵需要两个Collider，一个是Sphere Collider，挂在巡逻兵模型上，范围较大，用于感应玩家。感应到后，若玩家在当前区域，则开始追击。</p>
-<p>相关的检测代码写在<strong>PatrolController.cs</strong>里：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">private void OnTriggerEnter(Collider other)</span><br><span class="line">&#123;</span><br><span class="line">  //玩家在当前区域，则追击</span><br><span class="line">  if (isInZone(other.transform) &amp;&amp; other.tag.Equals(&quot;Player&quot;))</span><br><span class="line">  &#123;</span><br><span class="line">    player = other.transform;</span><br><span class="line">    gameObject.GetComponent&lt;Animator&gt;().SetBool(&quot;ToAttack&quot;, true);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void OnTriggerExit(Collider other)</span><br><span class="line">&#123;</span><br><span class="line">  //玩家在当前区域但已离开追捕范围，则追捕失败，玩家得分</span><br><span class="line">  if (isInZone(other.transform) &amp;&amp; other.tag.Equals(&quot;Player&quot;))</span><br><span class="line">  &#123;</span><br><span class="line">    player = null;</span><br><span class="line">    gameObject.GetComponent&lt;Animator&gt;().SetBool(&quot;ToAttack&quot;, false);</span><br><span class="line">    PatrolEventManager.Flee();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Update () &#123;</span><br><span class="line">  //...</span><br><span class="line">  if(isHunting &amp;&amp; !isInZone(player))  //检测追击过程中玩家离开当前区域的情况</span><br><span class="line">  &#123;</span><br><span class="line">    player = null;</span><br><span class="line">    gameObject.GetComponent&lt;Animator&gt;().SetBool(&quot;ToAttack&quot;, false);</span><br><span class="line">    PatrolEventManager.Flee();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另一个是Box Collider，挂在巡逻兵模型下的空的子物体上，范围较小，用于检测巡逻兵将要撞上其他物体的情况。相关的检测代码写在<strong>PatrolBody.cs</strong>里：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//检测近距离遇上其他物体的情况</span><br><span class="line">private void OnTriggerEnter(Collider other)</span><br><span class="line">&#123;</span><br><span class="line">  if (other.tag.Equals(&quot;wall&quot;))</span><br><span class="line">  &#123;</span><br><span class="line">    patrolController.borderIsFront = true;</span><br><span class="line">  &#125;</span><br><span class="line">  else if (other.tag.Equals(&quot;Player&quot;))</span><br><span class="line">  &#123;</span><br><span class="line">    gameObject.transform.parent.GetComponent&lt;PatrolController&gt;().playerIsFront = true;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//离开其他物体</span><br><span class="line">private void OnTriggerExit(Collider other)</span><br><span class="line">&#123;</span><br><span class="line">  if (other.tag.Equals(&quot;wall&quot;))</span><br><span class="line">  &#123;</span><br><span class="line">    gameObject.transform.parent.GetComponent&lt;PatrolController&gt;().borderIsFront = false;</span><br><span class="line">  &#125;</span><br><span class="line">  else if (other.tag.Equals(&quot;Player&quot;))</span><br><span class="line">  &#123;</span><br><span class="line">    gameObject.transform.parent.GetComponent&lt;PatrolController&gt;().playerIsFront = false;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="相关动作：行走，转向"><a href="#相关动作：行走，转向" class="headerlink" title="相关动作：行走，转向"></a>相关动作：行走，转向</h4><p>这部分代码主要由<strong>PatrolAction.cs</strong>实现，<strong>PatrolController.cs</strong>提供相关的检测和标志。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//PatrolAction.cs</span><br><span class="line"></span><br><span class="line">//每次遇上区域边界后的旋转角度</span><br><span class="line">public int rotateAngle;</span><br><span class="line"></span><br><span class="line">//检测巡逻兵状态，为PatrolAction提供改变的依据</span><br><span class="line">private PatrolController patrolController;</span><br><span class="line"></span><br><span class="line">//..........</span><br><span class="line"></span><br><span class="line">public override void Update () &#123;</span><br><span class="line">  if (destroy)</span><br><span class="line">  &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  if (patrolController.borderIsFront) //遇上边界则转向</span><br><span class="line">  &#123;</span><br><span class="line">    gameobject.transform.Rotate(gameobject.transform.up, rotateAngle);</span><br><span class="line">    patrolController.borderIsFront = true;</span><br><span class="line">  &#125;</span><br><span class="line">  else if (patrolController.playerIsFront)    //遇上玩家，不移动，举枪攻击玩家</span><br><span class="line">  &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  else if (patrolController.isHunting)    //正在追击，则目标是玩家，要向着玩家移动</span><br><span class="line">  &#123;</span><br><span class="line">    gameobject.transform.LookAt(patrolController.player);</span><br><span class="line">    gameobject.transform.position = Vector3.MoveTowards(gameobject.transform.position, patrolController.player.position, 1.0f * Time.deltaTime);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;   //以上情况都不是，进行普通的巡逻</span><br><span class="line">    gameobject.transform.Translate(Vector3.forward * 1.0f * Time.deltaTime);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其实可以把PatrolAction定义为几个更简单的动作，在动作结束时调用动作管理器的回调接口来告诉动作管理器，下一个动作应该怎么定义。但是为了方便，就将不同的具体动作写在同一个Action里来处理了。</p>
-<blockquote>
-<ul>
-<li>不能离开所在的区域。（避免巡逻兵从墙的缺口进入其他领域）</li>
-<li>只能在玩家进入所在的区域时追捕，不能隔着墙追捕玩家。</li>
-</ul>
-</blockquote>
-<p>因为构建的地图坐标很有规律，所以使用坐标上下限来规定巡逻兵的巡逻区域。</p>
-<p><strong>PatrolController.cs</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//巡逻区域的坐标范围</span><br><span class="line">private float xmin, xmax, zmin, zmax;</span><br><span class="line"></span><br><span class="line">void Start () &#123;</span><br><span class="line">  patrol = gameObject.transform;</span><br><span class="line">  xmin = (int)(patrol.position.x / 5) * 5 + 0.2f;</span><br><span class="line">  xmax = (int)(patrol.position.x / 5 + 1) * 5 - 0.2f;</span><br><span class="line">  zmin = (int)(patrol.position.z / 5) * 5 + 0.2f;</span><br><span class="line">  zmax = (int)(patrol.position.z / 5 + 1) * 5 - 0.2f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当感应到玩家时，用以下方法来检测玩家是否位于当前区域。这个方法也用在Update()里以检测巡逻兵是否要走出当前区域。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//用于检查某些角色是否在当前巡逻区域</span><br><span class="line">private bool isInZone(Transform role)</span><br><span class="line">&#123;</span><br><span class="line">  return zmin &lt;= role.position.z &amp;&amp; role.position.z &lt;= zmax &amp;&amp; xmin &lt;= role.position.x &amp;&amp; role.position.x &lt;= xmax;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Update () &#123;</span><br><span class="line">  if(!isInZone(patrol))   //若巡逻兵走出了范围，则标记borderIsFront为true，将会通知PatrolAction来调整方向</span><br><span class="line">  &#123;</span><br><span class="line">    //...........</span><br><span class="line">  &#125;</span><br><span class="line">  if(isHunting &amp;&amp; !isInZone(player))  //检测追击过程中玩家离开当前区域的情况</span><br><span class="line">  &#123;</span><br><span class="line">    //...........</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<ul>
-<li>追上玩家时，杀死玩家。</li>
-</ul>
-</blockquote>
-<p>在追捕过程中，会调用Shoot动画。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gameObject.GetComponent&lt;Animator&gt;().SetBool(&quot;ToAttack&quot;, true);</span><br></pre></td></tr></table></figure>
-<h3 id="2-玩家行为"><a href="#2-玩家行为" class="headerlink" title="2. 玩家行为"></a>2. 玩家行为</h3><p>这部分的相关代码写在<strong>PlayerController.cs</strong>里。</p>
-<blockquote>
-<ul>
-<li>由用户用方向键控制，按哪个方向键就沿哪个方向行走。</li>
-</ul>
-</blockquote>
-<p>UserGUI.cs检测用户输入，调用GameController的movePlayer()，GameController的movePlayer()又调用PlayerController的movePlayer().</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">//移动玩家</span><br><span class="line">public void movePlayer(float hor, float ver)</span><br><span class="line">&#123;</span><br><span class="line">  if (isDead) return;</span><br><span class="line">  if (ver != 0)</span><br><span class="line">  &#123;</span><br><span class="line">    //如果玩家不是在奔跑，则调用奔跑的动画</span><br><span class="line">    if (!playerAnimator.GetBool(&quot;IsRunning&quot;)) playerAnimator.SetBool(&quot;IsRunning&quot;, true);</span><br><span class="line">    if (ver &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">      player.forward = Vector3.forward;</span><br><span class="line">      if (IsObstacleFront()) return; //如果玩家遇上了障碍，则不移动</span><br><span class="line">      player.Translate(new Vector3(0, 0, ver));</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">      player.forward = Vector3.back;</span><br><span class="line">      if (IsObstacleFront()) return;</span><br><span class="line">      player.Translate(new Vector3(0, 0, -ver));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  else if (hor != 0)</span><br><span class="line">  &#123;</span><br><span class="line">    if (!playerAnimator.GetBool(&quot;IsRunning&quot;)) playerAnimator.SetBool(&quot;IsRunning&quot;, true);</span><br><span class="line">    if (hor &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">      player.forward = Vector3.right;</span><br><span class="line">      if (IsObstacleFront()) return;</span><br><span class="line">      player.Translate(new Vector3(0, 0, hor));</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">      player.forward = Vector3.left;</span><br><span class="line">      if (IsObstacleFront()) return;</span><br><span class="line">      player.Translate(new Vector3(0, 0, -hor));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  else playerAnimator.SetBool(&quot;IsRunning&quot;, false);    //没有移动，则不奔跑</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<ul>
-<li><p>在遇到障碍物（包括别的角色）时不弹开，也不穿过。</p>
-</li>
-<li><p>在遇到墙时，只要用户不改变所按的方向键，就会一直在墙前。</p>
-</li>
-</ul>
-</blockquote>
-<p>玩家模型加了一个Box Collider，勾选了IsTrigger.</p>
-<p>（PS：如果Box Collider的位置或大小不够好，玩家遇到墙时，因为待机动画本身的特性，头会撞进墙……）</p>
-<p>在OnTriggerEnter()和OnTriggerExit()中会检测障碍物。</p>
-<p>在movePlayer()中，会在确定玩家方向后检测障碍物是否在前方，是的话则不移动玩家。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">//遇到的其他物体/角色</span><br><span class="line">private Transform obstacle = null;</span><br><span class="line">//以什么方向遇上障碍物</span><br><span class="line">private Vector3 obstacleDirection = Vector3.zero;</span><br><span class="line"></span><br><span class="line">//是否正对着障碍物</span><br><span class="line">private bool IsObstacleFront()</span><br><span class="line">&#123;</span><br><span class="line">  return obstacleDirection == player.forward;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//检测是否遇上障碍</span><br><span class="line">private void OnTriggerEnter(Collider other)</span><br><span class="line">&#123;</span><br><span class="line">  if (other.tag.Equals(&quot;wall&quot;))</span><br><span class="line">  &#123;</span><br><span class="line">    obstacleDirection = player.forward;</span><br><span class="line">  &#125;</span><br><span class="line">  else if (other.tag.Equals(&quot;PatrolBody&quot;))    //遇上巡逻兵，死亡</span><br><span class="line">  &#123;</span><br><span class="line">    isDead = true;</span><br><span class="line">    playerAnimator.SetBool(&quot;IsDead&quot;, true);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//离开障碍</span><br><span class="line">private void OnTriggerExit(Collider other)</span><br><span class="line">&#123;</span><br><span class="line">  obstacleDirection = Vector3.zero;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//movePlayer()中</span><br><span class="line">if (IsObstacleFront()) return; //如果玩家遇上了障碍，则不移动</span><br></pre></td></tr></table></figure>
-<blockquote>
-<ul>
-<li>被巡逻兵追上则死亡。</li>
-</ul>
-</blockquote>
-<p>设置Animator的布尔类型的变量IsDead为true，播放Dead动画。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">private void OnTriggerEnter(Collider other)</span><br><span class="line">&#123;</span><br><span class="line">  if (other.tag.Equals(&quot;wall&quot;))</span><br><span class="line">  &#123;</span><br><span class="line">    obstacleDirection = player.forward;</span><br><span class="line">  &#125;</span><br><span class="line">  else if (other.tag.Equals(&quot;PatrolBody&quot;))    //遇上巡逻兵，死亡</span><br><span class="line">  &#123;</span><br><span class="line">    isDead = true;</span><br><span class="line">    playerAnimator.SetBool(&quot;IsDead&quot;, true);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-其他道具"><a href="#3-其他道具" class="headerlink" title="3. 其他道具"></a>3. 其他道具</h3><p>墙砖加上了运动学刚体，以及勾选了IsTrigger的Box Collider。</p>
-<p>墙砖模型：Asset Store, Destructible Wall Generator</p>
-<p>巡逻兵模型：Asset Store, Toony Tiny WW1 Soldiers D.</p>
-<p>玩家模型：Asset Store, SD Martial Arts Girl Xia-Chan</p>
-
-          
+          <p><a href="https://github.com/yuyuforest/Unity/tree/master/Week9" target="_blank" rel="noopener">Github上的项目代码和视频链接</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/11/unity-patrol/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
