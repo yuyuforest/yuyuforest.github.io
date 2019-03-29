@@ -123,7 +123,7 @@
 <meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/fy.png">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/fy-result.png">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/new-unit.png">
-<meta property="og:updated_time" content="2019-03-29T06:20:45.277Z">
+<meta property="og:updated_time" content="2019-03-29T07:25:11.932Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经网络论文阅读 | Identity Mapping in Deep Residual Networks">
 <meta name="twitter:description" content="《Identity Mapping in Deep Residual Networks》这篇论文提出的深度网络一般被称为第二版深度残差网络（ResNet v2），是对《Deep Residual Learning for ImageRecognition》中提出的第一版深度残差网络（ResNet v1）的改进。">
@@ -347,7 +347,7 @@
                 
               
 
-              <time title="创建时间：2019-03-29 13:38:02 / 修改时间：14:20:45" itemprop="dateCreated datePublished" datetime="2019-03-29T13:38:02+08:00">2019-03-29</time>
+              <time title="创建时间：2019-03-29 13:38:02 / 修改时间：15:25:11" itemprop="dateCreated datePublished" datetime="2019-03-29T13:38:02+08:00">2019-03-29</time>
             
 
             
@@ -422,11 +422,11 @@
 <p>第一版深度残差网络在残差单元中使用了恒等映射，也即 $h(x_l )=x_l ​$。</p>
 <p>本文致力于分析恒等映射的作用，寻找残差块背后的信息传播方式，从而提出新模型来简化训练、加强深度残差网络的能力。</p>
 <h1 id="分析"><a class="header-anchor" href="#分析"> </a>分析</h1>
-<p>如果f也是一个恒等映射：$x_{l+1}= f(y_l )=y_l $ ，则可得到 $x_{l+1}=x_l+F(x_l,W_l )$ 。</p>
+<p>如果 $f$ 也是一个恒等映射：$x_{l+1}= f(y_l )=y_l $ ，则可得到 $x_{l+1}=x_l+F(x_l,W_l )$ 。</p>
 <p>通过递归，对任意深的单元 $L$ 和任意浅的单元 $l​$ ，</p>
 <p>可得到 $x_L=x_l+∑_{i=l}^{L-1}F(x_i,W_i ) $ 。</p>
 <p>由上述方程出发，通过一些推导，可知在前向阶段和后向阶段，信号都能够直接地从一个单元传递到其他任意一个单元。</p>
-<p>接下来需要通过实验来研究h(x_l )=x_l和f(y_l )=y_l这两个恒等映射的作用。</p>
+<p>接下来需要通过实验来研究 $h(x_l )=x_l$ 和 $f(y_l )=y_l$ 这两个恒等映射的作用。</p>
 <h1 id="恒等映射与跳跃连接-h-x-l"><a class="header-anchor" href="#恒等映射与跳跃连接-h-x-l"> </a>恒等映射与跳跃连接$h(x_l )$</h1>
 <p>为了分析恒等映射在跳跃连接 $h(x)$ 中的作用，尝试了几种不同的 $h(x)​$ ，包括原始的恒等映射、常量缩放、门控、卷积、丢弃等：</p>
 <p><img src="/2019/03/29/paper-reading-res-net-v2/hx.png" alt="h(x)"></p>
