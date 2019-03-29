@@ -108,36 +108,33 @@
 
 
 
-  <meta name="description" content="Go语言的安装与配置 Go语言下载 我下的是 go1.11.windows-amd64.msi 。">
-<meta name="keywords" content="go语言">
+  <meta name="description" content="《Identity Mapping in Deep Residual Networks》这篇论文提出的深度网络一般被称为第二版深度残差网络（ResNet v2），是对《Deep Residual Learning for ImageRecognition》中提出的第一版深度残差网络（ResNet v1）的改进。 以下是我对这篇论文的简要整理和总结。  背景  第一版深度残差网络中，通用的网络单元公">
+<meta name="keywords" content="神经网络,深度学习,论文阅读">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows下Go语言的安装和运行">
-<meta property="og:url" content="https://yuyuforest.github.io/2018/09/27/golang-install/index.html">
+<meta property="og:title" content="神经网络论文阅读 | Identity Mapping in Deep Residual Networks">
+<meta property="og:url" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/index.html">
 <meta property="og:site_name" content="yuyu&#39;s forest">
-<meta property="og:description" content="Go语言的安装与配置 Go语言下载 我下的是 go1.11.windows-amd64.msi 。">
+<meta property="og:description" content="《Identity Mapping in Deep Residual Networks》这篇论文提出的深度网络一般被称为第二版深度残差网络（ResNet v2），是对《Deep Residual Learning for ImageRecognition》中提出的第一版深度残差网络（ResNet v1）的改进。 以下是我对这篇论文的简要整理和总结。  背景  第一版深度残差网络中，通用的网络单元公">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://img-blog.csdn.net/20180927162417828?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/201809271624364?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/20180927162546398?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/20180927172123780?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/20180927173751243?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/20180927173509352?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/20180927174039557?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/20180927180721907?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/2018092718331591?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/20180927183300273?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2018-09-27T13:34:15.000Z">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/original-unit-remark.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/hx.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/hx-result.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/original-unit.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/fy.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/fy-result.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/new-unit.png">
+<meta property="og:updated_time" content="2019-03-29T06:07:56.458Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Windows下Go语言的安装和运行">
-<meta name="twitter:description" content="Go语言的安装与配置 Go语言下载 我下的是 go1.11.windows-amd64.msi 。">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20180927162417828?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta name="twitter:title" content="神经网络论文阅读 | Identity Mapping in Deep Residual Networks">
+<meta name="twitter:description" content="《Identity Mapping in Deep Residual Networks》这篇论文提出的深度网络一般被称为第二版深度残差网络（ResNet v2），是对《Deep Residual Learning for ImageRecognition》中提出的第一版深度残差网络（ResNet v1）的改进。 以下是我对这篇论文的简要整理和总结。  背景  第一版深度残差网络中，通用的网络单元公">
+<meta name="twitter:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/original-unit-remark.png">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yuyuforest.github.io/2018/09/27/golang-install/"/>
+  <link rel="canonical" href="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/"/>
 
 
 
@@ -147,7 +144,7 @@
   };
 </script>
 
-  <title>Windows下Go语言的安装和运行 | yuyu's forest</title>
+  <title>神经网络论文阅读 | Identity Mapping in Deep Residual Networks | yuyu's forest</title>
   
 
 
@@ -308,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/09/27/golang-install/">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuyu">
@@ -325,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Windows下Go语言的安装和运行
+          <h1 class="post-title" itemprop="name headline">神经网络论文阅读 | Identity Mapping in Deep Residual Networks
               
             
           </h1>
@@ -350,7 +347,7 @@
                 
               
 
-              <time title="创建时间：2018-09-27 18:48:40 / 修改时间：21:34:15" itemprop="dateCreated datePublished" datetime="2018-09-27T18:48:40+08:00">2018-09-27</time>
+              <time title="创建时间：2019-03-29 13:38:02 / 修改时间：14:07:56" itemprop="dateCreated datePublished" datetime="2019-03-29T13:38:02+08:00">2019-03-29</time>
             
 
             
@@ -372,7 +369,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/环境配置/" itemprop="url" rel="index"><span itemprop="name">环境配置</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/探索/" itemprop="url" rel="index"><span itemprop="name">探索</span></a></span>
 
                 
                 
@@ -406,93 +403,54 @@
       
 
       
-        <h1 id="go语言的安装与配置"><a class="header-anchor" href="#go语言的安装与配置"> </a>Go语言的安装与配置</h1>
-<p><a href="https://golang.org/dl/" target="_blank" rel="noopener">Go语言下载</a></p>
-<p>我下的是 <code>go1.11.windows-amd64.msi</code> 。</p>
-<a id="more"></a>
-<p>安装好后，配置系统变量：</p>
+        <p>《Identity Mapping in Deep Residual Networks》这篇论文提出的深度网络一般被称为第二版深度残差网络（ResNet v2），是对《Deep Residual Learning for ImageRecognition》中提出的第一版深度残差网络（ResNet v1）的改进。</p>
+<p>以下是我对这篇论文的简要整理和总结。</p>
+<h1 id="背景"><a class="header-anchor" href="#背景"> </a>背景</h1>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/original-unit-remark.png" alt="original unit"></p>
+<p>第一版深度残差网络中，通用的网络单元公式如下：</p>
 <ul>
-<li>
-<p><code>GOROOT</code> ：Go语言的安装路径。</p>
-</li>
-<li>
-<p><code>GOPATH</code> ：Go语言的工作空间，不能与 <code>GOROOT</code> 相同。</p>
-</li>
-<li>
-<p><code>Path</code> ：增加 <code>%GOROOT%\bin\</code> 和 <code>%GOPATH%\bin\</code></p>
-</li>
+<li>$y_l=h(x_l)+F(x_l,W_l)​$</li>
+<li>$x_{l+1}=f(y_l)$</li>
 </ul>
-<p><img src="https://img-blog.csdn.net/20180927162417828?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p><code>Path</code> 的配置如下：</p>
-<p><img src="https://img-blog.csdn.net/201809271624364?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p><code>GOPATH</code> 下应有三个目录：</p>
+<p>其中，有：</p>
 <ul>
-<li>
-<p><code>src</code> ：包含Go的源文件，它们被组织成包（每个目录都对应一个包）</p>
-</li>
-<li>
-<p><code>pkg</code>：包含包对象，也即编译好的库文件 <code>*.a</code></p>
-</li>
-<li>
-<p><code>bin</code>：包含可执行命令</p>
-</li>
+<li>$h(x_l)=x_l$，这是一个恒等映射</li>
+<li>$f$ 是一个ReLU激活函数</li>
 </ul>
-<blockquote>
-<p>go 工具用于构建源码包，并将其生成的二进制文件安装到 pkg 和 bin 目录中。</p>
-</blockquote>
-<p><img src="https://img-blog.csdn.net/20180927162546398?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>之后，在命令行输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure>
-<p>出现类似以下的显示就是成功安装Go语言了。</p>
-<p><img src="https://img-blog.csdn.net/20180927172123780?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<h1 id="go语言的ide：goland"><a class="header-anchor" href="#go语言的ide：goland"> </a>Go语言的IDE：GoLand</h1>
-<p>Windows下，Go语言的IDE可以使用GoLand。</p>
-<p><a href="http://www.jetbrains.com/go/" target="_blank" rel="noopener">GoLand下载</a></p>
-<p>GoLand只有30天的免费试用期，你可以每30天卸载重装一次，也可以申请免费学生授权。<a href="https://sales.jetbrains.com/hc/zh-cn/articles/207154369-%E5%AD%A6%E7%94%9F%E6%8E%88%E6%9D%83%E7%94%B3%E8%AF%B7%E6%96%B9%E5%BC%8F" target="_blank" rel="noopener">学生授权申请方式</a></p>
-<h1 id="ide内go程序的编写和运行"><a class="header-anchor" href="#ide内go程序的编写和运行"> </a>IDE内Go程序的编写和运行</h1>
-<p>在工程目录，右键点击工程名，新建Go File。</p>
-<p>编写代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	fmt.Printf(&quot;Hello, world.\n&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>之后运行：</p>
-<p><img src="https://img-blog.csdn.net/20180927173751243?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>如果首行的 <code>package main</code> 不是 <code>main</code> ，则在 <code>Run `go build hello.go`</code> 之后会报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Process failed with error 216: Process finished with exit code 216</span><br></pre></td></tr></table></figure>
-<p>因为如果要执行一个方法，则首行声明的包名应该为 <code>main</code> ，方法名也应为 <code>main</code> 。</p>
-<p>运行后在IDE就会出现运行结果，如下。</p>
-<p><img src="https://img-blog.csdn.net/20180927173509352?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<h1 id="命令行下go程序的运行和生成"><a class="header-anchor" href="#命令行下go程序的运行和生成"> </a>命令行下Go程序的运行和生成</h1>
-<h2 id="go-run"><a class="header-anchor" href="#go-run"> </a>go run</h2>
-<p>可以在Go程序所在的目录下运行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run xxx.go</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdn.net/20180927174039557?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>当然，也可不在源程序所在目录下运行，但要输入源程序的确切路径，比如在 <code>...\yuyuforest</code> 下输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run helloGo\hello.go</span><br></pre></td></tr></table></figure>
-<h2 id="go-build"><a class="header-anchor" href="#go-build"> </a>go build</h2>
-<p>如果要生成可执行文件，则在源程序所在目录下输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go build xxx.go</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdn.net/20180927180721907?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>可见，目录下生成了可执行文件 <code>hello.exe</code> 。在当前目录下执行 <code>./hello</code> 命令即可运行该文件。</p>
-<h2 id="go-install"><a class="header-anchor" href="#go-install"> </a>go install</h2>
-<p>在包目录下执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install</span><br></pre></td></tr></table></figure>
-<p>那么，在 <code>%GOPATH%\bin</code> 目录下就会产生一个 <code>xxx.exe</code> ，即由该包构建的可执行文件。</p>
-<p>以刚才的 <code>github.com\yuyuforest\helloGo</code> 包目录为例，执行了 <code>go install</code> 命令后，就产生如下文件：</p>
-<p><img src="https://img-blog.csdn.net/2018092718331591?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdn.net/20180927183300273?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
-<p>可以在命令行里运行 <code>helloGo</code> 查看结果。</p>
-<p><code>go build</code> 与 <code>go install</code> 有什么区别呢？</p>
-<blockquote>
-<p>install命令在编译源码后还会将可执行文件或库文件安装到约定的目录下。</p>
+<h1 id="动机"><a class="header-anchor" href="#动机"> </a>动机</h1>
+<p>第一版深度残差网络在残差单元中使用了恒等映射，也即 $h(x_l )=x_l ​$。</p>
+<p>本文致力于分析恒等映射的作用，寻找残差块背后的信息传播方式，从而提出新模型来简化训练、加强深度残差网络的能力。</p>
+<h1 id="分析"><a class="header-anchor" href="#分析"> </a>分析</h1>
+<p>如果f也是一个恒等映射：$x_{l+1}= f(y_l )=y_l $ ，则可得到 $x_{l+1}=x_l+F(x_l,W_l )$ 。</p>
+<p>通过递归，对任意深的单元 $L$ 和任意浅的单元 $l​$ ，</p>
+<p>可得到 $x_L=x_l+∑_{i=l}^{L-1}F(x_i,W_i ) $ 。</p>
+<p>由上述方程出发，通过一些推导，可知在前向阶段和后向阶段，信号都能够直接地从一个单元传递到其他任意一个单元。</p>
+<p>接下来需要通过实验来研究h(x_l )=x_l和f(y_l )=y_l这两个恒等映射的作用。</p>
+<h1 id="恒等映射与跳跃连接-h-x-l"><a class="header-anchor" href="#恒等映射与跳跃连接-h-x-l"> </a>恒等映射与跳跃连接$h(x_l )$</h1>
+<p>为了分析恒等映射在跳跃连接 $h(x)$ 中的作用，尝试了几种不同的 $h(x)​$ ，包括原始的恒等映射、常量缩放、门控、卷积、丢弃等：</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/hx.png" alt="h(x)"></p>
+<p>实验结果如下：</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/hx-result.png" alt=""></p>
+<p>如图中红框所示，原始的使用恒等映射的 $h(x)$ 是错误率最低的。</p>
+<p>那么有以下结论：</p>
+<p>如下图中灰色箭头所示，恒等捷径连接是信息传递最直接的路径。</p>
+<p>捷径连接中的操作，如缩放、门控等会阻碍信息的传递，以至于对优化造成困难。</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/original-unit.png" alt=""></p>
+<h1 id="恒等映射与附加激活函数-f-y-l"><a class="header-anchor" href="#恒等映射与附加激活函数-f-y-l"> </a>恒等映射与附加激活函数$f(y_l)$</h1>
+<p>保持 $h(x_l )=x_l$ ，尝试了几种不同的激活函数组合：</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/fy.png" alt=""></p>
+<p>实验结果显示，预激活模型（上图中的(e)）在两个测试集上都有最低的训练错误率。</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/fy-result.png" alt=""></p>
+<p>分析预激活模型有两方面的影响：</p>
 <ul>
-<li>go install编译出的可执行文件以其所在目录名(DIR)命名</li>
-<li>go install将可执行文件安装到与src同级别的bin目录下，bin目录由go install自动创建</li>
-<li>go install将可执行文件依赖的各种package编译后，放在与src同级别的pkg目录下</li>
+<li>由于 $f$ 也是恒等映射，优化更加简单。</li>
+<li>在预激活中使用BN激活函数能够提高模型的正则化。</li>
 </ul>
-<p>来源：<a href="https://blog.csdn.net/kwame211/article/details/79202384" target="_blank" rel="noopener">https://blog.csdn.net/kwame211/article/details/79202384</a></p>
-</blockquote>
-<h1 id="结语"><a class="header-anchor" href="#结语"> </a>结语</h1>
-<p>关于Go的安装和GoLand的配置，参考了这篇教程：<a href="https://www.cnblogs.com/maobuji/p/8360414.html" target="_blank" rel="noopener">Windows下GO开发环境配置</a></p>
-<p>关于如何把 <code>github.com/git-user/...</code> 推送到Git上，可参考我先前的博客：<a href="https://blog.csdn.net/SquirrelYuyu/article/details/82714644" target="_blank" rel="noopener">Git学习笔记 #1 日常使用总结</a></p>
+<h1 id="结论"><a class="header-anchor" href="#结论"> </a>结论</h1>
+<p>本文研究了深度残差网络的连接机制背后的传播方式，推导和实验都表明，跳跃连接和附加激活项都使用恒等映射，对信息的顺利传播十分重要。</p>
+<p>由此提出的如下图所示的新的残差单元，使训练变得更加简单，也提高了网络的泛化能力。</p>
+<p>同时也提出了1000层的深度网络，易于训练并且有更好的准确率。</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/new-unit.png" alt=""></p>
 
       
     </div>
@@ -513,7 +471,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/go语言/" rel="tag"># go语言</a>
+            <a href="/tags/神经网络/" rel="tag"># 神经网络</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/论文阅读/" rel="tag"># 论文阅读</a>
           
         </div>
       
@@ -526,8 +488,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/23/leetcode-149/" rel="next" title="LeetCode | 149 Max Points on a Line">
-                <i class="fa fa-chevron-left"></i> LeetCode | 149 Max Points on a Line
+              <a href="/2019/03/29/paper-reading-dense-net/" rel="next" title="神经网络论文阅读 | Densely Connected Convolutional Networks">
+                <i class="fa fa-chevron-left"></i> 神经网络论文阅读 | Densely Connected Convolutional Networks
               </a>
             
           </div>
@@ -535,10 +497,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/03/leetcode-126/" rel="prev" title="LeetCode | 126 Word Ladder II">
-                LeetCode | 126 Word Ladder II <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -764,7 +722,7 @@
               
 
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#go语言的安装与配置"><span class="nav-number">1.</span> <span class="nav-text"> Go语言的安装与配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#go语言的ide：goland"><span class="nav-number">2.</span> <span class="nav-text"> Go语言的IDE：GoLand</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ide内go程序的编写和运行"><span class="nav-number">3.</span> <span class="nav-text"> IDE内Go程序的编写和运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行下go程序的运行和生成"><span class="nav-number">4.</span> <span class="nav-text"> 命令行下Go程序的运行和生成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#go-run"><span class="nav-number">4.1.</span> <span class="nav-text"> go run</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go-build"><span class="nav-number">4.2.</span> <span class="nav-text"> go build</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go-install"><span class="nav-number">4.3.</span> <span class="nav-text"> go install</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text"> 结语</span></a></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text"> 背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动机"><span class="nav-number">2.</span> <span class="nav-text"> 动机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text"> 分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#恒等映射与跳跃连接-h-x-l"><span class="nav-number">4.</span> <span class="nav-text"> 恒等映射与跳跃连接$h(x_l )$</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#恒等映射与附加激活函数-f-y-l"><span class="nav-number">5.</span> <span class="nav-text"> 恒等映射与附加激活函数$f(y_l)$</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">6.</span> <span class="nav-text"> 结论</span></a></li></ol></div>
               
 
             </div>
@@ -946,6 +904,30 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 

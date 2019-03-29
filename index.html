@@ -296,6 +296,211 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2019/03/29/paper-reading-res-net-v2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuyu">
+      <meta itemprop="description" content="鱼鱼爱吃鱼">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yuyu's forest">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/29/paper-reading-res-net-v2/" itemprop="url">
+                  神经网络论文阅读 | Identity Mapping in Deep Residual Networks
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-29 13:38:02 / 修改时间：14:07:56" itemprop="dateCreated datePublished" datetime="2019-03-29T13:38:02+08:00">2019-03-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/探索/" itemprop="url" rel="index"><span itemprop="name">探索</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>《Identity Mapping in Deep Residual Networks》这篇论文提出的深度网络一般被称为第二版深度残差网络（ResNet v2），是对《Deep Residual Learning for ImageRecognition》中提出的第一版深度残差网络（ResNet v1）的改进。</p>
+<p>以下是我对这篇论文的简要整理和总结。</p>
+<h1 id="背景"><a class="header-anchor" href="#背景"> </a>背景</h1>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/original-unit-remark.png" alt="original unit"></p>
+<p>第一版深度残差网络中，通用的网络单元公式如下：</p>
+<ul>
+<li>$y_l=h(x_l)+F(x_l,W_l)​$</li>
+<li>$x_{l+1}=f(y_l)$</li>
+</ul>
+<p>其中，有：</p>
+<ul>
+<li>$h(x_l)=x_l$，这是一个恒等映射</li>
+<li>$f$ 是一个ReLU激活函数</li>
+</ul>
+<h1 id="动机"><a class="header-anchor" href="#动机"> </a>动机</h1>
+<p>第一版深度残差网络在残差单元中使用了恒等映射，也即 $h(x_l )=x_l ​$。</p>
+<p>本文致力于分析恒等映射的作用，寻找残差块背后的信息传播方式，从而提出新模型来简化训练、加强深度残差网络的能力。</p>
+<h1 id="分析"><a class="header-anchor" href="#分析"> </a>分析</h1>
+<p>如果f也是一个恒等映射：$x_{l+1}= f(y_l )=y_l $ ，则可得到 $x_{l+1}=x_l+F(x_l,W_l )$ 。</p>
+<p>通过递归，对任意深的单元 $L$ 和任意浅的单元 $l​$ ，</p>
+<p>可得到 $x_L=x_l+∑_{i=l}^{L-1}F(x_i,W_i ) $ 。</p>
+<p>由上述方程出发，通过一些推导，可知在前向阶段和后向阶段，信号都能够直接地从一个单元传递到其他任意一个单元。</p>
+<p>接下来需要通过实验来研究h(x_l )=x_l和f(y_l )=y_l这两个恒等映射的作用。</p>
+<h1 id="恒等映射与跳跃连接-h-x-l"><a class="header-anchor" href="#恒等映射与跳跃连接-h-x-l"> </a>恒等映射与跳跃连接$h(x_l )$</h1>
+<p>为了分析恒等映射在跳跃连接 $h(x)$ 中的作用，尝试了几种不同的 $h(x)​$ ，包括原始的恒等映射、常量缩放、门控、卷积、丢弃等：</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/hx.png" alt="h(x)"></p>
+<p>实验结果如下：</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/hx-result.png" alt=""></p>
+<p>如图中红框所示，原始的使用恒等映射的 $h(x)$ 是错误率最低的。</p>
+<p>那么有以下结论：</p>
+<p>如下图中灰色箭头所示，恒等捷径连接是信息传递最直接的路径。</p>
+<p>捷径连接中的操作，如缩放、门控等会阻碍信息的传递，以至于对优化造成困难。</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/original-unit.png" alt=""></p>
+<h1 id="恒等映射与附加激活函数-f-y-l"><a class="header-anchor" href="#恒等映射与附加激活函数-f-y-l"> </a>恒等映射与附加激活函数$f(y_l)$</h1>
+<p>保持 $h(x_l )=x_l$ ，尝试了几种不同的激活函数组合：</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/fy.png" alt=""></p>
+<p>实验结果显示，预激活模型（上图中的(e)）在两个测试集上都有最低的训练错误率。</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/fy-result.png" alt=""></p>
+<p>分析预激活模型有两方面的影响：</p>
+<ul>
+<li>由于 $f$ 也是恒等映射，优化更加简单。</li>
+<li>在预激活中使用BN激活函数能够提高模型的正则化。</li>
+</ul>
+<h1 id="结论"><a class="header-anchor" href="#结论"> </a>结论</h1>
+<p>本文研究了深度残差网络的连接机制背后的传播方式，推导和实验都表明，跳跃连接和附加激活项都使用恒等映射，对信息的顺利传播十分重要。</p>
+<p>由此提出的如下图所示的新的残差单元，使训练变得更加简单，也提高了网络的泛化能力。</p>
+<p>同时也提出了1000层的深度网络，易于训练并且有更好的准确率。</p>
+<p><img src="/2019/03/29/paper-reading-res-net-v2/new-unit.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2019/03/29/paper-reading-dense-net/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1834,183 +2039,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2018/11/10/leetcode-854/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuyu">
-      <meta itemprop="description" content="鱼鱼爱吃鱼">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yuyu's forest">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/10/leetcode-854/" itemprop="url">
-                  LeetCode | 854 K-Similar Strings
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-10 11:48:00" itemprop="dateCreated datePublished" datetime="2018-11-10T11:48:00+08:00">2018-11-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-11 15:00:08" itemprop="dateModified" datetime="2018-11-11T15:00:08+08:00">2018-11-11</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="题目"><a class="header-anchor" href="#题目"> </a>题目</h1>
-<p><a href="https://leetcode.com/problems/k-similar-strings/description/" target="_blank" rel="noopener">K-Similar Strings</a></p>
-<p>Strings A and B are K-similar (for some non-negative integer K) if we can swap the positions of two letters in A exactly K times so that the resulting string equals B.</p>
-<p>Given two anagrams A and B, return the smallest K for which A and B are K-similar.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/10/leetcode-854/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2064,7 +2092,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-count">26</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
