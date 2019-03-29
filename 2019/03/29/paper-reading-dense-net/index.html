@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="《Densely Connected Convolutional Networks》这篇论文是CVPR2017的最佳论文，提出了一种新的卷积神经网络架构DenseNet。GitHub上的源代码和预训练模型">
+<meta name="keywords" content="神经网络,深度学习,论文阅读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神经网络论文阅读 | Densely Connected Convolutional Networks">
+<meta property="og:url" content="https://yuyuforest.github.io/2019/03/29/paper-reading-dense-net/index.html">
+<meta property="og:site_name" content="yuyu&#39;s forest">
+<meta property="og:description" content="《Densely Connected Convolutional Networks》这篇论文是CVPR2017的最佳论文，提出了一种新的卷积神经网络架构DenseNet。GitHub上的源代码和预训练模型">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-dense-net/figure-1.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-dense-net/figure-2.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-dense-net/C:/Code/github.com/yuyuforest/yuyuforest.com/source/_drafts/paper-reading-dense-net/table-2.png">
+<meta property="og:updated_time" content="2019-03-29T03:05:39.570Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="神经网络论文阅读 | Densely Connected Convolutional Networks">
+<meta name="twitter:description" content="《Densely Connected Convolutional Networks》这篇论文是CVPR2017的最佳论文，提出了一种新的卷积神经网络架构DenseNet。GitHub上的源代码和预训练模型">
+<meta name="twitter:image" content="https://yuyuforest.github.io/2019/03/29/paper-reading-dense-net/figure-1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuyuforest.github.io/2019/03/29/paper-reading-dense-net/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>神经网络论文阅读 | Densely Connected Convolutional Networks | yuyu's forest</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yuyu's forest</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2019/03/29/paper-reading-dense-net/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuyu">
+      <meta itemprop="description" content="鱼鱼爱吃鱼">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yuyu's forest">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">神经网络论文阅读 | Densely Connected Convolutional Networks
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-29 11:02:56 / 修改时间：11:05:39" itemprop="dateCreated datePublished" datetime="2019-03-29T11:02:56+08:00">2019-03-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/探索/" itemprop="url" rel="index"><span itemprop="name">探索</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>《Densely Connected Convolutional Networks》这篇论文是CVPR2017的最佳论文，提出了一种新的卷积神经网络架构DenseNet。<a href="https://github.com/liuzhuang13/DenseNet" target="_blank" rel="noopener">GitHub上的源代码和预训练模型</a></p>
+<a id="more"></a>
+<p>以下是我对这篇论文的部分翻译和整理。</p>
+<h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><h2 id="解决梯度消失问题"><a href="#解决梯度消失问题" class="headerlink" title="解决梯度消失问题"></a>解决梯度消失问题</h2><p>卷积神经网络CNN已经成为视觉对象识别的主要机器学习算法，而近年来计算机硬件和网络结构的改进使训练真正的深度CNN成为可能。最初提出的LeNet有5层，VGG有19层，而2015年提出的Highway Networks和ResNet超过了100层。</p>
+<p> 但是在CNN加深时，出现了梯度消失的问题。</p>
+<p> 很多论文解决了这个问题或相关的问题。比如ResNet和Highway Networks通过恒等连接将信号层层传递；Stochastic depth通过在训练期间随机丢弃层，缩短ResNet，从而获得更好的信息和梯度流，等等。</p>
+<p>尽管这些模型的网络拓扑和训练步骤各不相同，但都有一个关键特点：<strong>在早期的层和后期的层之间创造短的路径（create short paths from early layers to later layers ）。</strong></p>
+<p>作者团队将这种思想提炼为一个简单的连接模式，由此提出了这个新的神经网络架构DenseNet。</p>
+<h2 id="改善层之间的信息流"><a href="#改善层之间的信息流" class="headerlink" title="改善层之间的信息流"></a>改善层之间的信息流</h2><p>考虑一个通过卷积网络传递的图片 $x_0$ 。这个网络包括 $L$ 层，每个层实现一个非线性的变换 $H_l(·)$ ，其中 $l$ 是网络层的索引。$H_l(·)$ 可以是一些操作的复合函数，这些操作可以是BN、ReLU、池化、卷积等。将第 $l$ 层的输出表示为 $x_l$ 。</p>
+<p>传统的前馈卷积网络将第 $l$ 层的输出作为第 $l+1$ 层的输入，故有这样的层变换：$x_l=H_l(x_{l-1})$</p>
+<p>ResNets添加了一个跳跃连接，它从旁路给非线性变换加上了一个恒等函数：$x_l=H_l(x_{l-1})+x_{l-1}$ </p>
+<p>ResNets有一个优点是，梯度可以通过恒等函数直接从后面的层流到前面的层。但是，恒等函数和 $H_l$ 的输出通过求和来组合，这可能会阻碍到网络中的信息流。</p>
+<p>作者团队提出新的连接模式也是为了进一步改善层之间的信息流。</p>
+<h1 id="DenseNet网络架构"><a href="#DenseNet网络架构" class="headerlink" title="DenseNet网络架构"></a>DenseNet网络架构</h1><p>这种连接模式是：为了确保网络层之间的最大的信息流，将所有层（特征图大小彼此匹配）直接互相连接。为了保持前馈性质，==<strong>每个层从它前面所有的层获得额外的输入，并将自己的特征图传递给后续的所有层。</strong>==</p>
+<p>结构如图1所示。</p>
+<p><img src="/2019/03/29/paper-reading-dense-net/figure-1.png" alt="Figure 1"></p>
+<p>关键在于，与ResNet相比，在特征被传递到层之前，作者团队没有通过求和将特征组合起来，而是使用了连接的组合方式。因此，<strong>第 $l​$ 层有 $l​$ 个输入，这些输入由第 $l​$ 层前面所有卷积块的特征图组成，而它自己的特征图传向了之后的$L-l​$个后续层</strong>。这就引入了 $L​$ 层网络的$\frac{L(L+1)}{2}​$个连接，而非传统的 $L​$ 个连接。</p>
+<p>由于这种密集的连接模式，作者团队把这种架构称为<strong>密集卷积网络DenseNet</strong>。</p>
+<p>于是，第 $l$ 层有新的输入定义：$x_l=H_l([x_0,x_1,\dots,x_{l-1}])$</p>
+<p>在这里，$[x_0,x_1,\dots,x_{l-1}]$ 指第 $0$ 层到第 $l-1$ 层生成的特征图的串联。</p>
+<p>为了便于实现， $H_l(·)​$ 的多个输入被连接成一个张量。</p>
+<h1 id="更多细节"><a href="#更多细节" class="headerlink" title="更多细节"></a>更多细节</h1><h2 id="复合函数"><a href="#复合函数" class="headerlink" title="复合函数"></a>复合函数</h2><p>定义 $H_l(·)​$ 为连续三个操作的复合函数：BN、ReLU、3×3卷积。</p>
+<h2 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h2><p>当特征图的大小变化时，$x_l=H_l([x_0,x_1,\dots,x_{l-1}])$ 这个方程中的复合操作并不可行。但是，卷积网络有一个重要的部分是下采样层，它们改变了特征图的大小。</p>
+<p>为了便于在DenseNet中进行下采样（down-sampling），网络被划分为多个密集连接的Dense块，如图2。</p>
+<p><img src="/2019/03/29/paper-reading-dense-net/figure-2.png" alt="Figure 2"></p>
+<p>作者团队在实验中使用的过渡层包括一个BN层、一个1×1卷积层和一个2×2平均池化层。</p>
+<h2 id="增长率"><a href="#增长率" class="headerlink" title="增长率"></a>增长率</h2><p>如果每个 $H_l$ 产生 $k$ 个特征图，它遵循一个规律：第 $l$ 层有 $k_0+k×(l-1)$ 个特征图输入，其中 $k_0$ 是输入层的通道数。</p>
+<p>DenseNet与现有的网络架构的一个重要区别是，DenseNet可以具有非常窄的层，比如，$k=12$ 。超参数 $k$ 被称为网络的增长率（growth rate）。</p>
+<p>实验结果表明了，相对较小的增长率足以在测试的数据集上获得最好的结果。对此的一种解释是，每个层都可以接触到它所在的块中，前面所有层的特征图，因此可以接触到网络的“集体知识”。</p>
+<h2 id="瓶颈层"><a href="#瓶颈层" class="headerlink" title="瓶颈层"></a>瓶颈层</h2><p>虽然每个层只产生 $k​$ 个输出特征图，它通常有更多的输入。有些论文已经注意到可以在每个 $3×3​$ 卷积之前引入 $1×1​$ 卷积作为瓶颈层，来减少输入的特征图数，从而提高计算效率。作者团队发现这种设计对DenseNet特别有效。</p>
+<p>将这种有瓶颈层的网络，即有等价于BN-ReLU-Conv(1×1)-BN-ReLU-Conv(3×3)的复合函数 $H_l$ 的网络，称为DenseNet-B。</p>
+<p>在实验中，作者团队令每个 $1×1$ 卷积产生 $4k$ 个特征图。</p>
+<h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><p>为了进一步提高模型的紧凑性，可以减少过渡层的特征图数量。如果一个Dense块包括了 $m$ 个特征图，则令它后续的过渡层生成 $\lfloor \theta_m \rfloor$ 个输出特征图，其中 $\theta$ 是压缩因子，有 $0&lt;\theta≤1$。当 $\theta=1$ ，过渡层前后的特征图数量保持不变。</p>
+<p>将有 $\theta&lt;1$ 的DenseNet称为DenseNet-C。在实验中，作者团队令 $\theta=0.5$ 。</p>
+<p>将瓶颈层和过渡层同时出现 $\theta&lt;1$ 的网络称为DenseNet-BC。</p>
+<h1 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h1><h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>所有的网络使用随机梯度下降法（stochastic gradient descent, SGD）来训练。</p>
+<p>在CIFAR和SVHN上，使用的批大小（batch size）为64，分别训练300轮和40轮。</p>
+<p>初始学习率设置为0.1，并且在训练轮数的50%和75%时除以10。</p>
+<p>在ImageNet上，批大小为256，训练90轮，初始学习率设置为0.1，在30%和60%的时候除以10。</p>
+<h2 id="CIFAR和SVHN上的分类结果"><a href="#CIFAR和SVHN上的分类结果" class="headerlink" title="CIFAR和SVHN上的分类结果"></a>CIFAR和SVHN上的分类结果</h2><p><img src="/2019/03/29/paper-reading-dense-net/C:/Code/github.com/yuyuforest/yuyuforest.com/source/_drafts/paper-reading-dense-net/table-2.png" alt="Table 2"></p>
+<p>[^表2]: 在CIFAR和SVHN数据集上的错误率。$k$ 表示网络的增长率。超过其他竞争者的结果被加粗，总体最佳结果标上蓝色。“+”表示标准数据增强（翻转和/或镜像）。*表示作者团队自己运行的结果。所有没有数据增强的DenseNet的结果通过dropout获得。当使用比ResNet更少的参数时，DenseNets实现更低的错误率。没有数据增加时，DenseNet的表现更好。</p>
+<p>产生了一些不错的结果：</p>
+<ul>
+<li><p><strong>准确率。</strong>表2的底行显示，DenseNet-BC（$L=190,k=40$）在所有CIFAR数据集上的表现总优于现有的最高水平。</p>
+</li>
+<li><p><strong>容量。</strong>没有压缩或瓶颈层时，总的趋势是当 $L$ 和 $k$ 增加时，DenseNet表现得更好。作者团队将此归因于模型容量的相应增长。C10+和C100+的数据最能证明这一点。在C10+上，当参数数量增长时，误差下降。在C100+上有类似的趋势。这表明DenseNets可以利用更大更深的模型的增强的表征能力。它还表明DesNets不会遇到ResNets的过拟合或优化的困难。</p>
+</li>
+<li><p><strong>参数效率。</strong>表2中的结果表明DenseNet比其他架构（特别是ResNets）更有效地利用参数，具有瓶颈结构和减小的过渡层尺寸的DenseNet-BC具有特别好的参数效率。</p>
+</li>
+<li><p><strong>过拟合。</strong>更有效地使用参数，使得DenseNets不易过拟合。</p>
+</li>
+</ul>
+<h2 id="ImageNet上的分类结果"><a href="#ImageNet上的分类结果" class="headerlink" title="ImageNet上的分类结果"></a>ImageNet上的分类结果</h2><p>一些实验结果表明，DenseNets的性能与最先进的ResNets相当，同时需要的参数和计算量要少得多。</p>
+<h2 id="实验结果总结"><a href="#实验结果总结" class="headerlink" title="实验结果总结"></a>实验结果总结</h2><p>总的来说，作者团队在CIFAR-10，CIFAR-100，SVHN和ImageNet四个数据集上评估了DenseNet。DenseNet倾向于采用比现有算法少得多的参数，而有可与之比肩的精度。此外，作者团队在大多数基准测试任务中的表现明显优于当前最先进的结果。</p>
+<h1 id="一些特性与优势"><a href="#一些特性与优势" class="headerlink" title="一些特性与优势"></a>一些特性与优势</h1><p>从表面上看，DenseNets与ResNets很相似，仅是输入 $H_l(·)​$ 的不同。但这个微小的不同导致了两种网络架构的显著的行为差异。</p>
+<h2 id="紧凑的模型"><a href="#紧凑的模型" class="headerlink" title="紧凑的模型"></a>紧凑的模型</h2><p>这种密集连接模式使得DenseNets的任何层学习到的特征图都能被后续的所有层访问。这鼓励整个网络中的特征重用，并使模型更加紧凑。</p>
+<h2 id="隐含的深度监督（implicit-deep-supervision）"><a href="#隐含的深度监督（implicit-deep-supervision）" class="headerlink" title="隐含的深度监督（implicit deep supervision）"></a>隐含的深度监督（implicit deep supervision）</h2><p>关于密集卷积网络的精确度的提高，有一种解释是各个层可能通过较短的连接从损失函数接受额外的监督。DenseNets可能执行一种“深度监督”。深度监督的好处已经在之前的深度监督网络（DSN）中显现，该网络在每一隐含层都加了分类器，迫使中间层也学习判断特征（discriminative features）。</p>
+<p>DensNets和深度监督网络相似：网络最后的分类器通过最多两个或三个过渡层为所有层都提供监督信息。然而，DenseNets的损失函数值和梯度不是很复杂，这是因为所有层之间共享了损失函数。</p>
+<h2 id="更少的参数"><a href="#更少的参数" class="headerlink" title="更少的参数"></a>更少的参数</h2><p>一个可能反直觉的效果是，DenseNets比传统的卷积网络需要更少的参数，因为它不需要重新学习冗余的特征图。</p>
+<p>传统的前馈结构可以被视为一种具有状态的算法，状态在层与层之间传递，每一层从前一层读取状态再写入到后续的层中。这种方式改变了状态，但也传递了需要保留的信息。</p>
+<p>ResNets通过附加的恒等变换使这种信息保留变得显著。最近ResNets的一些变种网络显示，许多层的贡献很少，实际上它们可以在训练期间被随机丢弃。这使得ResNet的状态接近于展开的循环神经网络（(unrolled) recurrent neural networks），而参数数量却远大于后者，因为每一层都有自己的权重。</p>
+<p>而DenseNet架构明确区分开了加到网络上的信息和要保留的信息。DenseNet层很狭窄（比如，每层只有12个滤波器），仅向网络的“集体知识”（collective knowledge）添加一小部分特征图，而其余的特征图保持不变。最终的分类器基于网络中所有的特征图进行决策。</p>
+<h2 id="改进的信息流"><a href="#改进的信息流" class="headerlink" title="改进的信息流"></a>改进的信息流</h2><p>除了更好的参数效率，DenseNet的一大优势是整个网络中不断改进的信息和梯度流，这使得网络易于训练。每个层都可以直接从损失函数和原始输入信号获得梯度，产生了隐藏的深度监督，这有助于更深层次的网络架构的训练。</p>
+<p>此外，作者团队也观察到密集连接有正则化的效果，这有助于减小在较小规模训练集上的任务的过拟合问题。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>作者团队提出了一个新的卷积网络结构DenseNet，它将有相同特征图尺寸的任意层进行连接，这样就可以自然地设计上百层的网络，而不会出现优化困难的问题。</p>
+<p>在实验中，随着参数量的增加，DenseNets的准确率也随之提高，而且也没有出现较差的表现或过拟合。此外，DenseNets有更少的参数和计算量。由于作者团队在实验中只是调整了对于残差网络的超参数，所以有理由相信通过调整更多的超参数和学习率，DenseNets的准确率还会有更大的提升。</p>
+<p>在这种简单的连接规则下，DenseNets可以很自然地将恒等映射（identity mapping）、深度监督（deep supervision）和深度多样化（diversified depth）结合在一起。根据实验来看，该结构通过对网络特征的重复利用，可以学习到更简单、准确率更高的模型。由于简化了内部表征和降低了特征冗余，DenseNets可能是目前计算机视觉领域中在卷积网络方面非常不错的特征提取器。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/神经网络/" rel="tag"># 神经网络</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/论文阅读/" rel="tag"># 论文阅读</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/28/forensic-course-essay/" rel="next" title="法医学课程感想">
+                <i class="fa fa-chevron-left"></i> 法医学课程感想
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        
+          <ul class="sidebar-nav motion-element">
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+              文章目录
+            </li>
+            <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+              站点概览
+            </li>
+          </ul>
+        
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="yuyu" />
+            
+              <p class="site-author-name" itemprop="name">yuyu</p>
+              <p class="site-description motion-element" itemprop="description">鱼鱼爱吃鱼</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuyuforest" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yumlin16@outlook.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://blog.csdn.net/squirrelyuyu" target="_blank" title="CSDN"><i class="fa fa-fw fa-cuttlefish"></i>CSDN</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://icytown.com" title="MegaShow" target="_blank">MegaShow</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zzfly.net/" title="Rytia" target="_blank">Rytia</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+        
+        <!--noindex-->
+          <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+            <div class="post-toc">
+
+              
+                
+              
+
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动机"><span class="nav-number">1.</span> <span class="nav-text">动机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决梯度消失问题"><span class="nav-number">1.1.</span> <span class="nav-text">解决梯度消失问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改善层之间的信息流"><span class="nav-number">1.2.</span> <span class="nav-text">改善层之间的信息流</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DenseNet网络架构"><span class="nav-number">2.</span> <span class="nav-text">DenseNet网络架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多细节"><span class="nav-number">3.</span> <span class="nav-text">更多细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#复合函数"><span class="nav-number">3.1.</span> <span class="nav-text">复合函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化层"><span class="nav-number">3.2.</span> <span class="nav-text">池化层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增长率"><span class="nav-number">3.3.</span> <span class="nav-text">增长率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#瓶颈层"><span class="nav-number">3.4.</span> <span class="nav-text">瓶颈层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩"><span class="nav-number">3.5.</span> <span class="nav-text">压缩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验过程"><span class="nav-number">4.</span> <span class="nav-text">实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练"><span class="nav-number">4.1.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CIFAR和SVHN上的分类结果"><span class="nav-number">4.2.</span> <span class="nav-text">CIFAR和SVHN上的分类结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageNet上的分类结果"><span class="nav-number">4.3.</span> <span class="nav-text">ImageNet上的分类结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果总结"><span class="nav-number">4.4.</span> <span class="nav-text">实验结果总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些特性与优势"><span class="nav-number">5.</span> <span class="nav-text">一些特性与优势</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#紧凑的模型"><span class="nav-number">5.1.</span> <span class="nav-text">紧凑的模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐含的深度监督（implicit-deep-supervision）"><span class="nav-number">5.2.</span> <span class="nav-text">隐含的深度监督（implicit deep supervision）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更少的参数"><span class="nav-number">5.3.</span> <span class="nav-text">更少的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进的信息流"><span class="nav-number">5.4.</span> <span class="nav-text">改进的信息流</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              
+
+            </div>
+          </section>
+        <!--/noindex-->
+        
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuyu</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
