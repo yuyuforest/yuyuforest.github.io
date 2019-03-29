@@ -108,20 +108,20 @@
 
 
 
-  <meta name="description" content="题目Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area.">
+  <meta name="description" content="题目 Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area.">
 <meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode | 85 Maximal Rectangle">
 <meta property="og:url" content="https://yuyuforest.github.io/2018/11/17/leetcode-85/index.html">
 <meta property="og:site_name" content="yuyu&#39;s forest">
-<meta property="og:description" content="题目Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area.">
+<meta property="og:description" content="题目 Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area.">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181117182741663.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181117195325620.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==,size_16,color_FFFFFF,t_70">
 <meta property="og:updated_time" content="2018-11-18T06:46:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode | 85 Maximal Rectangle">
-<meta name="twitter:description" content="题目Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area.">
+<meta name="twitter:description" content="题目 Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area.">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181117182741663.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==,size_16,color_FFFFFF,t_70">
 
 
@@ -410,12 +410,16 @@
       
 
       
-        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area.</p>
+        <h1 id="题目"><a class="header-anchor" href="#题目"> </a>题目</h1>
+<p>Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area.</p>
 <a id="more"></a>
-<p><strong>Example:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]</span><br><span class="line">]</span><br><span class="line">Output: 6</span><br></pre></td></tr></table></figure></p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]</span><br><span class="line">]</span><br><span class="line">Output: 6</span><br></pre></td></tr></table></figure>
 <p><strong>Difficulty:</strong> <code>Hard</code></p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>这道题是在“动态规划”主题里找到的，可以用动态规划来做。</p>
-<h1 id="算法1"><a href="#算法1" class="headerlink" title="算法1"></a>算法1</h1><p>对初始矩阵里的每个点 <code>(i,j)</code> ，都有一个在这个点右下方的搜索范围 <code>(i,j) ~ (row-1, col-1)</code> ，姑且称它为搜索矩阵。需要检查每个点，在它的搜索矩阵里进行对全1矩阵的搜索。</p>
+<h1 id="分析"><a class="header-anchor" href="#分析"> </a>分析</h1>
+<p>这道题是在“动态规划”主题里找到的，可以用动态规划来做。</p>
+<h1 id="算法1"><a class="header-anchor" href="#算法1"> </a>算法1</h1>
+<p>对初始矩阵里的每个点 <code>(i,j)</code> ，都有一个在这个点右下方的搜索范围 <code>(i,j) ~ (row-1, col-1)</code> ，姑且称它为搜索矩阵。需要检查每个点，在它的搜索矩阵里进行对全1矩阵的搜索。</p>
 <p><img src="https://img-blog.csdnimg.cn/20181117182741663.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==,size_16,color_FFFFFF,t_70" alt="搜索矩阵"></p>
 <p>事实上，一个全1矩阵的大小可以由左上角顶点和右下角顶点的坐标确定。那么怎么确定某两个顶点之间的矩阵是全1矩阵呢？</p>
 <p>这样做：保证搜索到的、每个为1的顶点都在一个全1矩阵里。即是说：搜索到0，就停止搜索。</p>
@@ -429,7 +433,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximalRectangle</span><span class="params">(vector&lt;vector&lt;<span class="keyword">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> row = matrix.size();</span><br><span class="line">        <span class="keyword">if</span>(!row) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> col = matrix[<span class="number">0</span>].size();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> size = row * col;</span><br><span class="line">        <span class="keyword">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> point = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)&#123;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; col; j++)&#123;</span><br><span class="line">        		<span class="keyword">int</span> newrow = row - i;</span><br><span class="line">        		<span class="keyword">int</span> newcol = col - j;</span><br><span class="line">        		<span class="keyword">int</span> newsize = newrow * newcol;</span><br><span class="line">        		<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; newrow; m++)&#123;</span><br><span class="line">        			<span class="keyword">for</span>(<span class="keyword">int</span> n = <span class="number">0</span>; n &lt; newcol; n++)&#123;</span><br><span class="line">        				<span class="keyword">if</span>(matrix[i + m][j + n] != <span class="string">'1'</span>)&#123;</span><br><span class="line">        					<span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</span><br><span class="line">        						newrow = m;</span><br><span class="line">        						<span class="keyword">break</span>;</span><br><span class="line">							&#125;</span><br><span class="line">        					newcol = n;</span><br><span class="line">        					<span class="keyword">continue</span>;</span><br><span class="line">						&#125;</span><br><span class="line">        				<span class="keyword">int</span> newArea = (m + <span class="number">1</span>) * (n + <span class="number">1</span>);</span><br><span class="line">        				<span class="keyword">if</span>(maxArea &lt; newArea) maxArea = newArea;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">        		point++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> maxArea;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>用时为 $16ms$ 。</p>
 <p>$N$ 为输入矩阵的大小，该算法的时间复杂度为 $O(N^2)$ ，空间复杂度为 $O(1)$ 。</p>
-<h1 id="算法2"><a href="#算法2" class="headerlink" title="算法2"></a>算法2</h1><p>这个算法来自题目下面的讨论：<a href="https://leetcode.com/problems/maximal-rectangle/discuss/29054/Share-my-DP-solution" target="_blank" rel="noopener">Share my DP solution</a></p>
+<h1 id="算法2"><a class="header-anchor" href="#算法2"> </a>算法2</h1>
+<p>这个算法来自题目下面的讨论：<a href="https://leetcode.com/problems/maximal-rectangle/discuss/29054/Share-my-DP-solution" target="_blank" rel="noopener">Share my DP solution</a></p>
 <p>思路如下：</p>
 <blockquote>
 <ul>
@@ -477,7 +482,8 @@
 <p>C++代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">maximalRectangle</span><span class="params">(vector&lt;vector&lt;<span class="keyword">char</span>&gt; &gt; &amp;matrix)</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">if</span>(matrix.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	    <span class="keyword">const</span> <span class="keyword">int</span> m = matrix.size();</span><br><span class="line">	    <span class="keyword">const</span> <span class="keyword">int</span> n = matrix[<span class="number">0</span>].size();</span><br><span class="line">	    <span class="keyword">int</span> left[n], right[n], height[n];</span><br><span class="line">	    fill_n(left,n,<span class="number">0</span>); fill_n(right,n,n); fill_n(height,n,<span class="number">0</span>);</span><br><span class="line">	    <span class="keyword">int</span> maxA = <span class="number">0</span>;</span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m; i++) &#123;</span><br><span class="line">	        <span class="keyword">int</span> cur_left=<span class="number">0</span>, cur_right=n; </span><br><span class="line">	        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n; j++) &#123; <span class="comment">// compute height (can do this from either side)</span></span><br><span class="line">	            <span class="keyword">if</span>(matrix[i][j]==<span class="string">'1'</span>) height[j]++; </span><br><span class="line">	            <span class="keyword">else</span> height[j]=<span class="number">0</span>;</span><br><span class="line">	        &#125;</span><br><span class="line">	        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n; j++) &#123; <span class="comment">// compute left (from left to right)</span></span><br><span class="line">	            <span class="keyword">if</span>(matrix[i][j]==<span class="string">'1'</span>) left[j]=max(left[j],cur_left);</span><br><span class="line">	            <span class="keyword">else</span> &#123;left[j]=<span class="number">0</span>; cur_left=j+<span class="number">1</span>;&#125;</span><br><span class="line">	        &#125;</span><br><span class="line">	        <span class="comment">// compute right (from right to left)</span></span><br><span class="line">	        <span class="keyword">for</span>(<span class="keyword">int</span> j=n-<span class="number">1</span>; j&gt;=<span class="number">0</span>; j--) &#123;</span><br><span class="line">	            <span class="keyword">if</span>(matrix[i][j]==<span class="string">'1'</span>) right[j]=min(right[j],cur_right);</span><br><span class="line">	            <span class="keyword">else</span> &#123;right[j]=n; cur_right=j;&#125;    </span><br><span class="line">	        &#125;</span><br><span class="line">	        <span class="comment">// compute the area of rectangle (can do this from either side)</span></span><br><span class="line">	        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n; j++)</span><br><span class="line">	            maxA = max(maxA,(right[j]-left[j])*height[j]);</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="keyword">return</span> maxA;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>用时为 $16ms$ ，时间复杂度为 $O(N)$ ，空间复杂度为 $O(N)$ 。</p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>我的算法1有一处不足：会重复搜索某些地方，不算是好的动态规划。（甚至不知道它算不算是动态规划。）</p>
+<h1 id="小结"><a class="header-anchor" href="#小结"> </a>小结</h1>
+<p>我的算法1有一处不足：会重复搜索某些地方，不算是好的动态规划。（甚至不知道它算不算是动态规划。）</p>
 <p>而算法2没有重复的问题，较好地利用了之前的状态。</p>
 <p>这道题的难度就在于如何不重复地利用之前的状态进行动态规划，尤其是，这道题存在重叠的全1矩阵。</p>
 
@@ -751,7 +757,7 @@
               
 
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法1"><span class="nav-number">3.</span> <span class="nav-text">算法1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法2"><span class="nav-number">4.</span> <span class="nav-text">算法2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text"> 题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text"> 分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法1"><span class="nav-number">3.</span> <span class="nav-text"> 算法1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法2"><span class="nav-number">4.</span> <span class="nav-text"> 算法2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text"> 小结</span></a></li></ol></div>
               
 
             </div>
@@ -928,6 +934,37 @@
   
 
   
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
 
   
   

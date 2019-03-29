@@ -108,19 +108,19 @@
 
 
 
-  <meta name="description" content="题目Shortest Subarray with Sum at Least K Return the length of the shortest, non-empty, contiguous subarray of A with sum at least K. If there is no non-empty subarray with sum at least K, return -1.">
+  <meta name="description" content="题目 Shortest Subarray with Sum at Least K Return the length of the shortest, non-empty, contiguous subarray of A with sum at least K. If there is no non-empty subarray with sum at least K, return -1.">
 <meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode | 862 Shortest Subarray with Sum at Least K">
 <meta property="og:url" content="https://yuyuforest.github.io/2018/10/08/leetcode-862/index.html">
 <meta property="og:site_name" content="yuyu&#39;s forest">
-<meta property="og:description" content="题目Shortest Subarray with Sum at Least K Return the length of the shortest, non-empty, contiguous subarray of A with sum at least K. If there is no non-empty subarray with sum at least K, return -1.">
+<meta property="og:description" content="题目 Shortest Subarray with Sum at Least K Return the length of the shortest, non-empty, contiguous subarray of A with sum at least K. If there is no non-empty subarray with sum at least K, return -1.">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdn.net/20181008091237147?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:updated_time" content="2018-10-08T10:31:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode | 862 Shortest Subarray with Sum at Least K">
-<meta name="twitter:description" content="题目Shortest Subarray with Sum at Least K Return the length of the shortest, non-empty, contiguous subarray of A with sum at least K. If there is no non-empty subarray with sum at least K, return -1.">
+<meta name="twitter:description" content="题目 Shortest Subarray with Sum at Least K Return the length of the shortest, non-empty, contiguous subarray of A with sum at least K. If there is no non-empty subarray with sum at least K, return -1.">
 <meta name="twitter:image" content="https://img-blog.csdn.net/20181008091237147?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 
@@ -397,7 +397,8 @@
       
 
       
-        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/description/" target="_blank" rel="noopener">Shortest Subarray with Sum at Least K</a></p>
+        <h1 id="题目"><a class="header-anchor" href="#题目"> </a>题目</h1>
+<p><a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/description/" target="_blank" rel="noopener">Shortest Subarray with Sum at Least K</a></p>
 <p>Return the length of the shortest, non-empty, contiguous subarray of A with sum at least K.</p>
 <p>If there is no non-empty subarray with sum at least K, return -1.</p>
 <a id="more"></a>
@@ -414,12 +415,15 @@
 <li><code>1 &lt;= K &lt;= 10 ^ 9</code></li>
 </ol>
 <p><strong>Difficulty:</strong> <code>Hard</code></p>
-<h1 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h1><p>这个问题要求出所给数组中，所有数之和至少为K的子数组的最短长度。</p>
-<h2 id="暴力求解"><a href="#暴力求解" class="headerlink" title="暴力求解"></a>暴力求解</h2><p>建立 <code>long int</code> 类型的数组 <code>sums</code> ，<code>sums[i]</code> 表示前 i 个数的和。那么，就可以由 <code>sums[j] - sums[i]</code> 求出从第 i + 1 个数到第 j 个数的和了。这样只要遍历一次源数组，比对每个数对 ( i , j ) 都相加这个区间内的若干个数要高效。</p>
+<h1 id="分析过程"><a class="header-anchor" href="#分析过程"> </a>分析过程</h1>
+<p>这个问题要求出所给数组中，所有数之和至少为K的子数组的最短长度。</p>
+<h2 id="暴力求解"><a class="header-anchor" href="#暴力求解"> </a>暴力求解</h2>
+<p>建立 <code>long int</code> 类型的数组 <code>sums</code> ，<code>sums[i]</code> 表示前 i 个数的和。那么，就可以由 <code>sums[j] - sums[i]</code> 求出从第 i + 1 个数到第 j 个数的和了。这样只要遍历一次源数组，比对每个数对 ( i , j ) 都相加这个区间内的若干个数要高效。</p>
 <p>然后，对每个数对 ( i , j ) ，都检查 <code>sums[j] - sums[i] &gt;= K</code> 是否成立。时间复杂度是 $O(N^2)$ 。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">shortestSubarray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; A, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">const</span> <span class="keyword">int</span> size2 = A.size() + <span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">long</span> <span class="keyword">int</span> sums[size2] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    	<span class="keyword">int</span> min = A.size();</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size2; i++)&#123;</span><br><span class="line">        	<span class="keyword">if</span>(A[i - <span class="number">1</span>] &gt;= K) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        	sums[i] = sums[i - <span class="number">1</span>] + A[i - <span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size2; i++)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; size2 &amp;&amp; j &lt; i + min; j++)&#123;</span><br><span class="line">				<span class="keyword">if</span>(sums[j] - sums[i] &gt;= K &amp;&amp; min &gt; j - i)&#123;</span><br><span class="line">					min = j - i;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(min == A.size() &amp;&amp; sums[A.size()] &lt; K) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">return</span> min;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>但是，提交后结果是 <code>Time Limit Exceeded</code> 。有几个源数组很长的输入，这个算法还不够高效。</p>
-<h2 id="寻找优化"><a href="#寻找优化" class="headerlink" title="寻找优化"></a>寻找优化</h2><p>来看看这个问题中，有哪些能用于优化算法的性质。</p>
+<h2 id="寻找优化"><a class="header-anchor" href="#寻找优化"> </a>寻找优化</h2>
+<p>来看看这个问题中，有哪些能用于优化算法的性质。</p>
 <p>可以把 <code>sums</code> 想象成一个折线图，横坐标是 <code>sums</code> 数组的索引，纵坐标是索引对应的元素值。两个相邻的点 <code>sums[i]</code> 和 <code>sums[i + 1]</code> 之间的线段，可看作 <code>A[i]</code> 。</p>
 <p>一个符合要求的子数组可由 <code>(begin , end)</code> 来定义，即这个数组之和等于 <code>sums[end] - sums[begin]</code> ，它包括了第 <code>begin + 1</code> 个数到第 <code>end</code> 个数。</p>
 <p>① <code>sums[begin]</code> 右边应该是一条上升的线段，也即 <code>A[begin] &gt; 0</code> 或 <code>sums[begin] &lt; sums[begin + 1]</code>。因为如果 <code>sums[begin] &gt;= sums[begin + 1]</code> ，那么 <code>end - (begin + 1)</code> 是比 <code>end - begin</code> 更小、更好的答案。</p>
@@ -430,13 +434,15 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">shortestSubarray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; A, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">const</span> <span class="keyword">int</span> size2 = A.size() + <span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">long</span> <span class="keyword">int</span> sums[size2] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    	<span class="keyword">int</span> min = size2;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size2; i++)&#123;</span><br><span class="line">        	<span class="keyword">if</span>(A[i - <span class="number">1</span>] &gt;= K) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        	sums[i] = sums[i - <span class="number">1</span>] + A[i - <span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; increase;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.size(); i++)&#123;</span><br><span class="line">        	<span class="keyword">if</span>(A[i] &gt; <span class="number">0</span>) increase.push_back(i);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; increase.size(); )&#123;</span><br><span class="line">			<span class="keyword">int</span> minIndex = increase[i];</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; increase.size(); j++)&#123;</span><br><span class="line">				<span class="keyword">int</span> y = increase[j];</span><br><span class="line">				<span class="keyword">if</span>(sums[y] &lt;= sums[minIndex])&#123;</span><br><span class="line">					minIndex = y;</span><br><span class="line">					i = j;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span>(sums[y + <span class="number">1</span>] &gt;= sums[minIndex] + K &amp;&amp; min &gt; y + <span class="number">1</span> - minIndex)&#123;</span><br><span class="line">					min = y + <span class="number">1</span> - minIndex;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(min == size2) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">return</span> min;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度仍是 $O(N^2)$ 。而结果，还是 <code>Time Limit Exceeded</code> ！</p>
 <p>怎么办呢？</p>
-<h2 id="由end寻找begin"><a href="#由end寻找begin" class="headerlink" title="由end寻找begin"></a>由end寻找begin</h2><p>上面的算法是由 <code>begin</code> 寻找 <code>end</code> 。如果由 <code>end</code> 寻找 <code>begin</code> 呢？</p>
+<h2 id="由end寻找begin"><a class="header-anchor" href="#由end寻找begin"> </a>由end寻找begin</h2>
+<p>上面的算法是由 <code>begin</code> 寻找 <code>end</code> 。如果由 <code>end</code> 寻找 <code>begin</code> 呢？</p>
 <p>④ 由 ② 可知，对某个 <code>end</code> 来说，如果存在点 <code>sums[i] &gt;= sums[end]</code> 且 <code>i &lt; end</code> ，那么这个 <code>i</code> 不会是这个 <code>end</code> 及后来的 <code>end</code> 们的最佳 <code>begin</code> 。所以，我们可以把这个点 <code>i</code> 去掉，不计算 <code>sums[end] - sums[i]</code>。</p>
 <p><img src="https://img-blog.csdn.net/20181008091237147?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
 <p>⑤ 第 ④ 个性质中，去掉 <code>i</code> 的操作可以产生一个上升的点序列。对这个 <code>end</code> 来说，如果它的最佳 <code>begin</code> 找到了，那么前面的其他小于 <code>sums[begin]</code> 的 <code>sums[i]</code> 也再不用被这个 <code>end</code> 及后面的其他 <code>end</code> 们考虑。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">shortestSubarray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; A, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">const</span> <span class="keyword">int</span> size2 = A.size() + <span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">long</span> <span class="keyword">int</span> sums[size2] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    	<span class="keyword">int</span> min = size2;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size2; i++)&#123;</span><br><span class="line">        	<span class="keyword">if</span>(A[i - <span class="number">1</span>] &gt;= K) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        	sums[i] = sums[i - <span class="number">1</span>] + A[i - <span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">list</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> end = <span class="number">0</span>; end &lt; size2; end++)&#123;</span><br><span class="line">			<span class="keyword">while</span>(!<span class="built_in">list</span>.empty() &amp;&amp; sums[<span class="built_in">list</span>.back()] &gt;= sums[end])&#123;</span><br><span class="line">				<span class="built_in">list</span>.pop_back();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">while</span>(!<span class="built_in">list</span>.empty() &amp;&amp; sums[<span class="built_in">list</span>.front()] + K &lt;= sums[end])&#123;</span><br><span class="line">				<span class="keyword">int</span> distance = end - <span class="built_in">list</span>.front();</span><br><span class="line">				<span class="built_in">list</span>.pop_front();</span><br><span class="line">				<span class="keyword">if</span>(min &gt; distance) min = distance;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">list</span>.push_back(end);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(min == size2) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">return</span> min;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度是 $O(N)$ 。结果：AC！</p>
-<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>在【分析过程】中写的【寻找优化】，和它之后的【由end寻找begin】相比，看起来前者好像没什么用。但是记录下自己曲折的思考过程，我想这也是一种总结、一种收获吧。</p>
+<h1 id="结语"><a class="header-anchor" href="#结语"> </a>结语</h1>
+<p>在【分析过程】中写的【寻找优化】，和它之后的【由end寻找begin】相比，看起来前者好像没什么用。但是记录下自己曲折的思考过程，我想这也是一种总结、一种收获吧。</p>
 <p>还有就是，这道题真难啊，最终还是看了 LeetCode 上的 Solution 才 AC，我好菜啊。</p>
 
       
@@ -709,7 +715,7 @@
               
 
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析过程"><span class="nav-number">2.</span> <span class="nav-text">分析过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力求解"><span class="nav-number">2.1.</span> <span class="nav-text">暴力求解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找优化"><span class="nav-number">2.2.</span> <span class="nav-text">寻找优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#由end寻找begin"><span class="nav-number">2.3.</span> <span class="nav-text">由end寻找begin</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text"> 题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析过程"><span class="nav-number">2.</span> <span class="nav-text"> 分析过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力求解"><span class="nav-number">2.1.</span> <span class="nav-text"> 暴力求解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找优化"><span class="nav-number">2.2.</span> <span class="nav-text"> 寻找优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#由end寻找begin"><span class="nav-number">2.3.</span> <span class="nav-text"> 由end寻找begin</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text"> 结语</span></a></li></ol></div>
               
 
             </div>
@@ -886,6 +892,37 @@
   
 
   
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
 
   
   

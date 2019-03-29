@@ -108,20 +108,20 @@
 
 
 
-  <meta name="description" content="题目K-Similar Strings Strings A and B are K-similar (for some non-negative integer K) if we can swap the positions of two letters in A exactly K times so that the resulting string equals B. Given two an">
+  <meta name="description" content="题目 K-Similar Strings Strings A and B are K-similar (for some non-negative integer K) if we can swap the positions of two letters in A exactly K times so that the resulting string equals B. Given two">
 <meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode | 854 K-Similar Strings">
 <meta property="og:url" content="https://yuyuforest.github.io/2018/11/10/leetcode-854/index.html">
 <meta property="og:site_name" content="yuyu&#39;s forest">
-<meta property="og:description" content="题目K-Similar Strings Strings A and B are K-similar (for some non-negative integer K) if we can swap the positions of two letters in A exactly K times so that the resulting string equals B. Given two an">
+<meta property="og:description" content="题目 K-Similar Strings Strings A and B are K-similar (for some non-negative integer K) if we can swap the positions of two letters in A exactly K times so that the resulting string equals B. Given two">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181109193609393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181109193647748.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==,size_16,color_FFFFFF,t_70">
 <meta property="og:updated_time" content="2018-11-11T07:00:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode | 854 K-Similar Strings">
-<meta name="twitter:description" content="题目K-Similar Strings Strings A and B are K-similar (for some non-negative integer K) if we can swap the positions of two letters in A exactly K times so that the resulting string equals B. Given two an">
+<meta name="twitter:description" content="题目 K-Similar Strings Strings A and B are K-similar (for some non-negative integer K) if we can swap the positions of two letters in A exactly K times so that the resulting string equals B. Given two">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181109193609393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==,size_16,color_FFFFFF,t_70">
 
 
@@ -410,35 +410,44 @@
       
 
       
-        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode.com/problems/k-similar-strings/description/" target="_blank" rel="noopener">K-Similar Strings</a></p>
+        <h1 id="题目"><a class="header-anchor" href="#题目"> </a>题目</h1>
+<p><a href="https://leetcode.com/problems/k-similar-strings/description/" target="_blank" rel="noopener">K-Similar Strings</a></p>
 <p>Strings A and B are K-similar (for some non-negative integer K) if we can swap the positions of two letters in A exactly K times so that the resulting string equals B.</p>
 <p>Given two anagrams A and B, return the smallest K for which A and B are K-similar.</p>
 <a id="more"></a>
-<p><strong>Example 1:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A = &quot;ab&quot;, B = &quot;ba&quot;</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure></p>
-<p><strong>Example 2:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A = &quot;abc&quot;, B = &quot;bca&quot;</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure></p>
-<p><strong>Example 3:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A = &quot;abac&quot;, B = &quot;baca&quot;</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure></p>
-<p><strong>Example 4:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A = &quot;aabc&quot;, B = &quot;abca&quot;</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure></p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A = &quot;ab&quot;, B = &quot;ba&quot;</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A = &quot;abc&quot;, B = &quot;bca&quot;</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A = &quot;abac&quot;, B = &quot;baca&quot;</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A = &quot;aabc&quot;, B = &quot;abca&quot;</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
 <p><strong>Note:</strong></p>
 <ol>
 <li>1 &lt;= A.length == B.length &lt;= 20</li>
 <li>A and B contain only lowercase letters from the set {‘a’, ‘b’, ‘c’, ‘d’, ‘e’, ‘f’}</li>
 </ol>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>根据 K-Similar String 的产生过程，可以设想，每个 <code>a[i]-&gt;b[i]</code> 都是一条边（除了 <code>a[i] == b[i]</code> 的情况），所有的 <code>a[i]-&gt;b[i]</code> 构成一个图。<code>a[i]</code> 不断交换到 <code>b[j]</code> 的过程产生一个环。</p>
-<p>例如，由”aabc”和”abca”，”aabbccddee”和”cdacbeebad”，可以构造如下的图：</p>
+<h1 id="分析"><a class="header-anchor" href="#分析"> </a>分析</h1>
+<p>根据 K-Similar String 的产生过程，可以设想，每个 <code>a[i]-&gt;b[i]</code> 都是一条边（除了 <code>a[i] == b[i]</code> 的情况），所有的 <code>a[i]-&gt;b[i]</code> 构成一个图。<code>a[i]</code> 不断交换到 <code>b[j]</code> 的过程产生一个环。</p>
+<p>例如，由&quot;aabc&quot;和&quot;abca&quot;，“aabbccddee&quot;和&quot;cdacbeebad”，可以构造如下的图：</p>
 <p><img src="https://img-blog.csdnimg.cn/20181109193609393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==,size_16,color_FFFFFF,t_70" alt=""></p>
 <p>对一个环，交换的次数 = 这个环的节点数 - 1。</p>
 <p>那么是不是可以通过把环分离出来，寻找答案呢？</p>
-<p>其实很难。因为有一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A=&quot;aeabcdefbcdf&quot;</span><br><span class="line">B=&quot;bcdfbeaaefcd&quot;</span><br></pre></td></tr></table></figure></p>
+<p>其实很难。因为有一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A=&quot;aeabcdefbcdf&quot;</span><br><span class="line">B=&quot;bcdfbeaaefcd&quot;</span><br></pre></td></tr></table></figure>
 <p>由此构造的图，可以有如下两组不同的环分解结果：</p>
 <p><img src="https://img-blog.csdnimg.cn/20181109193647748.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NxdWlycmVsWXV5dQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>我改了许多次代码后，因为这个例子而再次失败了，一看，我觉得……扑街啊。</p>
 <p>如果要把里面包含的各种环都分离出来，是很复杂的。那么，考虑不将字符看作节点，而是将整个字符串看作一个节点，一次简单的交换操作构成一条边，通过BFS来找到终点的最短路径。</p>
-<h2 id="以字符串为节点，进行BFS"><a href="#以字符串为节点，进行BFS" class="headerlink" title="以字符串为节点，进行BFS"></a>以字符串为节点，进行BFS</h2><p>设A为源字符串，B为目的字符串，这样定义一个节点字符串S的子节点：</p>
+<h2 id="以字符串为节点-进行bfs"><a class="header-anchor" href="#以字符串为节点-进行bfs"> </a>以字符串为节点，进行BFS</h2>
+<p>设A为源字符串，B为目的字符串，这样定义一个节点字符串S的子节点：</p>
 <p>找到B的第一个不和S匹配的字符 <code>c</code> ，位于 <code>i</code> ，从 <code>i</code> 开始再找S的第一个 <code>c</code> 所在的位置 <code>j</code> ，交换 <code>S[i]</code> 和 <code>S[j]</code> 获得子节点。</p>
 <p>C++代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kSimilarity</span><span class="params">(string A, string B)</span> </span>&#123;</span><br><span class="line">		queue&lt;string&gt; q;</span><br><span class="line">		map&lt;string, <span class="keyword">int</span>&gt; distance;</span><br><span class="line">		q.push(A);</span><br><span class="line">		distance[A] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (!findNext(q, distance, B));</span><br><span class="line">		<span class="keyword">return</span> distance[B];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function">bool <span class="title">findNext</span><span class="params">(queue&lt;string&gt; &amp;q, map&lt;string, <span class="keyword">int</span>&gt; &amp;distance, <span class="keyword">const</span> string &amp;B)</span> </span>&#123;</span><br><span class="line">		string A = q.front();</span><br><span class="line">		q.pop();</span><br><span class="line">		<span class="keyword">int</span> i;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; A.length(); i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (A[i] != B[i]) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (i == A.length()) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; A.length(); j++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (B[i] == A[j]) &#123;</span><br><span class="line">				string C = A;</span><br><span class="line">				C[j] = A[i];</span><br><span class="line">				C[i] = A[j];</span><br><span class="line">				<span class="keyword">if</span> (distance.find(C) == distance.end()) &#123;</span><br><span class="line">					distance[C] = distance[A] + <span class="number">1</span>;</span><br><span class="line">					q.push(C);</span><br><span class="line">					<span class="keyword">if</span> (C == B) &#123;</span><br><span class="line">						<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>用时 $124ms$ 。</p>
-<h2 id="暴力动态规划"><a href="#暴力动态规划" class="headerlink" title="暴力动态规划"></a>暴力动态规划</h2><p>根据网站所给的解答，还可以采用暴力动态规划来做这道题。</p>
+<h2 id="暴力动态规划"><a class="header-anchor" href="#暴力动态规划"> </a>暴力动态规划</h2>
+<p>根据网站所给的解答，还可以采用暴力动态规划来做这道题。</p>
 <p>在进行规划之前，将字符看作节点，源字符串和目的字符串之间的转移关系是初始图，用一个长度为6*6的数组来表示这个图。</p>
 <p>因为这个图中的交换次数等于 $∑(CL_i-1)$ ，其中 $CL_i$ 表示图中某个环 $C_i$ 的长度，</p>
 <p>所以，这个图中的交换次数也等于 $(Number \ \ of \ \ nonself \ \ edges)−(Number \ \ of \ \ cycles)$ 。</p>
@@ -718,7 +727,7 @@
               
 
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#以字符串为节点，进行BFS"><span class="nav-number">2.1.</span> <span class="nav-text">以字符串为节点，进行BFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力动态规划"><span class="nav-number">2.2.</span> <span class="nav-text">暴力动态规划</span></a></li></ol></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text"> 题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text"> 分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#以字符串为节点-进行bfs"><span class="nav-number">2.1.</span> <span class="nav-text"> 以字符串为节点，进行BFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力动态规划"><span class="nav-number">2.2.</span> <span class="nav-text"> 暴力动态规划</span></a></li></ol></li></ol></div>
               
 
             </div>
@@ -895,6 +904,37 @@
   
 
   
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
 
   
   
