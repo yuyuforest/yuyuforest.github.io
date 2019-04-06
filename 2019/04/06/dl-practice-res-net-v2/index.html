@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="任务 使用pytorch来搭建及训练论文《Identity Mapping in Deep Residual Networks》中提出的ResNet v2神经网络。">
+<meta name="keywords" content="深度学习,神经网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习 | ResNet v2 训练过程">
+<meta property="og:url" content="https://yuyuforest.github.io/2019/04/06/dl-practice-res-net-v2/index.html">
+<meta property="og:site_name" content="yuyu&#39;s forest">
+<meta property="og:description" content="任务 使用pytorch来搭建及训练论文《Identity Mapping in Deep Residual Networks》中提出的ResNet v2神经网络。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/04/06/dl-practice-res-net-v2/data.png">
+<meta property="og:updated_time" content="2019-04-06T09:47:28.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习 | ResNet v2 训练过程">
+<meta name="twitter:description" content="任务 使用pytorch来搭建及训练论文《Identity Mapping in Deep Residual Networks》中提出的ResNet v2神经网络。">
+<meta name="twitter:image" content="https://yuyuforest.github.io/2019/04/06/dl-practice-res-net-v2/data.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuyuforest.github.io/2019/04/06/dl-practice-res-net-v2/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>深度学习 | ResNet v2 训练过程 | yuyu's forest</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yuyu's forest</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2019/04/06/dl-practice-res-net-v2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuyu">
+      <meta itemprop="description" content="鱼鱼爱吃鱼">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yuyu's forest">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习 | ResNet v2 训练过程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-06 00:35:41 / 修改时间：17:47:28" itemprop="dateCreated datePublished" datetime="2019-04-06T00:35:41+08:00">2019-04-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/实践/" itemprop="url" rel="index"><span itemprop="name">实践</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="任务"><a class="header-anchor" href="#任务"> </a>任务</h1>
+<p>使用pytorch来搭建及训练论文《Identity Mapping in Deep Residual Networks》中提出的ResNet v2神经网络。</p>
+<a id="more"></a>
+<h1 id="运行环境"><a class="header-anchor" href="#运行环境"> </a>运行环境</h1>
+<p>在pytorch中，可以通过<code>torch.cuda</code>来使用GPU加速运算。但是这个包只支持NVIDIA显卡，而我的电脑上没有该显卡。而使用CPU跑神经网络很慢，几个小时都未必能跑完第一遍。所以我选择使用机器学习的相关网站来在线训练神经网络，比如<a href="www.kaggle.com">Kaggle</a>，它提供了可以应用<code>torch.cuda</code>加速的线上GPU环境。</p>
+<p>在Kaggle上随便点开一个竞赛，新建内核，然后上传自己的数据到input文件夹里，就可以开始神经网络的搭建与训练了，如下图：</p>
+<p><img src="/2019/04/06/dl-practice-res-net-v2/data.png" alt=""></p>
+<p>（文件夹以压缩包的形式上传，图中的data即为我上传的数据。cifar-10-batches-py是我新建的个人数据集。）</p>
+<p>值得一提的是，Kaggle上的内核可以fork，所以可以建立多个基本代码相同、超参数稍有不同的内核来同时跑不同的超参数下的同一个神经网络。</p>
+<h1 id="代码"><a class="header-anchor" href="#代码"> </a>代码</h1>
+<h2 id="搭建18层的resnet-v2神经网络"><a class="header-anchor" href="#搭建18层的resnet-v2神经网络"> </a>搭建18层的ResNet v2神经网络</h2>
+<p>由于ResNet v2是在ResNet的基础上改进的，我参考了pytorch官方对ResNet的实现：<a href="https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py" target="_blank" rel="noopener">代码地址</a></p>
+<p>从中挑出和18层ResNet有关的部分，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.utils.model_zoo <span class="keyword">as</span> model_zoo</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">__all__ = [<span class="string">'ResNet'</span>, <span class="string">'resnet18'</span>, <span class="string">'resnet34'</span>, <span class="string">'resnet50'</span>, <span class="string">'resnet101'</span>,</span><br><span class="line">           <span class="string">'resnet152'</span>, <span class="string">'resnext50_32x4d'</span>, <span class="string">'resnext101_32x8d'</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model_urls = &#123;</span><br><span class="line">    <span class="string">'resnet18'</span>: <span class="string">'https://download.pytorch.org/models/resnet18-5c106cde.pth'</span>,</span><br><span class="line">    <span class="string">'resnet34'</span>: <span class="string">'https://download.pytorch.org/models/resnet34-333f7ec4.pth'</span>,</span><br><span class="line">    <span class="string">'resnet50'</span>: <span class="string">'https://download.pytorch.org/models/resnet50-19c8e357.pth'</span>,</span><br><span class="line">    <span class="string">'resnet101'</span>: <span class="string">'https://download.pytorch.org/models/resnet101-5d3b4d8f.pth'</span>,</span><br><span class="line">    <span class="string">'resnet152'</span>: <span class="string">'https://download.pytorch.org/models/resnet152-b121ed2d.pth'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv3x3</span><span class="params">(in_planes, out_planes, stride=<span class="number">1</span>, groups=<span class="number">1</span>)</span>:</span></span><br><span class="line">    <span class="string">"""3x3 convolution with padding"""</span></span><br><span class="line">    <span class="keyword">return</span> nn.Conv2d(in_planes, out_planes, kernel_size=<span class="number">3</span>, stride=stride,</span><br><span class="line">                     padding=<span class="number">1</span>, groups=groups, bias=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv1x1</span><span class="params">(in_planes, out_planes, stride=<span class="number">1</span>)</span>:</span></span><br><span class="line">    <span class="string">"""1x1 convolution"""</span></span><br><span class="line">    <span class="keyword">return</span> nn.Conv2d(in_planes, out_planes, kernel_size=<span class="number">1</span>, stride=stride, bias=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BasicBlock</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    expansion = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, inplanes, planes, stride=<span class="number">1</span>, downsample=None, groups=<span class="number">1</span>, norm_layer=None)</span>:</span></span><br><span class="line">        super(BasicBlock, self).__init__()</span><br><span class="line">        <span class="keyword">if</span> norm_layer <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            norm_layer = nn.BatchNorm2d</span><br><span class="line">        <span class="keyword">if</span> groups != <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'BasicBlock only supports groups=1'</span>)</span><br><span class="line">        <span class="comment"># Both self.conv1 and self.downsample layers downsample the input when stride != 1</span></span><br><span class="line">        self.conv1 = conv3x3(inplanes, planes, stride)</span><br><span class="line">        self.bn1 = norm_layer(planes)</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.conv2 = conv3x3(planes, planes)</span><br><span class="line">        self.bn2 = norm_layer(planes)</span><br><span class="line">        self.downsample = downsample</span><br><span class="line">        self.stride = stride</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        identity = x</span><br><span class="line"></span><br><span class="line">        out = self.conv1(x)</span><br><span class="line">        out = self.bn1(out)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line"></span><br><span class="line">        out = self.conv2(out)</span><br><span class="line">        out = self.bn2(out)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.downsample <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            identity = self.downsample(x)</span><br><span class="line"></span><br><span class="line">        out += identity</span><br><span class="line">        out = self.relu(out)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ResNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, block, layers, num_classes=<span class="number">1000</span>, zero_init_residual=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                 groups=<span class="number">1</span>, width_per_group=<span class="number">64</span>, norm_layer=None)</span>:</span></span><br><span class="line">        super(ResNet, self).__init__()</span><br><span class="line">        <span class="keyword">if</span> norm_layer <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            norm_layer = nn.BatchNorm2d</span><br><span class="line">        planes = [int(width_per_group * groups * <span class="number">2</span> ** i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>)]</span><br><span class="line">        self.inplanes = planes[<span class="number">0</span>]</span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, planes[<span class="number">0</span>], kernel_size=<span class="number">7</span>, stride=<span class="number">2</span>, padding=<span class="number">3</span>,</span><br><span class="line">                               bias=<span class="keyword">False</span>)</span><br><span class="line">        self.bn1 = norm_layer(planes[<span class="number">0</span>])</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.maxpool = nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line">        self.layer1 = self._make_layer(block, planes[<span class="number">0</span>], layers[<span class="number">0</span>], groups=groups, norm_layer=norm_layer)</span><br><span class="line">        self.layer2 = self._make_layer(block, planes[<span class="number">1</span>], layers[<span class="number">1</span>], stride=<span class="number">2</span>, groups=groups, norm_layer=norm_layer)</span><br><span class="line">        self.layer3 = self._make_layer(block, planes[<span class="number">2</span>], layers[<span class="number">2</span>], stride=<span class="number">2</span>, groups=groups, norm_layer=norm_layer)</span><br><span class="line">        self.layer4 = self._make_layer(block, planes[<span class="number">3</span>], layers[<span class="number">3</span>], stride=<span class="number">2</span>, groups=groups, norm_layer=norm_layer)</span><br><span class="line">        self.avgpool = nn.AdaptiveAvgPool2d((<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.fc = nn.Linear(planes[<span class="number">3</span>] * block.expansion, num_classes)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> self.modules():</span><br><span class="line">            <span class="keyword">if</span> isinstance(m, nn.Conv2d):</span><br><span class="line">                nn.init.kaiming_normal_(m.weight, mode=<span class="string">'fan_out'</span>, nonlinearity=<span class="string">'relu'</span>)</span><br><span class="line">            <span class="keyword">elif</span> isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):</span><br><span class="line">                nn.init.constant_(m.weight, <span class="number">1</span>)</span><br><span class="line">                nn.init.constant_(m.bias, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Zero-initialize the last BN in each residual branch,</span></span><br><span class="line">        <span class="comment"># so that the residual branch starts with zeros, and each residual block behaves like an identity.</span></span><br><span class="line">        <span class="comment"># This improves the model by 0.2~0.3% according to https://arxiv.org/abs/1706.02677</span></span><br><span class="line">        <span class="keyword">if</span> zero_init_residual:</span><br><span class="line">            <span class="keyword">for</span> m <span class="keyword">in</span> self.modules():</span><br><span class="line">                <span class="keyword">if</span> isinstance(m, Bottleneck):</span><br><span class="line">                    nn.init.constant_(m.bn3.weight, <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">elif</span> isinstance(m, BasicBlock):</span><br><span class="line">                    nn.init.constant_(m.bn2.weight, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_make_layer</span><span class="params">(self, block, planes, blocks, stride=<span class="number">1</span>, groups=<span class="number">1</span>, norm_layer=None)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> norm_layer <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            norm_layer = nn.BatchNorm2d</span><br><span class="line">        downsample = <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">if</span> stride != <span class="number">1</span> <span class="keyword">or</span> self.inplanes != planes * block.expansion:</span><br><span class="line">            downsample = nn.Sequential(</span><br><span class="line">                conv1x1(self.inplanes, planes * block.expansion, stride),</span><br><span class="line">                norm_layer(planes * block.expansion),</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">        layers = []</span><br><span class="line">        layers.append(block(self.inplanes, planes, stride, downsample, groups, norm_layer))</span><br><span class="line">        self.inplanes = planes * block.expansion</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">1</span>, blocks):</span><br><span class="line">            layers.append(block(self.inplanes, planes, groups=groups, norm_layer=norm_layer))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nn.Sequential(*layers)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.bn1(x)</span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = self.maxpool(x)</span><br><span class="line"></span><br><span class="line">        x = self.layer1(x)</span><br><span class="line">        x = self.layer2(x)</span><br><span class="line">        x = self.layer3(x)</span><br><span class="line">        x = self.layer4(x)</span><br><span class="line"></span><br><span class="line">        x = self.avgpool(x)</span><br><span class="line">        x = x.view(x.size(<span class="number">0</span>), <span class="number">-1</span>)</span><br><span class="line">        x = self.fc(x)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">resnet18</span><span class="params">(pretrained=False, **kwargs)</span>:</span></span><br><span class="line">    <span class="string">"""Constructs a ResNet-18 model.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        pretrained (bool): If True, returns a model pre-trained on ImageNet</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    model = ResNet(BasicBlock, [<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>], **kwargs)</span><br><span class="line">    <span class="keyword">if</span> pretrained:</span><br><span class="line">        model.load_state_dict(model_zoo.load_url(model_urls[<span class="string">'resnet18'</span>]))</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
+<p>在其中对<code>BasicBlock</code>的构造函数和<code>forward</code>函数进行了修改：（以下代码中的注释是原本的函数体）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BasicBlock</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    expansion = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, inplanes, planes, stride=<span class="number">1</span>, downsample=None)</span>:</span></span><br><span class="line">        super(BasicBlock, self).__init__()</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.bn1 = nn.BatchNorm2d(inplanes)</span><br><span class="line">        self.conv1 = conv3x3(inplanes, planes, stride)</span><br><span class="line">        self.bn2 = nn.BatchNorm2d(planes)</span><br><span class="line">        self.conv2 = conv3x3(planes, planes)</span><br><span class="line">        self.downsample = downsample</span><br><span class="line">        self.stride = stride</span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        self.conv1 = conv3x3(inplanes, planes, stride)</span></span><br><span class="line"><span class="string">        self.bn1 = nn.BatchNorm2d(planes)</span></span><br><span class="line"><span class="string">        self.relu = nn.ReLU(inplace=True)</span></span><br><span class="line"><span class="string">        self.conv2 = conv3x3(planes, planes)</span></span><br><span class="line"><span class="string">        self.bn2 = nn.BatchNorm2d(planes)</span></span><br><span class="line"><span class="string">        self.downsample = downsample</span></span><br><span class="line"><span class="string">        self.stride = stride</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        identity = x</span><br><span class="line"></span><br><span class="line">        out = self.bn1(x)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line">        out = self.conv1(out)</span><br><span class="line"></span><br><span class="line">        out = self.bn2(out)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line">        out = self.conv2(out)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.downsample <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            identity = self.downsample(x)</span><br><span class="line"></span><br><span class="line">        out += identity</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        identity = x</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        out = self.conv1(x)</span></span><br><span class="line"><span class="string">        out = self.bn1(out)</span></span><br><span class="line"><span class="string">        out = self.relu(out)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        out = self.conv2(out)</span></span><br><span class="line"><span class="string">        out = self.bn2(out)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if self.downsample is not None:</span></span><br><span class="line"><span class="string">            identity = self.downsample(x)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        out += identity</span></span><br><span class="line"><span class="string">        out = self.relu(out)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        return out</span></span><br><span class="line"><span class="string">        '''</span></span><br></pre></td></tr></table></figure>
+<h2 id="训练与测试"><a class="header-anchor" href="#训练与测试"> </a>训练与测试</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置</span></span><br><span class="line">root = <span class="string">'../input/data'</span></span><br><span class="line">batch_size = <span class="number">128</span>	<span class="comment"># 训练和测试的批大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 学习的超参数设置</span></span><br><span class="line">pre_epoch = <span class="number">0</span></span><br><span class="line">epoches = <span class="number">160</span></span><br><span class="line">learning_rate = <span class="number">0.01</span>	<span class="comment"># 学习率</span></span><br><span class="line">reduce_factor = <span class="number">0.1</span>		<span class="comment"># 学习率的下降因子</span></span><br><span class="line">reduce_epoch_1 = <span class="number">80</span>		<span class="comment"># 学习率第一次下降的轮数，一般设为50%</span></span><br><span class="line">reduce_epoch_2 = <span class="number">120</span>	<span class="comment"># 学习率第二次下降的轮数，一般设为75%</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置根据环境使用GPU或CPU</span></span><br><span class="line">device = torch.device(<span class="string">"cuda:0"</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">"cpu"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义对数据的预处理</span></span><br><span class="line">pre_transform = transforms.Compose([</span><br><span class="line">        transforms.RandomCrop(<span class="number">32</span>, padding=<span class="number">4</span>),	<span class="comment"># 四周填充0，再把图像随机裁剪成32×32</span></span><br><span class="line">        transforms.RandomHorizontalFlip(),  	<span class="comment"># 图像有一半的概率翻转</span></span><br><span class="line">        transforms.ToTensor(),</span><br><span class="line">        transforms.Normalize((<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>), (<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>)),</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练集</span></span><br><span class="line">trainset = torchvision.datasets.CIFAR10(</span><br><span class="line">                    root=root, </span><br><span class="line">                    train=<span class="keyword">True</span>, </span><br><span class="line">                    download=<span class="keyword">False</span>,</span><br><span class="line">                    transform=pre_transform)</span><br><span class="line"></span><br><span class="line">trainloader = torch.utils.data.DataLoader(</span><br><span class="line">                    trainset, </span><br><span class="line">                    batch_size=batch_size,</span><br><span class="line">                    shuffle=<span class="keyword">True</span>, </span><br><span class="line">                    num_workers=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试集</span></span><br><span class="line">testset = torchvision.datasets.CIFAR10(</span><br><span class="line">                    root,</span><br><span class="line">                    train=<span class="keyword">False</span>, </span><br><span class="line">                    download=<span class="keyword">False</span>, </span><br><span class="line">                    transform=pre_transform)</span><br><span class="line"></span><br><span class="line">testloader = torch.utils.data.DataLoader(</span><br><span class="line">                    testset,</span><br><span class="line">                    batch_size=batch_size, </span><br><span class="line">                    shuffle=<span class="keyword">False</span>,</span><br><span class="line">                    num_workers=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用于更新参数组中的学习率</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_lr</span><span class="params">(optimizer, lr)</span>:</span>    </span><br><span class="line">    <span class="keyword">for</span> param_group <span class="keyword">in</span> optimizer.param_groups:</span><br><span class="line">        param_group[<span class="string">'lr'</span>] = lr</span><br><span class="line"></span><br><span class="line">classes = (<span class="string">'plane'</span>, <span class="string">'car'</span>, <span class="string">'bird'</span>, <span class="string">'cat'</span>,</span><br><span class="line">           <span class="string">'deer'</span>, <span class="string">'dog'</span>, <span class="string">'frog'</span>, <span class="string">'horse'</span>, <span class="string">'ship'</span>, <span class="string">'truck'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 实例化一个网络模型</span></span><br><span class="line">    net = resnet18().to(device)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 损失函数和优化器</span></span><br><span class="line">    criterion = nn.CrossEntropyLoss()</span><br><span class="line">    optimizer = optim.SGD(net.parameters(), lr=learning_rate, momentum=<span class="number">0.9</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 训练</span></span><br><span class="line">    torch.set_num_threads(<span class="number">8</span>)</span><br><span class="line">    total_steps = len(trainloader)</span><br><span class="line">    print_interval = <span class="number">100</span></span><br><span class="line">    zero_epoch = <span class="number">-1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(pre_epoch, epoches):  </span><br><span class="line">        <span class="keyword">if</span> reduce_factor != <span class="number">1</span> <span class="keyword">and</span> (epoch == reduce_epoch_1 <span class="keyword">or</span> epoch == reduce_epoch_2):</span><br><span class="line">            learning_rate *= reduce_factor</span><br><span class="line">            update_lr(optimizer, learning_rate)</span><br><span class="line">            </span><br><span class="line">        running_loss = <span class="number">0.0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i, data <span class="keyword">in</span> enumerate(trainloader, <span class="number">0</span>):</span><br><span class="line">            </span><br><span class="line">            inputs, labels = data</span><br><span class="line">            inputs, labels = inputs.to(device), labels.to(device)</span><br><span class="line">            </span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            </span><br><span class="line">            outputs = net(inputs)</span><br><span class="line">            loss = criterion(outputs, labels)</span><br><span class="line">            loss.backward()</span><br><span class="line">            optimizer.step()</span><br><span class="line">            </span><br><span class="line">            running_loss += loss.item()</span><br><span class="line">            <span class="keyword">if</span> (i + <span class="number">1</span>) % print_interval == <span class="number">0</span>:</span><br><span class="line">                print(<span class="string">'[Epoch %3d, Step %3d] Loss: %.3f'</span> % (epoch+<span class="number">1</span>, i+<span class="number">1</span>, loss.item()))</span><br><span class="line">        </span><br><span class="line">        average = running_loss / total_steps</span><br><span class="line">        print(<span class="string">'[Epoch %3d, Step %3d] Average Loss: %.3f'</span> % (epoch+<span class="number">1</span>, i+<span class="number">1</span>, average))</span><br><span class="line">        <span class="keyword">if</span> zero_epoch == <span class="number">-1</span> <span class="keyword">and</span> average &lt; <span class="number">0.001</span>: zero_epoch = epoch</span><br><span class="line">    </span><br><span class="line">    print(<span class="string">'Finish training'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 测试</span></span><br><span class="line">    correct = <span class="number">0</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> data <span class="keyword">in</span> testloader:</span><br><span class="line">            images, labels = data</span><br><span class="line">            images = images.to(device)</span><br><span class="line">            labels = labels.to(device)</span><br><span class="line">            outputs = net(images)</span><br><span class="line">            _, predicted = torch.max(outputs.data, <span class="number">1</span>)</span><br><span class="line">            total += labels.size(<span class="number">0</span>)</span><br><span class="line">            correct += (predicted == labels).sum().item()</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Accuracy of the network on the 10000 test images: %d %%'</span> % (</span><br><span class="line">        <span class="number">100</span> * correct / total))</span><br></pre></td></tr></table></figure>
+<h1 id="输出"><a class="header-anchor" href="#输出"> </a>输出</h1>
+<p>在以上代码的运行过程中，会有类似于下面的输出：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[Epoch 156, Step 100] Loss: 0.144</span><br><span class="line"></span><br><span class="line">[Epoch 156, Step 200] Loss: 0.179</span><br><span class="line"></span><br><span class="line">[Epoch 156, Step 300] Loss: 0.080</span><br><span class="line"></span><br><span class="line">[Epoch 156, Step 391] Average Loss: 0.122</span><br><span class="line"></span><br><span class="line">[Epoch 157, Step 100] Loss: 0.213</span><br><span class="line"></span><br><span class="line">[Epoch 157, Step 200] Loss: 0.092</span><br><span class="line"></span><br><span class="line">[Epoch 157, Step 300] Loss: 0.088</span><br><span class="line"></span><br><span class="line">[Epoch 157, Step 391] Average Loss: 0.119</span><br><span class="line"></span><br><span class="line">[Epoch 158, Step 100] Loss: 0.139</span><br><span class="line"></span><br><span class="line">[Epoch 158, Step 200] Loss: 0.070</span><br><span class="line"></span><br><span class="line">[Epoch 158, Step 300] Loss: 0.050</span><br><span class="line"></span><br><span class="line">[Epoch 158, Step 391] Average Loss: 0.121</span><br><span class="line"></span><br><span class="line">[Epoch 159, Step 100] Loss: 0.201</span><br><span class="line"></span><br><span class="line">[Epoch 159, Step 200] Loss: 0.097</span><br><span class="line"></span><br><span class="line">[Epoch 159, Step 300] Loss: 0.082</span><br><span class="line"></span><br><span class="line">[Epoch 159, Step 391] Average Loss: 0.117</span><br><span class="line"></span><br><span class="line">[Epoch 160, Step 100] Loss: 0.198</span><br><span class="line"></span><br><span class="line">[Epoch 160, Step 200] Loss: 0.158</span><br><span class="line"></span><br><span class="line">[Epoch 160, Step 300] Loss: 0.053</span><br><span class="line"></span><br><span class="line">[Epoch 160, Step 391] Average Loss: 0.119</span><br><span class="line">Finish training</span><br><span class="line"></span><br><span class="line">Accuracy of the network on the 10000 <span class="built_in">test</span> images: 82 %</span><br></pre></td></tr></table></figure>
+<p>训练过程中每轮的误差变化，和最后显示的在测试集上的预测准确率，为判断神经网络的效果提供了依据。</p>
+<h1 id="调参过程"><a class="header-anchor" href="#调参过程"> </a>调参过程</h1>
+<p>主要是修改训练轮数、学习率、数据增强的方式等。</p>
+<h2 id="无数据增强-无学习率下降策略"><a class="header-anchor" href="#无数据增强-无学习率下降策略"> </a>无数据增强，无学习率下降策略</h2>
+<table>
+<thead>
+<tr>
+<th>超参数</th>
+<th>ResNet-v2-18在测试集上的分类准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>epoches = 240<br>learning_rate = 0.1</td>
+<td>71%</td>
+</tr>
+<tr>
+<td>epoches = 250<br>learning_rate = 0.1</td>
+<td>74%</td>
+</tr>
+<tr>
+<td>epoches = 270<br>learning_rate = 0.1</td>
+<td>75%</td>
+</tr>
+<tr>
+<td>epoches = 300<br>learning_rate = 0.1</td>
+<td>71%</td>
+</tr>
+<tr>
+<td>epoches = 300<br>learning_rate = 0.05</td>
+<td>75%</td>
+</tr>
+<tr>
+<td>epoches = 300<br>learning_rate = 0.01</td>
+<td>74%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="无数据增强-有学习率下降策略"><a class="header-anchor" href="#无数据增强-有学习率下降策略"> </a>无数据增强，有学习率下降策略</h2>
+<table>
+<thead>
+<tr>
+<th>超参数</th>
+<th>ResNet-v2-18在测试集上的分类准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>epoches = 300<br>learning_rate = 0.1<br>reduce_factor = 0.1<br>reduce_epoch_1 = 150<br>reduce_epoch_2 = 225</td>
+<td>70%</td>
+</tr>
+<tr>
+<td>epoches = 300<br>learning_rate = 0.01<br>reduce_factor = 0.1<br>reduce_epoch_1 = 150<br>reduce_epoch_2 = 225</td>
+<td>74%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="有数据增强-有学习率下降策略"><a class="header-anchor" href="#有数据增强-有学习率下降策略"> </a>有数据增强，有学习率下降策略</h2>
+<table>
+<thead>
+<tr>
+<th>超参数</th>
+<th>ResNet-v2-18在测试集上的分类准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>epoches = 300<br>learning_rate = 0.1<br>reduce_factor = 0.1<br>reduce_epoch_1 = 150<br>reduce_epoch_2 = 225</td>
+<td>68%</td>
+</tr>
+<tr>
+<td>epoches = 80<br>learning_rate = 0.01<br>reduce_factor = 0.1<br>reduce_epoch_1 = 40<br>reduce_epoch_2 = 60</td>
+<td>82%</td>
+</tr>
+<tr>
+<td>epoches = 160<br>learning_rate = 0.01<br>reduce_factor = 0.1<br>reduce_epoch_1 = 80<br>reduce_epoch_2 = 120</td>
+<td>83%</td>
+</tr>
+<tr>
+<td>epoches = 300<br>learning_rate = 0.01<br>reduce_factor = 0.1<br>reduce_epoch_1 = 150<br>reduce_epoch_2 = 225</td>
+<td>84%</td>
+</tr>
+</tbody>
+</table>
+<h1 id="体会与总结"><a class="header-anchor" href="#体会与总结"> </a>体会与总结</h1>
+<h2 id="体会"><a class="header-anchor" href="#体会"> </a>体会</h2>
+<ol>
+<li>
+<p>这是我第一次搭建和训练神经网络，一开始对调参数一头雾水，完全是随便调的。在网上找博客看有没有比较成功的ResNet-v2在CIFAR-10上的超参数设置，也没找到几篇。</p>
+<p>有一篇博客<a href="https://blog.csdn.net/sunqiande88/article/details/80100891" target="_blank" rel="noopener"><strong>Pytorch实战2：ResNet-18实现Cifar-10图像分类</strong></a>宣称在测试集上有95%以上的准确率，但是我使用它的超参数并没有达到95%，这可能和它使用v1结构、而我使用v2的网络结构有关。</p>
+</li>
+<li>
+<p>在对18层网络调参时，还不够严谨，不够有对照性，有些乱。下次或许应该用同一组超参数、不同的策略来进行实验，不同组超参数之间应有一定的差异，以加强对照。</p>
+</li>
+<li>
+<p>神经网络的运行结果也很神奇。之前乱调超参数时，有一组跑出了72%，而后来再使用这组参数，结果却是62%，相差了很多。</p>
+</li>
+</ol>
+<h2 id="总结"><a class="header-anchor" href="#总结"> </a>总结</h2>
+<ol>
+<li>在相近的条件下，有数据增强的训练结果与无数据增强的训练结果相比，有10%左右的提高。可以推测，在训练之前对数据进行增强处理，可以在相当的程度上提高神经网络的能力。</li>
+<li>当训练轮数比较大时，似乎不同轮数、不同超参数的训练结果的差异比较小。</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/神经网络/" rel="tag"># 神经网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/29/paper-reading-res-net-v2/" rel="next" title="神经网络论文阅读 | Identity Mapping in Deep Residual Networks">
+                <i class="fa fa-chevron-left"></i> 神经网络论文阅读 | Identity Mapping in Deep Residual Networks
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        
+          <ul class="sidebar-nav motion-element">
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+              文章目录
+            </li>
+            <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+              站点概览
+            </li>
+          </ul>
+        
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="yuyu" />
+            
+              <p class="site-author-name" itemprop="name">yuyu</p>
+              <p class="site-description motion-element" itemprop="description">鱼鱼爱吃鱼</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuyuforest" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yumlin16@outlook.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://blog.csdn.net/squirrelyuyu" target="_blank" title="CSDN"><i class="fa fa-fw fa-cuttlefish"></i>CSDN</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://icytown.com" title="MegaShow" target="_blank">MegaShow</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zzfly.net/" title="Rytia" target="_blank">Rytia</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+        
+        <!--noindex-->
+          <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+            <div class="post-toc">
+
+              
+                
+              
+
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#任务"><span class="nav-number">1.</span> <span class="nav-text"> 任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行环境"><span class="nav-number">2.</span> <span class="nav-text"> 运行环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text"> 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建18层的resnet-v2神经网络"><span class="nav-number">3.1.</span> <span class="nav-text"> 搭建18层的ResNet v2神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练与测试"><span class="nav-number">3.2.</span> <span class="nav-text"> 训练与测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输出"><span class="nav-number">4.</span> <span class="nav-text"> 输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调参过程"><span class="nav-number">5.</span> <span class="nav-text"> 调参过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无数据增强-无学习率下降策略"><span class="nav-number">5.1.</span> <span class="nav-text"> 无数据增强，无学习率下降策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无数据增强-有学习率下降策略"><span class="nav-number">5.2.</span> <span class="nav-text"> 无数据增强，有学习率下降策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有数据增强-有学习率下降策略"><span class="nav-number">5.3.</span> <span class="nav-text"> 有数据增强，有学习率下降策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#体会与总结"><span class="nav-number">6.</span> <span class="nav-text"> 体会与总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#体会"><span class="nav-number">6.1.</span> <span class="nav-text"> 体会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.2.</span> <span class="nav-text"> 总结</span></a></li></ol></li></ol></div>
+              
+
+            </div>
+          </section>
+        <!--/noindex-->
+        
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuyu</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
