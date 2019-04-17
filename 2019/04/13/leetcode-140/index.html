@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="以LeetCode上的140号题为例，比较dfs、dp、记忆化搜索的效果。">
+<meta name="keywords" content="leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode | 140 Word Break II">
+<meta property="og:url" content="https://yuyuforest.github.io/2019/04/13/leetcode-140/index.html">
+<meta property="og:site_name" content="yuyu&#39;s forest">
+<meta property="og:description" content="以LeetCode上的140号题为例，比较dfs、dp、记忆化搜索的效果。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/04/13/leetcode-140/repeat.jpg">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/04/13/leetcode-140/repeat-tree.jpg">
+<meta property="og:updated_time" content="2019-04-17T05:19:34.634Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode | 140 Word Break II">
+<meta name="twitter:description" content="以LeetCode上的140号题为例，比较dfs、dp、记忆化搜索的效果。">
+<meta name="twitter:image" content="https://yuyuforest.github.io/2019/04/13/leetcode-140/repeat.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuyuforest.github.io/2019/04/13/leetcode-140/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>LeetCode | 140 Word Break II | yuyu's forest</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yuyu's forest</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2019/04/13/leetcode-140/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuyu">
+      <meta itemprop="description" content="鱼鱼爱吃鱼">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yuyu's forest">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LeetCode | 140 Word Break II
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-13 20:52:14" itemprop="dateCreated datePublished" datetime="2019-04-13T20:52:14+08:00">2019-04-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-17 13:19:34" itemprop="dateModified" datetime="2019-04-17T13:19:34+08:00">2019-04-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>以LeetCode上的140号题为例，比较dfs、dp、记忆化搜索的效果。</p>
+<a id="more"></a>
+<h1 id="题目"><a class="header-anchor" href="#题目"> </a>题目</h1>
+<p><a href="https://leetcode.com/problems/word-break-ii" target="_blank" rel="noopener">Word Break II</a></p>
+<p>给定一个字典和一个字符串，检查字符串是否可以分解成字典里的词，并求出所有的分解方案。</p>
+<h1 id="纯dfs"><a class="header-anchor" href="#纯dfs"> </a>纯DFS</h1>
+<ol>
+<li>将字典从<code>vector</code>转换为<code>unordered_set</code>，以便查找单词。</li>
+<li>索引<code>int first</code>表示开始搜索的位置，初始化为0。<code>vector&lt;string&gt; str</code>存储前<code>first</code>个字符组成的串的一种分割结果。</li>
+<li>每次dfs，从原始字符串的<code>first</code>位置开始向后遍历所有的<code>k</code>（first &lt; k &lt;= origin.length()），如果<code>[first, k)</code>是一个单词，则开始新的dfs。新的dfs的<code>first</code>赋值为<code>first + k</code>，<code>vector&lt;string&gt; str</code>加入这个单词<code>[first, k)</code>。结束遍历后将<code>vector&lt;string&gt; str</code>尾部去掉。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; wordBreak(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;dict) &#123;</span><br><span class="line">    	<span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; new_dict;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">string</span>&amp; s : dict) &#123;</span><br><span class="line">			new_dict.insert(s);</span><br><span class="line">		&#125; </span><br><span class="line">    	</span><br><span class="line">    	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; str;</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</span><br><span class="line">		dfs(s, new_dict, <span class="number">0</span>, str, result);</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; origin, <span class="keyword">const</span> <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; &amp;dict, <span class="keyword">const</span> <span class="keyword">int</span> &amp;first, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;str, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;result)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = first + <span class="number">1</span>; i &lt;= origin.length(); i++) &#123;</span><br><span class="line">			<span class="built_in">string</span> w = origin.substr(first, i - first);</span><br><span class="line">			<span class="comment">//cout &lt;&lt; "word: " &lt;&lt; w &lt;&lt; endl;</span></span><br><span class="line">			<span class="keyword">auto</span> iter = dict.find(w);</span><br><span class="line">			<span class="keyword">if</span>(iter == dict.end()) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">int</span> curlen = i;</span><br><span class="line">			<span class="keyword">if</span>(curlen == origin.length()) &#123;</span><br><span class="line">				<span class="built_in">string</span> s = <span class="string">""</span>;</span><br><span class="line">	    		<span class="keyword">for</span>(<span class="keyword">const</span> <span class="built_in">string</span>&amp; j : str) &#123;</span><br><span class="line">	    			s += j + <span class="string">" "</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				s += w;</span><br><span class="line">				result.push_back(s);</span><br><span class="line">				<span class="comment">//cout &lt;&lt; "get: " &lt;&lt; s &lt;&lt; endl;</span></span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="comment">//cout &lt;&lt; "first: " &lt;&lt; first &lt;&lt; "  word: " &lt;&lt; w &lt;&lt; endl;</span></span><br><span class="line">				str.push_back(w);</span><br><span class="line">				<span class="comment">//cout &lt;&lt; "push back: " &lt;&lt; w &lt;&lt; endl;</span></span><br><span class="line">				dfs(origin, dict, curlen, str, result);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; "pop back: " &lt;&lt; str.back() &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">if</span>(!str.empty()) str.pop_back();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>结果：Time Limit Exceeded</p>
+<h1 id="先找所有出现单词的位置-再dfs"><a class="header-anchor" href="#先找所有出现单词的位置-再dfs"> </a>先找所有出现单词的位置，再DFS</h1>
+<p>为了减少在<code>first</code>位置上搜索单词的时间，选择先对字典中每个单词搜索它在原始字符串中出现的所有位置，存储到<code>map&lt;int, vector&lt;int&gt;&gt; words</code>。</p>
+<p>这个<code>map</code>，键是字符串的索引，值的<code>vector&lt;int&gt;</code>存储了这个索引位置上出现的所有的单词，但是用它们在字典中的位置（类型：<code>int</code>）代替它们本身。</p>
+<p>那么在dfs中，可以先看<code>map</code>中有没有对应所在位置<code>first</code>的键。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; wordBreak(<span class="built_in">string</span> s, <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; &amp;dict) &#123;</span><br><span class="line">    	<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; words;</span><br><span class="line">    	<span class="keyword">auto</span> iter = dict.begin();</span><br><span class="line">    	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    	<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; new_dict;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> iter = dict.begin(); iter != dict.end(); iter++) &#123;</span><br><span class="line">        	<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        	<span class="built_in">string</span> str = s;</span><br><span class="line">        	<span class="built_in">string</span> ww = *iter;</span><br><span class="line">        	new_dict[i] = ww;</span><br><span class="line">        	<span class="comment">//cout &lt;&lt; "dict[" &lt;&lt; i &lt;&lt; "] " &lt;&lt; ww &lt;&lt; endl;</span></span><br><span class="line">        	<span class="keyword">int</span> before = <span class="number">0</span>;</span><br><span class="line">        	<span class="keyword">while</span>(index != <span class="number">-1</span>) &#123;</span><br><span class="line">        		index = str.find(ww);</span><br><span class="line">        		<span class="keyword">if</span>(index != <span class="number">-1</span>) &#123;</span><br><span class="line">        			before += index;</span><br><span class="line">        			words[before].push_back(i);</span><br><span class="line">        			<span class="comment">//cout &lt;&lt; "words[" &lt;&lt; index &lt;&lt; "] " &lt;&lt; ww &lt;&lt; endl;</span></span><br><span class="line">        			str = str.substr(index + ww.length());</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; str;</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</span><br><span class="line">		dfs(words, new_dict, s.length(), <span class="number">0</span>, str, result);</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">const</span> <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;words, <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; &amp;dict, <span class="keyword">const</span> <span class="keyword">int</span>&amp; len, <span class="keyword">const</span> <span class="keyword">int</span> &amp;first, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;str, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;result)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">auto</span> iter = words.find(first);</span><br><span class="line">    	<span class="keyword">if</span>(iter == words.end()) <span class="keyword">return</span>;</span><br><span class="line">    	<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;v = iter-&gt;second;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">const</span> <span class="keyword">int</span>&amp; i : v) &#123;</span><br><span class="line">			<span class="keyword">const</span> <span class="built_in">string</span> w = dict[i];</span><br><span class="line">	    	<span class="keyword">int</span> curlen = first + w.length();</span><br><span class="line">	    	<span class="keyword">if</span>(curlen == len) &#123;</span><br><span class="line">	    		<span class="built_in">string</span> s = <span class="string">""</span>;</span><br><span class="line">	    		<span class="keyword">for</span>(<span class="keyword">const</span> <span class="keyword">int</span>&amp; j : str) &#123;</span><br><span class="line">	    			s += dict[j] + <span class="string">" "</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				s += w;</span><br><span class="line">				result.push_back(s);</span><br><span class="line">				<span class="comment">//cout &lt;&lt; s &lt;&lt; endl;</span></span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="comment">//cout &lt;&lt; "first:" &lt;&lt; first &lt;&lt; " dict[" &lt;&lt; i &lt;&lt; "]:" &lt;&lt; dict[i] &lt;&lt; endl;</span></span><br><span class="line">				str.push_back(i);</span><br><span class="line">				dfs(words, dict, len, curlen, str, result);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		str.pop_back();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>结果：内存溢出。</p>
+<p>看来存储所有单词出现的位置可能会显著增加使用的内存？</p>
+<br>
+<p>想一下，可能在dfs树比较深时，会有重复的单词。</p>
+<p>像下面这张图：</p>
+<p><img src="/2019/04/13/leetcode-140/repeat.jpg" alt=""></p>
+<p>就会造成dfs树的重复搜索：</p>
+<p><img src="/2019/04/13/leetcode-140/repeat-tree.jpg" alt=""></p>
+<p>所以对这种问题，纯dfs是效率较低的，需要记住一些搜索结果，以免重复搜索。</p>
+<br>
+<h1 id="纯dp"><a class="header-anchor" href="#纯dp"> </a>纯DP</h1>
+<p>这个动态规划的状态转移方程是：</p>
+<p>$$dp[i]={\ dp[j][k]+&quot;\ &quot;+str[j, i)\ },\  if\ str[j,i]\ is\ a\ word$$</p>
+<p>其中，<code>dp[i]</code>表示前<code>i</code>个字符，即，$str[0, i)​$，的所有分解结果。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; wordBreak(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;dict) &#123;</span><br><span class="line">    	<span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; new_dict;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">string</span>&amp; s : dict) &#123;</span><br><span class="line">			new_dict.insert(s);</span><br><span class="line">		&#125; </span><br><span class="line">		</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; dp;</span><br><span class="line">		dp.resize(s.length() + <span class="number">1</span>);</span><br><span class="line">		</span><br><span class="line">		dp[<span class="number">0</span>].push_back(<span class="string">""</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= s.length(); i++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(dp[j].empty()) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="built_in">string</span> word = s.substr(j, i - j);</span><br><span class="line">				<span class="keyword">if</span>(new_dict.find(word) == new_dict.end()) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; dp[j].size(); k++) &#123;</span><br><span class="line">					dp[i].push_back(dp[j][k] + <span class="string">" "</span> + word);</span><br><span class="line">					<span class="comment">//cout &lt;&lt; "i: " &lt;&lt; i &lt;&lt; " j: " &lt;&lt; j &lt;&lt; " " &lt;&lt; dp[i].back() &lt;&lt; endl;</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; </span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">string</span>&amp; str : dp[s.length()]) &#123;</span><br><span class="line">			str = str.substr(<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> dp[s.length()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但是这段代码会报错：Time Limit Exceeded</p>
+<p>是在下面这个用例上超时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span><br><span class="line">[&quot;a&quot;,&quot;aa&quot;,&quot;aaa&quot;,&quot;aaaa&quot;,&quot;aaaaa&quot;,&quot;aaaaaa&quot;,&quot;aaaaaaa&quot;,&quot;aaaaaaaa&quot;,&quot;aaaaaaaaa&quot;,&quot;aaaaaaaaaa&quot;]</span><br></pre></td></tr></table></figure>
+<p>现在你大概可以猜想到纯dp法的缺陷了。对此更详细的解释，我放在后面的某一节中。</p>
+<p>（也有的dp会报Memory Limit Exceeded，比如<a href="https://www.jianshu.com/p/44ea77e3665a" target="_blank" rel="noopener">这个博客</a>）</p>
+<h1 id="记忆化搜索：dfs-dp"><a class="header-anchor" href="#记忆化搜索：dfs-dp"> </a>记忆化搜索：DFS+DP</h1>
+<p>或者说是带剪枝的dfs。</p>
+<p>这是在第一个算法（纯DFS）上的改进，基本算法一样，但加入了一个<code>vector&lt;vector&lt;string&gt;&gt; dp</code>来记录一些搜索结果，去掉了起到栈的作用的<code>vector&lt;string&gt; str</code>。</p>
+<p><code>dp[i]</code>存储从位置<code>i</code>开始的字符串的所有分解结果。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; wordBreak(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;dict) &#123;</span><br><span class="line">    	<span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; new_dict;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">string</span>&amp; s : dict) &#123;</span><br><span class="line">			new_dict.insert(s);</span><br><span class="line">		&#125; </span><br><span class="line">		</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; visit;</span><br><span class="line">		visit.assign(s.length(), <span class="literal">false</span>);</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; dp;</span><br><span class="line">		dp.resize(s.length());</span><br><span class="line">		</span><br><span class="line">		dfs(s, new_dict, dp, visit, <span class="number">0</span>);</span><br><span class="line">		<span class="keyword">return</span> dp[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; origin, <span class="keyword">const</span> <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; &amp;dict, </span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;dp, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &amp;visit, <span class="keyword">const</span> <span class="keyword">int</span>&amp; first)</span> </span>&#123;</span><br><span class="line">		visit[first] = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = first + <span class="number">1</span>; i &lt;= origin.length(); i++) &#123;</span><br><span class="line">			<span class="built_in">string</span> word = origin.substr(first, i - first);</span><br><span class="line">			<span class="keyword">if</span>(dict.find(word) == dict.end()) <span class="keyword">continue</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(i == origin.length()) &#123;</span><br><span class="line">				dp[first].push_back(word);</span><br><span class="line">				<span class="comment">//cout &lt;&lt; "dp[" &lt;&lt; first &lt;&lt; "] push back " &lt;&lt; dp[first].back() &lt;&lt; endl;</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125; </span><br><span class="line">			</span><br><span class="line">			<span class="keyword">int</span> new_first = i;</span><br><span class="line">			<span class="keyword">if</span>(!visit[new_first]) dfs(origin, dict, dp, visit, new_first);</span><br><span class="line">			<span class="comment">//cout &lt;&lt; "word " &lt;&lt; word &lt;&lt; endl;</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s : dp[new_first]) &#123;</span><br><span class="line">				dp[first].push_back(word + <span class="string">" "</span> + s);</span><br><span class="line">				<span class="comment">//cout &lt;&lt; "dp[" &lt;&lt; first &lt;&lt; "] push back " &lt;&lt; dp[first].back() &lt;&lt; endl;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>有一点要注意的是：<code>vector</code>的<code>reserve</code>方法只是预留空间，并不实际创建真的元素对象，必须调用<code>push_back()</code>或<code>insert()</code>才能引用容器内的元素；<code>resize</code>方法才是真的创建对象。当我使用前者时，LeetCode给我报了Runtime Error：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddressSanitizer: BUS on unknown address 0x000000000000 (pc 0x7fc5360f245e bp 0xbebebebebebebeae sp 0x7ffd635ff670 T0)</span><br></pre></td></tr></table></figure>
+<h1 id="动态规划vs记忆化搜索"><a class="header-anchor" href="#动态规划vs记忆化搜索"> </a>动态规划VS记忆化搜索</h1>
+<p>这样看来，动态规划算法和记忆化搜索算法很相似，都需要记录一些子问题的结果。那为什么它们效果不同呢？</p>
+<p>根据一篇博客：</p>
+<blockquote>
+<p>记忆化搜索在算法上依然是搜索的流程，但是搜索到的一些解用动态规划的那种思想和模式作一些保存。</p>
+<p>一般说来，动态规划总要遍历所有的状态，而搜索可以排除一些无效状态。</p>
+<p>更重要的是搜索还可以剪枝，可能剪去大量不必要的状态，因此在空间开销上往往比动态规划要低很多。</p>
+</blockquote>
+<p>以这道题为例，用记忆化的dfs，你会一个接一个地搜索单词，很快就可以走完一次整个句子。但使用dp，你可能在前期的遍历上浪费很多时间/内存。</p>
+<p>上面的说明可能不太直观，举一个例子，就是之前动态规划的超时的那个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span><br><span class="line">[&quot;a&quot;,&quot;aa&quot;,&quot;aaa&quot;,&quot;aaaa&quot;,&quot;aaaaa&quot;,&quot;aaaaaa&quot;,&quot;aaaaaaa&quot;,&quot;aaaaaaaa&quot;,&quot;aaaaaaaaa&quot;,&quot;aaaaaaaaaa&quot;]</span><br></pre></td></tr></table></figure>
+<p>这个字符串里有b，显然是不能成功分解的，但在b之前有75个a。而这75个a显然可以分解为很多字典里的单词的组合。那在遍历到b前，动态规划的程序就会疯狂地分解这75个a组成的字符串，以及它的子串们。这样就超时了。</p>
+<p>而如果使用dfs，就可以很快看到这个b。为了避免纯dfs中重复计算引起的超时问题，结合dp的思想，变成记忆化搜索。</p>
+<p>另一篇博客指出了根本问题：<strong>拓扑关系</strong>。</p>
+<blockquote>
+<p>什么是记忆化搜索呢？搜索的低效在于没有能够很好地处理重叠子问题；动态规划虽然比较好地处理了重叠子问题，但是在有些拓扑关系比较复杂的题目面前，又显得无奈。记忆化搜索正是在这样的情况下产生的，它采用搜索的形式和动态规划中递推的思想将这两种方法有机地综合在一起，扬长避短，简单实用，在信息学中有着重要的作用。
+在这个分解字符串的问题里，拓扑关系是单词一个接一个。动态规划若没有这种拓扑关系的转换，就可能产生一些废状态，不如带剪枝的dfs。</p>
+</blockquote>
+<h1 id="总结"><a class="header-anchor" href="#总结"> </a>总结</h1>
+<p>这是一道不错的题，可以通过实践更加了解深度优先搜索、动态规划、记忆化搜索的使用及区别。</p>
+<p>总结一下我目前的理解：</p>
+<ul>
+<li>没有重复的搜索结果/子问题，用dfs</li>
+<li>有重复的搜索结果/子问题，用dp</li>
+<li>如果有特殊的结构，考虑用记忆化搜索（dfs+dp）</li>
+</ul>
+<h1 id="参考资料"><a class="header-anchor" href="#参考资料"> </a>参考资料</h1>
+<p><a href="https://www.jianshu.com/p/44ea77e3665a" target="_blank" rel="noopener">140. word break ii - 简书</a></p>
+<p><a href="https://blog.csdn.net/Acmer_Sly/article/details/53440798" target="_blank" rel="noopener">关于记忆化搜索 - CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/hjf1201/article/details/78680814" target="_blank" rel="noopener">记忆化搜索专题 - CSDN博客</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/06/dl-practice-res-net-v2/" rel="next" title="深度学习 | ResNet v2 训练过程">
+                <i class="fa fa-chevron-left"></i> 深度学习 | ResNet v2 训练过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        
+          <ul class="sidebar-nav motion-element">
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+              文章目录
+            </li>
+            <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+              站点概览
+            </li>
+          </ul>
+        
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="yuyu" />
+            
+              <p class="site-author-name" itemprop="name">yuyu</p>
+              <p class="site-description motion-element" itemprop="description">鱼鱼爱吃鱼</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuyuforest" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yumlin16@outlook.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://blog.csdn.net/squirrelyuyu" target="_blank" title="CSDN"><i class="fa fa-fw fa-cuttlefish"></i>CSDN</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://icytown.com" title="MegaShow" target="_blank">MegaShow</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zzfly.net/" title="Rytia" target="_blank">Rytia</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+        
+        <!--noindex-->
+          <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+            <div class="post-toc">
+
+              
+                
+              
+
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text"> 题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#纯dfs"><span class="nav-number">2.</span> <span class="nav-text"> 纯DFS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#先找所有出现单词的位置-再dfs"><span class="nav-number">3.</span> <span class="nav-text"> 先找所有出现单词的位置，再DFS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#纯dp"><span class="nav-number">4.</span> <span class="nav-text"> 纯DP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#记忆化搜索：dfs-dp"><span class="nav-number">5.</span> <span class="nav-text"> 记忆化搜索：DFS+DP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划vs记忆化搜索"><span class="nav-number">6.</span> <span class="nav-text"> 动态规划VS记忆化搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text"> 总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
+              
+
+            </div>
+          </section>
+        <!--/noindex-->
+        
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuyu</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
