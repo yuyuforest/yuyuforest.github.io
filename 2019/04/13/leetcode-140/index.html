@@ -118,7 +118,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/04/13/leetcode-140/repeat.jpg">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/04/13/leetcode-140/repeat-tree.jpg">
-<meta property="og:updated_time" content="2019-04-17T05:19:34.634Z">
+<meta property="og:updated_time" content="2019-04-17T05:53:39.334Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode | 140 Word Break II">
 <meta name="twitter:description" content="以LeetCode上的140号题为例，比较dfs、dp、记忆化搜索的效果。">
@@ -359,7 +359,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-17 13:19:34" itemprop="dateModified" datetime="2019-04-17T13:19:34+08:00">2019-04-17</time>
+                <time title="修改时间：2019-04-17 13:53:39" itemprop="dateModified" datetime="2019-04-17T13:53:39+08:00">2019-04-17</time>
               
             
           </span>
@@ -440,8 +440,8 @@
 <br>
 <h1 id="纯dp"><a class="header-anchor" href="#纯dp"> </a>纯DP</h1>
 <p>这个动态规划的状态转移方程是：</p>
-<p>$$dp[i]={\ dp[j][k]+&quot;\ &quot;+str[j, i)\ },\  if\ str[j,i]\ is\ a\ word$$</p>
-<p>其中，<code>dp[i]</code>表示前<code>i</code>个字符，即，$str[0, i)​$，的所有分解结果。</p>
+<p>$$dp[i]={\ dp[j][k]+&quot;\ &quot;+str[j, i)\ },\  if\ str[j,i)\ is\ a\ word$$</p>
+<p>其中，<code>dp[i]</code>表示前<code>i</code>个字符，即，$str[0, i)$，的所有分解结果。<code>dp[j][k]</code>是前<code>j</code>个字符的一种分解结果（第<code>k</code>个分解结果）。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; wordBreak(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;dict) &#123;</span><br><span class="line">    	<span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; new_dict;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">string</span>&amp; s : dict) &#123;</span><br><span class="line">			new_dict.insert(s);</span><br><span class="line">		&#125; </span><br><span class="line">		</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; dp;</span><br><span class="line">		dp.resize(s.length() + <span class="number">1</span>);</span><br><span class="line">		</span><br><span class="line">		dp[<span class="number">0</span>].push_back(<span class="string">""</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= s.length(); i++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(dp[j].empty()) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="built_in">string</span> word = s.substr(j, i - j);</span><br><span class="line">				<span class="keyword">if</span>(new_dict.find(word) == new_dict.end()) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; dp[j].size(); k++) &#123;</span><br><span class="line">					dp[i].push_back(dp[j][k] + <span class="string">" "</span> + word);</span><br><span class="line">					<span class="comment">//cout &lt;&lt; "i: " &lt;&lt; i &lt;&lt; " j: " &lt;&lt; j &lt;&lt; " " &lt;&lt; dp[i].back() &lt;&lt; endl;</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; </span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">string</span>&amp; str : dp[s.length()]) &#123;</span><br><span class="line">			str = str.substr(<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> dp[s.length()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>但是这段代码会报错：Time Limit Exceeded</p>
 <p>是在下面这个用例上超时：</p>
@@ -518,8 +518,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/06/dl-practice-res-net-v2/" rel="next" title="深度学习 | ResNet v2 训练过程">
-                <i class="fa fa-chevron-left"></i> 深度学习 | ResNet v2 训练过程
+              <a href="/2019/04/13/swsad-hw3/" rel="next" title="系统分析与设计 | 作业3：软件项目过程模型与规划">
+                <i class="fa fa-chevron-left"></i> 系统分析与设计 | 作业3：软件项目过程模型与规划
               </a>
             
           </div>
@@ -602,7 +602,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -934,6 +934,30 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
