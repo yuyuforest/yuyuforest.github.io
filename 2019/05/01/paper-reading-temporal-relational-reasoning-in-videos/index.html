@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="原文地址 值得一提的是，该论文有其他版本的原文，与这版有一些出入。比如另一版本的pdf。">
+<meta name="keywords" content="深度学习,视频分类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习论文阅读 | Temporal Relational Reasoning in Videos">
+<meta property="og:url" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/index.html">
+<meta property="og:site_name" content="yuyu&#39;s forest">
+<meta property="og:description" content="原文地址 值得一提的是，该论文有其他版本的原文，与这版有一些出入。比如另一版本的pdf。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-1.svg">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-2.svg">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-1.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-2.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-3.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-4.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-5.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-6.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-3.svg">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-4.svg">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-5.svg">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-6.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-7.svg">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-8.svg">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-7.png">
+<meta property="og:updated_time" content="2019-05-02T21:08:41.122Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习论文阅读 | Temporal Relational Reasoning in Videos">
+<meta name="twitter:description" content="原文地址 值得一提的是，该论文有其他版本的原文，与这版有一些出入。比如另一版本的pdf。">
+<meta name="twitter:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-1.svg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>深度学习论文阅读 | Temporal Relational Reasoning in Videos | yuyu's forest</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yuyu's forest</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuyu">
+      <meta itemprop="description" content="鱼鱼爱吃鱼">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yuyu's forest">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习论文阅读 | Temporal Relational Reasoning in Videos
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-01 20:08:46" itemprop="dateCreated datePublished" datetime="2019-05-01T20:08:46+08:00">2019-05-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-03 05:08:41" itemprop="dateModified" datetime="2019-05-03T05:08:41+08:00">2019-05-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/探索/" itemprop="url" rel="index"><span itemprop="name">探索</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://www.groundai.com/project/temporal-relational-reasoning-in-videos/" target="_blank" rel="noopener">原文地址</a></p>
+<p>值得一提的是，该论文有其他版本的原文，与这版有一些出入。比如<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Bolei_Zhou_Temporal_Relational_Reasoning_ECCV_2018_paper.pdf" target="_blank" rel="noopener">另一版本的pdf</a>。</p>
+<a id="more"></a>
+<h1 id="原文翻译"><a class="header-anchor" href="#原文翻译"> </a>原文翻译</h1>
+<h2 id="abstract"><a class="header-anchor" href="#abstract"> </a>Abstract</h2>
+<p>时间关系推理，即<u>随着时间推移，将对象或实体的有意义的转换联系到一起link meaningful</u>
+<u>transformations of objects or entities over time</u>，是智慧物种的基本属性之一。在本文中，我们介绍了一个有效且可解释的网络模块，即<u>时间关系网络Temporal Relation Network</u>（TRN），旨在学习和推理多个时间尺度上的视频帧之间的时间依赖性。我们使用三个最近的视频数据集：Something-Something、Jester和Charades，来评估配备了TRN的网络在活动识别任务上的表现。这些数据集从根本上依赖于时间关系推理。我们的结果表明，所提出的TRN为卷积神经网络提供了发现视频中的时间关系的非凡能力。仅仅通过稀疏采样的视频帧，配备TRN的网络就可以准确地预测Something-Something数据集中的人-物的相互作用，并在Jester数据集上识别各种人体姿势，表现出极具竞争力的性能。配备TRN的网络在识别Charades数据集中的日常活动这方面也优于双流网络和3D卷积网络。进一步的分析表明，该模型在视频中学习到了直观的、可解释的视觉常识知识。</p>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-1.svg" alt="图1"></p>
+<blockquote>
+<p>图1：两次观察之间发生了什么？（见下面的答案。）人类可以很容易地推断出这些观察之间的时间关系和变换。但这项任务对于神经网络来说仍然很困难。</p>
+</blockquote>
+<h2 id="introduction"><a class="header-anchor" href="#introduction"> </a>Introduction</h2>
+<p>随着时间推移而推理实体之间的关系的能力，对于智能决策来说是至关重要的。时间关系推理允许智慧物种分析相对于过去的当前情况，并为接下来可能发生的事情作出假设。例如（图1），给定对同一事件的两个观察，人们可以很容易地识别视觉世界的两个状态之间的时间关系，并推断视频的两个帧之间发生了什么。</p>
+<p>时间推理对于活动识别至关重要，形成了描述事件步骤的构建块。在短期的和长期的时间尺度上，单个活动可以包含若干时间关系。例如，短跑的活动包括在起始处蹲下、在轨道上奔跑、在终点处完成的长期时间关系，同时还包括周期性手脚运动的短期时间关系。</p>
+<p>视频中的活动识别一直是计算机视觉的核心主题之一。然而，由于在适当的时间尺度上描述活动的模糊性，这项任务仍然很难。许多视频数据集，如UCF101，Sport1M和THUMOS，包括许多可以在不考虑长期时间关系的情况下被识别的活动：静止帧和光流足以识别许多标记了的活动。实际上，经典的双流卷积神经网络和最近的I3D网络都基于帧和光流，在这些数据集上很好地进行了活动识别。</p>
+<p>但是，卷积神经网络仍然在数据和观测有限的情况下，或是基础结构以变换和时间关系、而非某些实体的出现为特征的情况下，表现吃力。让卷积神经网络推理时间关系、并预测观察到的事物发生了什么变化，仍然是一个非常有挑战性的问题。图1显示了这样的例子。随着时间的推移，网络需要发现视觉常识，超越帧中对象的外观和光流。</p>
+<p>在这项工作中，我们提出了一个简单且可解释的网络模块，称为时间关系网络（TRN）。它支持神经网络中的时间关系推理。这个模块的灵感来自于文献[17]中提出的关系网络，但TRN不是对空间关系建模，而是旨在描述视频中的观察事物之间的时间关系。因此，TRN可以在多个时间尺度上学习和发现可能的时间关系。TRN是一个通用的、可扩展的模块，它能够在任何现有的CNN架构中即插即用。我们在最近的三个视频数据集（Something-Something, Jester, Charades）上应用了配备TRN的网络，用于识别不同类型的活动，如人-人交互和收拾，但都依赖于时间关系推理。配备TRN的网络即使只有离散的RGB帧也能获得极具竞争力的结果，从而带来了在基准之上的显著改进。因此，TRN为标准神经网络提供了一种实用的解决方案，以使用时间关系推理来解决活动识别任务。</p>
+<h2 id="related-work"><a class="header-anchor" href="#related-work"> </a>Related Work</h2>
+<p>**用于活动识别的卷积神经网络。**视频中的活动识别是计算机视觉中的核心问题。。随着深度卷积神经网络（CNN）的兴起，它在图像识别任务中实现了最先进的性能，许多工作已经在研究如何设计有效的深度卷积神经网络来进行活动识别。例如，在Sport1M数据集上探索了在时间维度上融合RGB帧的各种方法。双流的CNN被提出来，一个静态图像的流和另一个光流的流融合了物体外观和短期运动的信息。3D卷积网络使用3D卷积内核从一系列密集的RGB帧中提取特征。<u>时间段网络Temporal Segment Networks</u>在不同时间段上采样帧和光流，以提取活动识别信息。CNN + LSTM模型也用于识别视频中的活动，它使用CNN提取帧特征，使用LSTM随着时间推移整合特征。最近，I3D网络在密集的RGB和光流序列上使用双流CNN和膨胀的3D卷积，以在Kinetics数据集上实现最先进的性能。现有的CNN在动作识别方面，存在若干个重要的问题：（1）对光流的预先提取的依赖性降低了识别系统的效率；（2）考虑到连续帧中的冗余，密集帧序列上的3D卷积在计算上是昂贵的；（3）由于进入网络的帧序列通常限于20~30帧，网络难以学习帧之间的长期时间关系。为了解决这些问题，我们提出的时间关系网络稀疏地对帧进行采样，然后学习它们的因果关系，这比密集地采样帧并对其进行卷积更有效。我们展示了：配置TRN的网络可以有效地捕捉在多个时间尺度上的时间关系，并使用稀疏采样的视频帧取得了超过密集采样帧的网络的性能。</p>
+<p>**活动识别中的时间信息。**对许多现有的视频数据集，如UCF101，Sport1M，THUMOS和Kinetics等之上的活动识别，静止帧的出现和光流等短期运动是最重要的信息。因此，诸如双流网络和I3D网络等的活动识别网络被专门设计出来，以捕获密集帧的这些短期动态。因此，现有的网络不需要建立时间关系推理的能力。另一方面，最近各种视频数据集被通过众包的方式收集而来，它们重点关注对有序活动的识别。Something-Something数据集是用于通用的人-物交互。它有诸如“将东西放入某物”，“用某物推某物”，甚至“假装打开某物而实际上不打开它”等的视频分类。Jester数据集是另一个最近用于手势识别的视频数据集。视频由众包工作者录制，他们摆出27种手势，如“向上翻阅”，“向左滑动”和“逆时针转动手”等。Charades数据集也是一个高级的人类活动数据集，通过要求群众工作人员进行并记录一系列家庭活动，来收集视频。为了识别这三个数据集中的复杂活动，将时间关系推理整合到网络中是至关重要的。此外，许多以前的作品使用<u>词袋bag of words</u>，<u>运动原子motion atoms</u>或<u>动作语法action grammar</u>来模拟视频的时间结构，以进行动作识别和检测。我们不是人工设计时间结构，而是使用更通用的结构来在端到端训练中学习时间关系。因此，它可以更有效地处理测试中的视频。</p>
+<p>**关系推理与直觉物理学。**最近，关系推理模块已被提出来用于具有超人类表现的视觉问答。我们的工作受到这项工作的启发，但我们专注于对视频中的多尺度时间关系进行建模。在机器人自我监督学习领域，许多模型被提出来学习帧之间的直观物理学。给定初始状态和目标状态，使用具有强化学习的逆动力模型来推断对象状态之间的转换。物理的相互作用和观察也用于训练深度神经网络。<u>Time contrast network</u>用于从第三人称的视频视角来自我监督模仿学习操纵对象。我们的工作旨在在监督学习环境中学习视频中的各种时间关系。所提出的TRN可以扩展到用于机器人操纵对象的自我监督学习。</p>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-2.svg" alt="图2"></p>
+<blockquote>
+<p>图2：时间关系网络的图示。对视频的代表帧（如上所示）进行采样并馈入不同的帧关系模块。只显示了2帧、3帧、4帧关系的子集，因为还包括更高的帧关系。</p>
+</blockquote>
+<h2 id="temporal-relation-networks"><a class="header-anchor" href="#temporal-relation-networks"> </a>Temporal Relation Networks</h2>
+<p>在本节中，我们将介绍时间关系网络的框架。它很简单，可以很容易地插入到任何现有的卷积神经网络架构，以实现时间关系推理。在后来的实验中，我们展示了配备TRN的网络发现可解释的视觉常识知识，以识别视频中的活动。</p>
+<h3 id="defining-temporal-relations"><a class="header-anchor" href="#defining-temporal-relations"> </a>Defining Temporal Relations</h3>
+<p>受到回答视觉问题的关系推理模块的启发，我们将成对的时间关系定义为如下的复合函数：</p>
+<p>$$T_2(V)=h_{\phi}(\sum\limits_{i&lt;j}g_{\theta}(f_i,f_j))\tag{1}$$</p>
+<p>其中，输入是视频V，有n个选择的、排序的帧，$V={f_1,f_2,\dots,f_n}$，其中$f_i$表示视频的第$i$帧。从一些标准CNN输出激活的帧。功能函数$h_\phi$和$g_\theta$将排序了的不同帧的特征融合到一起。在这里我们简单地使用分别具有参数$\phi$和$\theta$的<u>多层感知器multilayer perceptrons</u>（MLP）。为了有效地计算，我们不是添加所有组合对，而是统一对帧$i$和$j$进行采样，并对每对进行排序。</p>
+<p>我们进一步将2帧时间关系的复合函数扩展到更高的帧关系，如下面的3帧关系函数：</p>
+<p>$$T_3(V)=h’<em>\phi(\sum\limits</em>{i&lt;j&lt;k}g’_\theta(f_i,f_j,f_k))\tag{2}$$</p>
+<p>其中，总和再次超过已经均匀采样和排序的帧$i,j,k$的集合。</p>
+<h3 id="multi-scale-temporal-relations"><a class="header-anchor" href="#multi-scale-temporal-relations"> </a>Multi-Scale Temporal Relations</h3>
+<p>为了捕获多个时间尺度上的时间关系，我们使用以下复合函数来累加不同尺度的帧关系：</p>
+<p>$MT_N(V)=T_2(V)+T_3(V)+\dots+T_N(V)\tag{3}$</p>
+<p>每个关系项$T_d$捕捉$d$个有序帧之间的时间关系。每个$T_d$具有其自己的单独的$h_\phi<sup>{(d)}$和$g_\theta</sup>{(d)}$。注意，对于每个$T_d$的任意给定的$d$帧样本，所有的时间关系函数都是端到端可微分的，因此它们都可以与用于提取每个视频帧的特征的基本的CNN一起训练。整个网络框架如图2所示。</p>
+<h3 id="efficient-training-and-testing"><a class="header-anchor" href="#efficient-training-and-testing"> </a>Efficient Training and Testing</h3>
+<p>当训练多尺度的时间网络时，我们可以通过为视频的每个$T_d$项选择不同的$d$帧组来对总和进行采样。但是，我们使用的采样方案可以显著降低计算量。首先，我们从视频中的$N$段，均匀采样一组$N$个帧的集合，$V<sup>*_N⊂V$，并且我们使用$V_N</sup><em>$来计算$T_N(V)$。然后，对于每个$d&lt;N$，我们从$d$帧中选择$k$个随机子样本，有$V<sup>*_{kd}⊂V</sup></em>_N$。这些用于计算每个$T_d(V)$的$d$帧关系。这允许在基础CNN上仅评估$N$帧时，同时对$O(kN^2)$个时间关系进行采样。</p>
+<p>（有一版写的是$kN$而非$O(kN^2)$）</p>
+<p>在测试时，我们可以在移动窗口中使用配置TRN的网络，以处理长视频。特征队列用于缓存从采样自视频的等距帧中提取的CNN特征，并且这些特征进一步组合成不同的关系元组，然后馈送到TRN以预测活动。CNN特征仅从输入帧中提取一次然后排队，从而使配备TRN的网络非常有效地在桌面上实时运行。</p>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-1.png" alt="表1"></p>
+<blockquote>
+<p>表1：用于评估TRN网络的数据库的统计数据。</p>
+</blockquote>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-2.png" alt="表2"></p>
+<blockquote>
+<p>表2：Something-Something数据集的验证集上的结果。所有模型都使用视频中的等距帧的中心裁剪。具有10-crop增强的多尺度TRN实现了最佳性能。</p>
+</blockquote>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-3.png" alt="表3"></p>
+<blockquote>
+<p>表3：在Something-Something数据集V1的测试集上的结果。比较方法来自官方公开排行榜。</p>
+</blockquote>
+<h2 id="experiments"><a class="header-anchor" href="#experiments"> </a>Experiments</h2>
+<p>我们在各种活动识别任务上评估配备TRN的网络。为了识别依赖于时间关系推理的活动，配备TRN的网络表现相当优于没有TRN的基准网络。我们在用于人类交互识别的Something-Something数据集上和用于手势识别的Jester数据集上取得了最先进的结果。配备TRN的网络也在Charades数据集的活动识别中获得了具有竞争力的结果，仅使用稀疏采样的RGB帧而性能优于Flow+RGB集合模型。</p>
+<p>表1列出了三个数据集Something-Something，Jester和Charades的统计数据。所有三个数据库都是众包的，通过要求众包工作者记录自己执行的指令活动来收集视频。与UCF101和Kinetics中的Youtube类型的视频不同，来源于众包的视频中的每个活动通常都有明确的开始和结束，强调时间关系推理的重要性。</p>
+<h3 id="network-architectures-and-training"><a class="header-anchor" href="#network-architectures-and-training"> </a>Network Architectures and Training</h3>
+<p>用于提取图像特征的网络在视觉识别任务中起着重要作用。来自ResNet等更深层的网络的特征通常表现更好。我们的目标是评估TRN模块在视频中进行时间关系推理的有效性。因此，我们在所有实验中对基础网络架构保持不变，并比较CNN模型在有和没有我们提出的TRN模块的情况下的性能。</p>
+<p>我们采用文献[10]中在ImageNet上预训练了的Inception with Batch Normalization（BN-Inception），因为它在准确性和效率之间取得了平衡。我们遵循部分BN（冻结除第一个之外的所有批归一化层），和全局池化后接着dropout的训练策略。对于所有三个数据集上的训练模型，我们保持MultiScale TRN模块的网络架构和训练超参数相同。在实验中，我们将$k = 3$设置为每个关系模块中累加关系三元组的数量。$g_\phi$是一个简单的两层MLP，每层有256个单元，而$h_\phi$是一个单层MLP，其单元号与类号相匹配。给定帧的CNN特征是来自BN-Inception的全局平均池化层（在最终的分类层之前）的激活结果。鉴于BN-Inception是基础CNN，在单个Nvidia Titan Xp GPU上的100轮训练期间，训练可以在不到24小时内完成。在多尺度TRN中，我们有从2帧TRN到8帧TRN的所有TRN模块，而包括更高帧的TRN会带来<u>边际改进margin improvement</u>并降低效率。</p>
+<h3 id="results-on-something-something-dataset"><a class="header-anchor" href="#results-on-something-something-dataset"> </a>Results on Something-Something Dataset</h3>
+<p>Something-Something是最近用于人-物交互识别的视频数据集。共有174个类别，其中一些模糊的活动类别具有挑战性，例如“将某物拆成两部分”与“撕下某物一点点”，“将某物颠倒过来”与“假装将某物颠倒过来”。我们可以看到，是对象的时间关系和变换，而非对象的外观，表征了数据集中的活动。</p>
+<p>表2中列出了在验证集上的结果，在其中我们比较了几种网络的top-1和top-5精度：在由每个视频随机选出的单帧上训练的基础网络，有多个帧关系模块的基础网络，和多尺度的配备TRN的网络。配备TRN的网络大幅超越了单帧的基准网络，而关系中包含的附加帧带来了进一步的改进。具有10-crop数据增强的多尺度TRN实现了最佳性能。</p>
+<p>我们将测试集上的多尺度TRN的预测结果提交给官方排行榜。在提交时，我们仅使用离散帧的方法在排行榜上排名第一，如表3所示。</p>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-4.png" alt="表4"></p>
+<blockquote>
+<p>表4：在Jester数据集V1的验证集上的结果。</p>
+</blockquote>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-5.png" alt="表5"></p>
+<blockquote>
+<p>表5：在Jester数据集V1的测试集上的结果。</p>
+</blockquote>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-6.png" alt="表6"></p>
+<blockquote>
+<p>表6：在Charades上活动分类的结果。</p>
+</blockquote>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-3.svg" alt="图3"></p>
+<blockquote>
+<p>图3：在（a）Something-Something，（b）Jester和（c）Charades上的预测例子。</p>
+</blockquote>
+<h3 id="results-on-jester-and-charades"><a class="header-anchor" href="#results-on-jester-and-charades"> </a>Results on Jester and Charades</h3>
+<p>我们在Jester数据集上进一步评估配备TRN的网络。Jester数据集是用于手势识别的视频数据集，具有27个类别。表4列出了在Jester数据集的验证集上的结果。表5列出了测试集上的结果，及它与官方排行榜中的顶级方法的比较。多尺度TRN再次实现了最先进的性能，精度接近95％。</p>
+<p>我们在最近的Charades数据集上评估多尺度TRN以进行日常活动识别。结果列于表6中。我们的方法优于各种方法，如双流网络和C3D，以及最近的<u>异步时域Asynchronous Temporal Field</u>（AsycTempField）方法。</p>
+<p>多尺度TRN对三个数据集的定性预测结果如图3所示。图中的例子证明TRN模型能够正确识别那些必须需要帧的整体时间排序来成功预测到的动作。例如，当反向显示时，“逆时针旋转”类别将采用不同的类别标签。此外，成功预测了个体假装执行一个动作的类别（例如“假装把某物放入某物”，如图3的第二行所示），这表明网络可以捕捉多个尺度的时间关系。其中，包含在短片段中的几个低级动作的排序，传达了和整体活动类别有关的关键语义信息。</p>
+<p>这一出色的表现证明了TRN对时间关系推理的有效性，及其在不同数据集中的强泛化能力。</p>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-4.svg" alt="图4"></p>
+<blockquote>
+<p>图4：由单帧的基准网络、2帧的TRN、3帧的TRN和4帧TRN确定的最有代表性的帧。TRN只有在帧数有限的情况下才能学会捕捉活动的本质。视频来自Something-Something数据集的验证集。</p>
+</blockquote>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-5.svg" alt="图5"></p>
+<blockquote>
+<p>图5：分别使用有序的帧和打乱的帧在Something-Something和UCF101数据集上通过不同帧的TRN获得的准确率。在Something-Something上，时间顺序对识别活动来说很关键。相反，识别UCF101中的活动不一定需要时间关系推理。</p>
+</blockquote>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-6.png" alt="图6"></p>
+<blockquote>
+<p>图6：前5个动作类别分别在有序帧输入和打乱帧输入上表现出最大增益和最小增益（负），差值在上面标出。具有强定向运动的动作似乎受到打乱的输入的影响最大。在大多数情况下，打乱对具有相对微小的运动的动作最为不利。</p>
+</blockquote>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-7.svg" alt="图7"></p>
+<blockquote>
+<p>图7：使用单帧基准网络、2帧TRN和5帧TRN的深度特征的15个类的视频样本的t-SNE图。有更高的帧数的TRN可以更好地区分Something-Something数据集中的活动（在放大的有色版本中有更好的视图）。</p>
+</blockquote>
+<h3 id="interpreting-visual-common-sense-knowledge-inside-the-trn"><a class="header-anchor" href="#interpreting-visual-common-sense-knowledge-inside-the-trn"> </a>Interpreting Visual Common Sense Knowledge inside the TRN</h3>
+<p>与先前的视频分类网络（如C3D和I3D）相比，所提出的TRN的一个独特属性是TRN具有更多的可解释的结构。在本节中，我们将通过解决这些时间推理任务，来更深入地分析TRN所学习到的视觉常识知识。我们探讨以下四个部分：</p>
+<p>**由TRN投票选出来用以识别活动的视频的代表帧。**直观地，人类观察者可以通过选择一小组代表帧来捕捉动作的本质。对于训练用以识别活动的模型，这个做法是否也适用？为了获得每个TRN的代表帧序列，我们首先从视频计算等距帧的特征，然后随机组合它们以生成不同的帧关系元组，将它们传递到TRN中。最后，我们使用不同TRN的响应对关系元组排名。图4显示由不同TRN投票选出的，识别同一视频中的活动最有代表性的帧。我们可以看到这些TRN学习到了表征活动的时间关系。对于相对简单的操作，单帧的网络足以在正确的操作中建立一定程度的可信度，但在存在转换时容易出错。2帧TRN拾取最能描述转换的两个帧。同时，对于更加困难的活动类别，例如“假装戳东西”，两帧也没有足够的信息来让人类观察者区分。类似地，网络需要TRN中的附加帧以正确识别行为。</p>
+<p>因此，代表帧的传播，及其相应的类别预测，告诉我们时间关系如何帮助模型推理更复杂的行为。一个特别的例子是图4的最后一个视频：单帧给出的动作上下文——一本靠近书的手——足以将<u>顶部预测top prediction</u>缩小到一个定性合理的动作，展开一些东西。类似的两帧关系略微增加了初始预测的概率，尽管这两个帧对人类观察者来说也不足以让他们做出正确的预测。现在，三帧关系开始对Something-Something的假装类别突出一个模式特征：初始帧非常类似于某个动作，但后面的帧与该动作的完成不一致，就好像它从未发生过一样。这种关系有助于模型将其预测调整到正确的类别。最后，那只手在4帧关系的第三帧中的向上运动进一步增加了场景的预期状态和观察到的最终状态之间的不一致; 类似于另一个动作的某个动作似乎发生了而对对象没有影响，这因此巩固了对正确的类别预测的信心。</p>
+<p>**活动识别的时间顺序的重要性。**为了验证帧的时间顺序对于活动识别的重要性，我们进行了一个实验，在训练TRN时比较按时间顺序的帧输入和打乱顺序的帧输入的不同情况，如图5所示。为了训练乱序帧的TRN，我们随机地打乱关系模块中的帧。Something-Something数据集上结果的显著差异表明了时间顺序在活动识别中的重要性。更有趣的是，我们在UCF101数据集上重复相同的实验，观察到有序帧和乱序帧的结果之间没有区别。这表明UCF101中Youtube类型视频的活动识别不一定需要时间推理能力，因为没有那么多随意的关系与已经在进行的活动相关联。</p>
+<p>为了进一步研究时间排序如何影响TRN中的活动识别，我们检查并绘制了在Something-Something数据集上有序和乱序输入之间准确率差异最大的类别，如图6所示。一般而言，具有强烈“方向性”的行为和大的单向运动（例如“向下移动”）似乎从保留正确的时间顺序中获益最多。这一观察结果符合一个想法：连续运动的破坏和打乱视频帧的潜在后果可能会令人类观察者感到迷惑，因为这会违背我们直观的物理概念。</p>
+<p>有趣的是，如果在某些情况下完全受到惩罚，那么打乱相对静态的动作的帧受到的惩罚就不那么严重了，其中几个类别甚至从打乱输入中略有受益，正如“放下不能滚动到倾斜表面的东西，所以它会留在远处”这个类别的观察结果。在这里，简单地学习帧的重合而不是时间变换，可能足以使模型区分相似的活动并进行正确的预测。</p>
+<p>特别是在具有挑战性的模糊情况下，例如“假装扔东西”，其中释放处部分或完全地模糊不清，破坏了强烈的“运动感”可能会使模型的预测偏离可能的替代方案，如“抛出某物”，这经常被有序模型错误地选择，从而导致对该动作的准确率的奇怪差异。</p>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-8.svg" alt="图8"></p>
+<blockquote>
+<p>图8：仅在给出前25%的帧时的预测活动。每个视频的前25%（由左列中显示的第一帧表示）用于生成前3个预测和中间列中列出的相应的概率。实际情况的标签以蓝色剪头突出表示，该箭头指向右列中的视频的最后一帧（网络未观察到）。</p>
+</blockquote>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-7.png" alt="表7"></p>
+<blockquote>
+<p>表7：在Something-Something和Jester数据集上使用多尺度TRN预测活动。只有前25％和50％的帧被提供给TRN来预测活动。这里的基准是在单帧上训练的模型。</p>
+</blockquote>
+<p>**活动相似性的t-SNE可视化。**图7显示了对验证集中15个最常见活动类的视频，来自单帧基准网络、3帧TRN和5帧TRN的高级特征的t-SNE可视化。我们可以看到，2帧和5帧TRN的特征可以更好地区分活动类别。我们还观察了可视化图中类别之间的相似性。例如，“将某物分成两部分”非常类似于“将某物稍微撕掉一点”，并且“折叠某物”、“展开某物”、“拿着东西”、“抓住某物”等类别聚集在一起。</p>
+<p>**预测活动。**在活动发生或完全发生之前预测活动是活动识别任务中具有挑战性、但探索很少的问题。在这里，我们在仅给出每个验证视频中的前25％和50％的帧的条件下评估TRN模型的预测活动的表现。结果如表7所示。为了比较，我们还包括了单帧的基准模型。我们看到TRN可以使用学习的时间关系来预测活动。随着更多有序帧被接收，性能会提高。图8显示了仅使用视频的前25％帧来预测活动的一些示例。对这些例子的定性评估表明，尽管给出了对人类观察者来说也具有高度不确定性的任务，仅使用初始帧的模型确实作出了非常合理的预测。</p>
+<h2 id="conclusion"><a class="header-anchor" href="#conclusion"> </a>Conclusion</h2>
+<p>我们提出了一个简单且可解释的网络模块，称为时间关系网络（TRN），以便在视频的神经网络中实现时间关系推理。我们在几个最近的数据集上评估了TRN，仅使用离散帧就取得了具有竞争力的结果。最后，我们已经证明了TRN模块能在视频中发现视觉常识。</p>
+<h1 id="论文笔记"><a class="header-anchor" href="#论文笔记"> </a>论文笔记</h1>
+<p>（未完待续）</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/视频分类/" rel="tag"># 视频分类</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/30/paper-reading-videos-as-space-time-region-graphes/" rel="next" title="深度学习论文阅读 | Videos as Space-Time Region Graphes">
+                <i class="fa fa-chevron-left"></i> 深度学习论文阅读 | Videos as Space-Time Region Graphes
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        
+          <ul class="sidebar-nav motion-element">
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+              文章目录
+            </li>
+            <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+              站点概览
+            </li>
+          </ul>
+        
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="yuyu" />
+            
+              <p class="site-author-name" itemprop="name">yuyu</p>
+              <p class="site-description motion-element" itemprop="description">鱼鱼爱吃鱼</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuyuforest" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yumlin16@outlook.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://blog.csdn.net/squirrelyuyu" target="_blank" title="CSDN"><i class="fa fa-fw fa-cuttlefish"></i>CSDN</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://icytown.com" title="MegaShow" target="_blank">MegaShow</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zzfly.net/" title="Rytia" target="_blank">Rytia</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+        
+        <!--noindex-->
+          <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+            <div class="post-toc">
+
+              
+                
+              
+
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原文翻译"><span class="nav-number">1.</span> <span class="nav-text"> 原文翻译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract"><span class="nav-number">1.1.</span> <span class="nav-text"> Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.2.</span> <span class="nav-text"> Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#related-work"><span class="nav-number">1.3.</span> <span class="nav-text"> Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#temporal-relation-networks"><span class="nav-number">1.4.</span> <span class="nav-text"> Temporal Relation Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#defining-temporal-relations"><span class="nav-number">1.4.1.</span> <span class="nav-text"> Defining Temporal Relations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multi-scale-temporal-relations"><span class="nav-number">1.4.2.</span> <span class="nav-text"> Multi-Scale Temporal Relations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#efficient-training-and-testing"><span class="nav-number">1.4.3.</span> <span class="nav-text"> Efficient Training and Testing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#experiments"><span class="nav-number">1.5.</span> <span class="nav-text"> Experiments</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#network-architectures-and-training"><span class="nav-number">1.5.1.</span> <span class="nav-text"> Network Architectures and Training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-on-something-something-dataset"><span class="nav-number">1.5.2.</span> <span class="nav-text"> Results on Something-Something Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-on-jester-and-charades"><span class="nav-number">1.5.3.</span> <span class="nav-text"> Results on Jester and Charades</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#interpreting-visual-common-sense-knowledge-inside-the-trn"><span class="nav-number">1.5.4.</span> <span class="nav-text"> Interpreting Visual Common Sense Knowledge inside the TRN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-number">1.6.</span> <span class="nav-text"> Conclusion</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文笔记"><span class="nav-number">2.</span> <span class="nav-text"> 论文笔记</span></a></li></ol></div>
+              
+
+            </div>
+          </section>
+        <!--/noindex-->
+        
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuyu</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

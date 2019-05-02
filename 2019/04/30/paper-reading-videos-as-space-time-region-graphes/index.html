@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="原文地址 本篇博客分为两个部分：  原文翻译：参考chrome的网页翻译，对原文逐句进行了翻译。 论文笔记：总结论文的主要思想。">
+  <meta name="description" content="原文地址 本篇博客分为两个部分：  原文翻译：基于chrome的网页翻译修正而来。 论文笔记：总结论文的主要思想。">
 <meta name="keywords" content="深度学习,视频分类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习论文阅读 | Videos as Space-Time Region Graphes">
 <meta property="og:url" content="https://yuyuforest.github.io/2019/04/30/paper-reading-videos-as-space-time-region-graphes/index.html">
 <meta property="og:site_name" content="yuyu&#39;s forest">
-<meta property="og:description" content="原文地址 本篇博客分为两个部分：  原文翻译：参考chrome的网页翻译，对原文逐句进行了翻译。 论文笔记：总结论文的主要思想。">
+<meta property="og:description" content="原文地址 本篇博客分为两个部分：  原文翻译：基于chrome的网页翻译修正而来。 论文笔记：总结论文的主要思想。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/04/30/paper-reading-videos-as-space-time-region-graphes/figure-1.png">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/04/30/paper-reading-videos-as-space-time-region-graphes/figure-2.png">
@@ -125,10 +125,10 @@
 <meta property="og:image" content="https://yuyuforest.github.io/2019/04/30/paper-reading-videos-as-space-time-region-graphes/figure-5.png">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/04/30/paper-reading-videos-as-space-time-region-graphes/table-3.png">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/04/30/paper-reading-videos-as-space-time-region-graphes/table-4.png">
-<meta property="og:updated_time" content="2019-05-01T11:59:39.916Z">
+<meta property="og:updated_time" content="2019-05-02T21:12:10.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习论文阅读 | Videos as Space-Time Region Graphes">
-<meta name="twitter:description" content="原文地址 本篇博客分为两个部分：  原文翻译：参考chrome的网页翻译，对原文逐句进行了翻译。 论文笔记：总结论文的主要思想。">
+<meta name="twitter:description" content="原文地址 本篇博客分为两个部分：  原文翻译：基于chrome的网页翻译修正而来。 论文笔记：总结论文的主要思想。">
 <meta name="twitter:image" content="https://yuyuforest.github.io/2019/04/30/paper-reading-videos-as-space-time-region-graphes/figure-1.png">
 
 
@@ -366,11 +366,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-01 19:59:39" itemprop="dateModified" datetime="2019-05-01T19:59:39+08:00">2019-05-01</time>
+                <time title="修改时间：2019-05-03 05:12:10" itemprop="dateModified" datetime="2019-05-03T05:12:10+08:00">2019-05-03</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/探索/" itemprop="url" rel="index"><span itemprop="name">探索</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -402,14 +420,14 @@
         <p><a href="https://www.groundai.com/project/videos-as-space-time-region-graphs/" target="_blank" rel="noopener">原文地址</a></p>
 <p>本篇博客分为两个部分：</p>
 <ul>
-<li>原文翻译：参考chrome的网页翻译，对原文逐句进行了翻译。</li>
+<li>原文翻译：基于chrome的网页翻译修正而来。</li>
 <li>论文笔记：总结论文的主要思想。</li>
 </ul>
 <a id="more"></a>
 <p>翻译仅作参考。因本人水平有限，如翻译中有错漏之处，敬请谅解，同时欢迎发邮件给我纠正。</p>
 <p>关于翻译，阅读之前有几点注意事项：</p>
 <ul>
-<li>有一些我不了解、因此可能翻译错误的专业术语，我会标下划线。这部分术语我会把它的中文翻译和英文原词一并列出来，或者直接只用英文原词。</li>
+<li>有一些我不了解、因此可能翻译错误的专业术语，我会标下划线，把它的中文翻译和英文原词一并列出来。</li>
 <li>提到的文献编号，我不会给出具体名称，详情请查阅原文。</li>
 </ul>
 <h1 id="原文翻译"><a class="header-anchor" href="#原文翻译"> </a>原文翻译</h1>
@@ -424,14 +442,14 @@
 <p>我们先来看一下图1所示的序列。人类如何识别出视频中的动作对应于“打开一本书”？我们认为，要解决这个问题，有两个关键因素。首先，书本的形状和它随时间的变化（即，对象状态由闭合变成打开），是一个至关重要的线索。要利用这个提示，需要在时间上将【跨时间的书本区域】和【把动作建模为<u>转换transformations</u>】这二者联系起来。但仅仅对对象的<u>时间动态temporal dynamics</u>进行建模是不够的。在与人或其他对象互相作用后，对象的状态会发生变化。因此，为了进行动作识别，我们还需要模拟人-物、物-物的相互作用。</p>
 <p>但是，我们现有的深度学习方法没能抓住这两个关键因素。例如，基于双流ConvNets的最先进的方法，仍在学习对基于个别视频帧或局部运动矢量之上的动作进行分类。局部运动显然无法对形状变化的动态建模。为了克服这个限制，最近的工作还关注利用回归神经网络、3D卷积来对长期的时间信息进行建模。但是，所有这些框架都关注从整个场景中提取的特征，无法捕捉到长程的、时间上的依赖性（转换），或基于区域的关系。事实上，大多数动作都是根据背景信息进行分类，而不是像文献[11]中所观察到的那样，捕捉关键对象（例如，“打开一本书”中的书本）。</p>
 <p>另一方面，也有一些团队为对人-物或物-物的交互进行具体建模而作出了努力。这个方向最近又被重新探索，伴随着ConvNets，来努力提升对象检测、视觉关系检测、动作识别等等。但是，关系推理仍然在静态图像中执行，未能捕捉到这些交互动作的时间动态。因此，这些方法很难捕捉到对象状态随时间的变化，以及这些变化的原因和影响。</p>
-<p>在本文中，我们建议通过基于图的推理框架对人-物和物-物进行长程的、时间的建模。不同于关注局部运动矢量的现有方法，我们的模型采用长程视频序列（例如，超过100帧或5秒）。我们将输入视频表示为**<u>时空区域图space-time region graph</u><strong>，图中的每个节点代表视频中令人感兴趣的区域。区域节点通过两种类型的边连接：外观相似性和时空接近度。具体而言，（i）</strong><u>相似关系similarity relations</u><strong>：外观相似或语义相关的区域连接在一起。通过相似关系，我们可以模拟同一对象的状态如何变化，和任何帧、任何两个对象之间的长程的依赖。（ii）</strong><u>时空关系spatial-temporal relations</u>**：在空间上重叠、在时间上接近的对象会通过这些边连接到一起。通过时空关系，我们可以捕捉到邻近对象之间的相互作用，以及对象状态变化的时间顺序。</p>
+<p>在本文中，我们建议通过基于图的推理框架对人-物和物-物进行长程的、时间的建模。不同于关注局部运动矢量的现有方法，我们的模型采用长程视频序列（例如，超过100帧或5秒）。我们将输入视频表示为<u><strong>时空区域图space-time region graph</strong></u>，图中的每个节点代表视频中令人感兴趣的区域。区域节点通过两种类型的边连接：外观相似性和时空接近度。具体而言，（i）<u><strong>相似关系similarity relations</strong></u>：外观相似或语义相关的区域连接在一起。通过相似关系，我们可以模拟同一对象的状态如何变化，和任何帧、任何两个对象之间的长程的依赖。（ii）<u><strong>时空关系spatial-temporal relations</strong></u>：在空间上重叠、在时间上接近的对象会通过这些边连接到一起。通过时空关系，我们可以捕捉到邻近对象之间的相互作用，以及对象状态变化的时间顺序。</p>
 <p>给出图形表示，我们在图上进行推理，并通过应用图形卷积网络（GCN）推断出动作。我们在具有挑战性的Charades和20BN-Something-Something数据集中进行实验。两个数据集都极具挑战性，因为由场景中的背景和人类或物体的2D外观无法轻易推断出动作。我们的模型显示了对动作识别的最新结果的显著改进。特别是在Charades数据库中，我们获得了4.4%的提升。</p>
 <p>我们的贡献包括：（a）关于在长程视频中的对象之间的多样关系的新颖的图形表示；（b）一个可用于多个关系边的推理的图形卷积网络；（c）最先进的表现，在复杂环境中的动作识别这方面获得重大收益。</p>
 <h2 id="related-work"><a class="header-anchor" href="#related-work"> </a>Related Work</h2>
-<p>**视频理解模型。**时空推理是视频理解和动作识别领域的核心研究领域之一。但是，大多数早期工作都集中在使用时空的外观特征。例如，有很大一部分努力花费在手动设计视频特征。一些人工设计的功能，比如<u>Improved Dense Trajectory</u>（IDT），仍然广泛应用，并在不同的视频相关任务中显示出很有竞争力的结果。然而，最近的研究已经集中在从视频数据学习深度表示，取代了设计人工制作的特征。最受欢迎的模型之一是双流ConvNets，其中时间信息是由具有10个光流帧作为输入的网络来建模的（&lt; 1 second）。为了更好地对长期的信息建模，已经有大量的工作集中在使用回归神经网络（RNNs）和3D的ConvNets。但是，这些框架专注于从整个场景中提取特征，并且很难在空间和时间上模拟不同对象实例之间的关系。</p>
+<p><strong>视频理解模型。</strong> 时空推理是视频理解和动作识别领域的核心研究领域之一。但是，大多数早期工作都集中在使用时空的外观特征。例如，有很大一部分努力花费在手动设计视频特征。一些人工设计的功能，比如Improved Dense Trajectory（IDT），仍然广泛应用，并在不同的视频相关任务中显示出很有竞争力的结果。然而，最近的研究已经集中在从视频数据学习深度表示，取代了设计人工制作的特征。最受欢迎的模型之一是双流ConvNets，其中时间信息是由具有10个光流帧作为输入的网络来建模的（&lt; 1 second）。为了更好地对长期的信息建模，已经有大量的工作集中在使用回归神经网络（RNNs）和3D的ConvNets。但是，这些框架专注于从整个场景中提取特征，并且很难在空间和时间上模拟不同对象实例之间的关系。</p>
 <p>**视觉关系。**关于两两关系的推理，已被证明是对各种计算机视觉任务非常有帮助的。例如，通过对人-物相互作用进行建模，可以显著改善杂乱场景中的对象检测。最近，视觉关系，连同深度网络，已被广泛地应用于对视觉问题的回答、对象识别和<u>直观的物理学intuitive physics</u>。在动作识别这方面，已经有大量的努力花在对人-物和物-物的两两关系的建模。然而，这些工作中的交互推理框架关注的是静态图像，并且时间信息通常是由在图像级特征上的RNN网络来建模。因此，这些方法仍然无法捕捉到某个对象的状态如何随时间变化。</p>
 <p>最近，有团队尝试在<u>非局部神经网络Non-local Neural Networks</u>中对空间和时间中的两两关系进行建模。但是，非局部运算符应用于特征空间中的每个像素（从低层到高层），而我们的推理是基于具有对象级别的特征的图像。此外，非局部运算符不处理任何时间排序信息，而这是在我们的时空关系中明确建模的。</p>
-<p>**图形模型。**图像和视频中的长程关系通常由图形模型来捕捉。一种流行的方向是，使用<u>Conditional Random Fields</u>（CRF）。在深度学习的上下文中，特别是对于语义分割，该CRF模型通常通过执行<u>mean-field inference</u>来应用于ConvNets的输出。而最近，不同的更简单的、基于前馈图的神经网络被提出来了。在本文中，我们应用了图形卷积网络（GCN），它最初被提出用于自然语言处理。我们的GCN是通过堆叠具有相似性关系和时空关系的多层图形卷积而构建的。GCN的输出是每个对象节点的更新的特征，可用于执行分类。</p>
+<p>**图形模型。**图像和视频中的长程关系通常由图形模型来捕捉。一种流行的方向是，使用Conditional Random Fields（CRF）。在深度学习的上下文中，特别是对于语义分割，该CRF模型通常通过执行mean-field inference来应用于ConvNets的输出。而最近，不同的更简单的、基于前馈图的神经网络被提出来了。在本文中，我们应用了图形卷积网络（GCN），它最初被提出用于自然语言处理。我们的GCN是通过堆叠具有相似性关系和时空关系的多层图形卷积而构建的。GCN的输出是每个对象节点的更新的特征，可用于执行分类。</p>
 <p>我们的工作也与包括对象线索、对象图形模型的视频识别有关。例如，Structural-RNN提出了对视频识别任务的对象（时间上相邻）之间的时空关系进行建模。与这些成果不同，我们的时空图表示不仅编码了局部关系，而且编码了跨空间、跨时间的任何一对对象之间的长程依赖关系。通过使用具有长程关系的图形卷积，它实现了在对象的起始状态和结束状态之间有效的消息传递。这种全局推理图框架提供了对最先进技术的显著提升。</p>
 <h2 id="overview"><a class="header-anchor" href="#overview"> </a>Overview</h2>
 <p><img src="/2019/04/30/paper-reading-videos-as-space-time-region-graphes/figure-2.png" alt="图2"></p>
@@ -439,7 +457,7 @@
 <p>图2：模型概述。我们的模型使用3D卷积提取视觉特征，然后RoIAlign为每个建议对象提取$d$维度特征。这些特征作为图形卷积网络的输入，基于时空边进行信息传播。最后，提取$d$维度特征并将其附加到另一个$d$维度视频特征，以执行分类。</p>
 </blockquote>
 <p>我们的目标是将视频表示为对象图，并在图表上执行推理以进行动作识别。我们的模型概述如图2所示。我们模型的输入参数包括视频帧（5秒以上）的长片段，并将其转发到一个3D卷积神经网络。该3D卷积网络的输出是一个尺寸为$T×H×W×d$的特征图，其中$T$表示时间维度，$H×W$表示空间维度，$d$表示通道数。</p>
-<p>除了提取视频特征以外，我们还应用<u>Region Proposal Network</u>（RPN）来提取对象边界框（为了简单起见，我们没有将图2中的RPN可视化）。对$T$个特征帧中每一帧的每个边界框，我们应用RoIAlign提取它们的特征。注意，RoIAlign独立地应用于每一个特征帧。每个对象的特征向量有$d$维（首先对齐到$7×7×d$，然后最大池化为$1×1×d$）。我们将对象数表示为$N$，因此在$RoIAlign$之后特征尺寸为$N×d$。</p>
+<p>除了提取视频特征以外，我们还应用Region Proposal Network（RPN）来提取对象边界框（为了简单起见，我们没有将图2中的RPN可视化）。对$T$个特征帧中每一帧的每个边界框，我们应用RoIAlign提取它们的特征。注意，RoIAlign独立地应用于每一个特征帧。每个对象的特征向量有$d$维（首先对齐到$7×7×d$，然后最大池化为$1×1×d$）。我们将对象数表示为$N$，因此在$RoIAlign$之后特征尺寸为$N×d$。</p>
 <p>我们现在构造一个图，这个图包含$N$个节点，这些节点对应于在$T$个帧上聚合的$N$个建议对象。图中主要有两种关系：相似关系和时空关系。为简单起见，我们将这个大图分解为两个具有相同节点但关系不同的子图：相似图和时空图。</p>
 <p>通过图形表示，我们应用图形卷积网络（GCN）来进行推理。GCN的输出与输入特征有相同的尺寸$N×d$。我们对所有对象节点执行平均池化，以获得一个$d$维度特征。除了GCN特征之外，我们还对整个视频表示（$T×H×W×d$​）执行平均池化，以获得一个同样是$d$维度的特征，作为全局特征。然后这两个特征被连接到一起，以进行视频级别的分类。</p>
 <h2 id="graph-representation-in-videos"><a class="header-anchor" href="#graph-representation-in-videos"> </a>Graph Representation in Videos</h2>
@@ -451,7 +469,7 @@
 <h3 id="video-representation"><a class="header-anchor" href="#video-representation"> </a>Video Representation</h3>
 <p>**视频骨干模型。**给定一段长视频片段（大约5秒钟），我们从中采样32个视频帧，每两帧之间具有相同的持续时间。我们通过3D卷积网络提取这些帧的特征。表1显示了基于ResNet-50架构（受文献[]58的启发）的骨干模型。该模型将输入视为具有$224×224$维度的32个视频帧，而最后一个卷积层的输出是$16×14×14$的特征图（即，时间维度内有16个帧，而空间维度为$14×14$）。本文中的基准方法采用相同的体系结构，并且通过在最终卷积特征上使用全局平均池化、再附加一个全连接层，来简单地执行分类。</p>
 <p>这个骨干模型被称为<u>充气的3D卷积网络Inflated 3D ConvNet</u>（I3D）。可以通过使初始化期间的核膨胀，把一个2D的ConvNet转换为3D的ConvNet。也就是说，通过将权重复制$t$次、缩小为原来的$1/t$，可以使2D的$k×k$的内核膨胀为3D的$t×k×k$的内核。可以参考文献[48,8,58]来获取关于初始化的更多细节。</p>
-<p>**<u>区域提议网络Region Proposal Network</u>。**在文献[79, 82]中，我们应用Region Proposal Network（RPN）来在每一个视频帧上生成感兴趣的对象边界框。更具体地说，我们使用有ResNet-50骨干模型的RPN，和FPN。RPN使用MSCOCO对象检测数据集进行预训练，并且RPN和我们的I3D视频骨干模型之间没有权重共享。注意，RPN提取的边界框是<u>类不可知class-agnostic</u>的。</p>
+<p><u><strong>区域提议网络Region Proposal Network。</strong></u>在文献[79, 82]中，我们应用Region Proposal Network（RPN）来在每一个视频帧上生成感兴趣的对象边界框。更具体地说，我们使用有ResNet-50骨干模型的RPN，和FPN。RPN使用MSCOCO对象检测数据集进行预训练，并且RPN和我们的I3D视频骨干模型之间没有权重共享。注意，RPN提取的边界框是<u>类不可知class-agnostic</u>的。</p>
 <p>为了在最后一个卷积层之上提取对象特征，我们将16个输入RGB帧（从I3D的32个输入帧中采样，采样率为每2帧采样1帧）的边界框投影到16个输出特征帧。通过视频特征和投影的边界框，我们应用RoIAlign来提取每个建议对象的特征。在RoIAlign中，每个输出帧都是独立处理的。RoIAlign为每个对象生成了$7×7×d$的输出特征，然后这个输出特征被最大池化为$1×1×d$的。</p>
 <h3 id="similarity-graph"><a class="header-anchor" href="#similarity-graph"> </a>Similarity Graph</h3>
 <p><img src="/2019/04/30/paper-reading-videos-as-space-time-region-graphes/figure-3.png" alt="图3"></p>
@@ -463,7 +481,7 @@
 <p>$$F(x_i,x_j)=\phi(x_i)^T\phi’(x_j)\tag{1}$$</p>
 <p>其中，$\phi$和$\phi’$代表原始特征的两种不同变换。更具体地说，我们有$\phi(X)=wx$和$\phi’(x)=w’x$。参数$w$和$w’$都是$d×d$维度权重，可以通过反向传播来学习。通过添加变换权重$w$和$w’$，我们不仅可以学习跨帧的同一对象实例的不同状态之间的相关性，还可以学习不同对象之间的关系。我们将图3中的建议对象的最近邻居可视化。在第一个例子中，我们可以看到笔记本电脑的最近邻居不仅包括其他帧中的笔记本电脑实例，还包括正在操作它的人。</p>
 <p>在用方程$(1)$计算了<u>亲和度矩阵affinity matrix</u>之后，我们对矩阵的每一行执行归一化，使得连接到一个建议对象$i$的所有边的值总和为1。受近期文献[85,58]的启发，我们为归一化采用了softmax功能，以获得相似图，</p>
-<p>$$G<sup>{sim}_{ij}=\dfrac{expF(x_i,x_j)}{\sum</sup>N_{j=1}expF(x_i,x_j)}\tag{2}$$</p>
+<p>$$G^{sim}<em>{ij} = \frac{expF(x_i,x_j)}{\sum^{N}</em>{j=1}expF(x_i,x_j)}\tag{2}$$</p>
 <p>将归一化了的$G^{sim}$作为表示相似图的邻接矩阵。</p>
 <h3 id="spatial-temporal-graph"><a class="header-anchor" href="#spatial-temporal-graph"> </a>Spatial-Temporal Graph</h3>
 <p><img src="/2019/04/30/paper-reading-videos-as-space-time-region-graphes/figure-4.png" alt="图4"></p>
@@ -472,9 +490,9 @@
 </blockquote>
 <p>虽然相似图甚至可以捕捉到任何两个建议对象之间的长期依赖关系，但它不会捕捉对象之间的相对空间关系以及状态变化的顺序。为了对对象之间的这些空间和时间关系进行编码，我们建议使用时空图，其中，在空间和时间中相近的对象连接在一起。</p>
 <p>给定帧$t$中的一个建议对象，我们计算这个对象边界框与帧$t+1$中所有其他对象边界框之间的<u>Intersection Over Unions</u>（IoUs）的值。我们将帧$t$的对象$i$和帧$t+1$的对象$j$之间的IoU表示为$\sigma_{ij}$。如果$\sigma_{ij}$大于0，我们将使用一条有向边$i→j$来将对象$i$连接到对象$j$。给边赋值后，我们将连接到每个建议对象$i$的边的值总和归一化为1，通过以下公式：</p>
-<p>$G<sup>{front}_{ij}=\dfrac{\sigma_{ij}}{\sum</sup>N_{j=1}\sigma_{ij}}\tag{3}$</p>
+<p>$$G<sup>{front}_{ij}=\dfrac{\sigma_{ij}}{\sum</sup>N_{j=1}\sigma_{ij}}\tag{3}$$</p>
 <p>其中，$G^{front}$是时空图的邻接矩阵。我们将图4中的一些建议对象和轨迹可视化。</p>
-<p>除了构建将帧$t$的对象连接到帧$t+1$的对象的前向图之外，我们还以类似的方式构建了一个后向图，它将帧$t+1$的对象连接到帧$t$。我们将该后向图的邻接矩阵表示为$G<sup>{back}$。具体地说，对于重叠的帧$t$中的对象$i$和帧$t+1$中的对象$j$，我们构造边缘$i←j$并根据IoU值给$G</sup>{back}_{ji}$赋值。通过以双向的方式构造时空图，我们可以获得更丰富的结构信息，并在图形卷积期间增加传播领域的数量。</p>
+<p>除了构建将帧$t$的对象连接到帧$t+1$的对象的前向图之外，我们还以类似的方式构建了一个后向图，它将帧$t+1$的对象连接到帧$t$。我们将该后向图的邻接矩阵表示为 $G^{back}$ 。具体地说，对于重叠的帧$t$中的对象$i$和帧$t+1$中的对象$j$，我们构造边缘$i←j$并根据IoU值给$G^{back}_{ji}$赋值。通过以双向的方式构造时空图，我们可以获得更丰富的结构信息，并在图形卷积期间增加传播领域的数量。</p>
 <h2 id="convolutions-on-graphs"><a class="header-anchor" href="#convolutions-on-graphs"> </a>Convolutions on Graphs</h2>
 <p>为了在图上进行推理，我们应用了文献[19]中提出的图形卷积网络（GCNs）。不同于在局部规则网格上运行的标准卷积，图形卷积允许我们基于由图形关系定义的邻居来计算节点的响应。因此，执行图形卷积等同于在图形内执行消息传递。GCNs的输出是每个对象节点的更新的特征，可以将它们聚合到一起以进行视频分类。我们可以将图形卷积的一层表示为：</p>
 <p>$$Z=GXW\tag{4}$$</p>
@@ -488,8 +506,8 @@
 <p>我们在最近的两个具有挑战性的数据集上进行实验：Charades和Something-Something。我们首先介绍我们方法的实现细节，然后介绍对在这些数据集上的结果的评估。</p>
 <p>**训练。**我们骨干模型的训练包括下列两个不同数据集的预训练。该模型首先作为一个带有ImageNet数据集的2D卷积网络进行预训练，然后膨胀为3D卷积网络（即，I3D）。然后我们遵循文献[58]中的对更长的片段（大约5秒的视频）的同一个训练模式，对<u>动力学动作识别数据集 Kinetics action recognition dataset</u>上的3D卷积网络进行微调。在这样的初始化之后，现在我们介绍如何进一步微调我们在目标数据集上的网络，如下所示。</p>
 <p>如表1所示，我们的网络需要32个视频帧作为输入。以6fps的帧率对这32个视频帧进行采样，因此视频剪辑的时间长度约为5秒。输入的空间尺寸为$224×224$。跟随文献[89]，输入帧是从一个随机缩放的视频（短边长度在$[256.320]$之间采样）随机裁剪出的。为了减少GCN参数的数列，我们在I3D基准模型之上增加了一个$1×1×1$的卷积层，从而将输出通道数量$d$从2048减少到512。由于Charades和Something-Something数据集的视频帧数量相近，我们对两个数据集采用相同的学习率策略。</p>
-<p>我们的基准I3D模型使用有4个GPU的机器进行训练。训练期间的批大小为8个clip。注意，我们在训练期间将所有批归一化层的参数都冻结了。我们的模型总共训练了100K轮，在前90K轮中学习率为0.00125，后10K轮中学习率减少到原来的1/10。<u>dropout</u>应用于最后一个全局池化层，比率为0.3。</p>
-<p>我们将我们的图形卷积网络的层数设置为3。前两个层是随机初始化的，最后一个层初始化为0，受文献[91]的启发。为了将GCN和I3D骨干模型一起训练，我们建议应用阶段性训练。我们首先对上面提到的I3D模型进行微调，然后在最终的卷积特征之上应用RoIAlign和GCN，如图2所示。我们修复了I3D特征，并使用和训练骨干模型相同的学习率策略来训练GCN。然后我们将I3D和GCN一起端到端地训练，以便在学习率降低的情况下再进行30K轮。</p>
+<p>我们的基准I3D模型使用有4个GPU的机器进行训练。训练期间的批大小为8个clip。注意，我们在训练期间将所有批归一化层的参数都冻结了。我们的模型总共训练了100K次迭代，在前90K次迭代中学习率为0.00125，后10K次迭代中学习率减少到原来的1/10。<u>dropout</u>应用于最后一个全局池化层，比率为0.3。</p>
+<p>我们将我们的图形卷积网络的层数设置为3。前两个层是随机初始化的，最后一个层初始化为0，受文献[91]的启发。为了将GCN和I3D骨干模型一起训练，我们建议应用阶段性训练。我们首先对上面提到的I3D模型进行微调，然后在最终的卷积特征之上应用RoIAlign和GCN，如图2所示。我们修复了I3D特征，并使用和训练骨干模型相同的学习率策略来训练GCN。然后我们将I3D和GCN一起端到端地训练，以便在学习率降低的情况下再进行30K次迭代。</p>
 <p>*任务的特定设置。*我们在训练Charades和Something-Something时应用不同的损失函数。对于Something-Something数据集，我们可以简单地应用softmax损失函数。对于Charades，我们应用<u>binary sigmoid</u>损失函数来处理多标签属性。我们还在两个不同的数据集中使用RPN提取了不同数量的对象边界框。对Charades，情景更混乱，我们为每帧提取50个建议对象。但是，对于Something-Something，视频帧的中心通常只有一个或两个对象。我们发现对Something-Something，每帧提取10个建议对象是足够的。</p>
 <p>**推理。**在推理过程中，我们执行如文献[89,58]中的空间完全卷积。每个视频帧的短边被缩放到256，同时保持宽高比。在测试一整个视频的期间，我们根据两个数据集的平均视频长度，为Charades采样10个clip而为Something-Something采样2个clip。来自多个clip的分数被最大池化聚合到一起。</p>
 <p><img src="/2019/04/30/paper-reading-videos-as-space-time-region-graphes/table-2.png" alt="表2"></p>
@@ -576,6 +594,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/" rel="prev" title="深度学习论文阅读 | Temporal Relational Reasoning in Videos">
+                深度学习论文阅读 | Temporal Relational Reasoning in Videos <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -650,7 +672,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
