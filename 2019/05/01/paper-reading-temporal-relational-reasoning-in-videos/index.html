@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="原文地址 值得一提的是，该论文有其他版本的原文，与这版有一些出入。比如另一版本的pdf。">
+  <meta name="description" content="原文地址 需要注意的是，该论文有其他版本的原文，与这版有一些出入。比如另一版本的pdf。">
 <meta name="keywords" content="深度学习,视频分类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习论文阅读 | Temporal Relational Reasoning in Videos">
 <meta property="og:url" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/index.html">
 <meta property="og:site_name" content="yuyu&#39;s forest">
-<meta property="og:description" content="原文地址 值得一提的是，该论文有其他版本的原文，与这版有一些出入。比如另一版本的pdf。">
+<meta property="og:description" content="原文地址 需要注意的是，该论文有其他版本的原文，与这版有一些出入。比如另一版本的pdf。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-1.svg">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-2.svg">
@@ -131,10 +131,11 @@
 <meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-7.svg">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-8.svg">
 <meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-7.png">
-<meta property="og:updated_time" content="2019-05-02T21:08:41.122Z">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-2.svg">
+<meta property="og:updated_time" content="2019-05-03T06:36:34.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习论文阅读 | Temporal Relational Reasoning in Videos">
-<meta name="twitter:description" content="原文地址 值得一提的是，该论文有其他版本的原文，与这版有一些出入。比如另一版本的pdf。">
+<meta name="twitter:description" content="原文地址 需要注意的是，该论文有其他版本的原文，与这版有一些出入。比如另一版本的pdf。">
 <meta name="twitter:image" content="https://yuyuforest.github.io/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-1.svg">
 
 
@@ -372,7 +373,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-03 05:08:41" itemprop="dateModified" datetime="2019-05-03T05:08:41+08:00">2019-05-03</time>
+                <time title="修改时间：2019-05-03 14:36:34" itemprop="dateModified" datetime="2019-05-03T14:36:34+08:00">2019-05-03</time>
               
             
           </span>
@@ -424,8 +425,19 @@
 
       
         <p><a href="https://www.groundai.com/project/temporal-relational-reasoning-in-videos/" target="_blank" rel="noopener">原文地址</a></p>
-<p>值得一提的是，该论文有其他版本的原文，与这版有一些出入。比如<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Bolei_Zhou_Temporal_Relational_Reasoning_ECCV_2018_paper.pdf" target="_blank" rel="noopener">另一版本的pdf</a>。</p>
+<p>需要注意的是，该论文有其他版本的原文，与这版有一些出入。比如<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Bolei_Zhou_Temporal_Relational_Reasoning_ECCV_2018_paper.pdf" target="_blank" rel="noopener">另一版本的pdf</a>。</p>
 <a id="more"></a>
+<p>本篇博客分为两个部分：</p>
+<ul>
+<li>原文翻译：基于chrome的网页翻译修正而来。</li>
+<li>论文笔记：总结论文的主要思想。</li>
+</ul>
+<p>翻译仅作参考。因本人水平有限，如翻译中有错漏之处，敬请谅解，同时欢迎发邮件给我纠正。</p>
+<p>关于翻译，阅读之前有几点注意事项：</p>
+<ul>
+<li>有一些我不了解、因此可能翻译错误的专业术语，我会标下划线，把它的中文翻译和英文原词一并列出来。</li>
+<li>提到的文献编号，我不会给出具体名称，详情请查阅原文。</li>
+</ul>
 <h1 id="原文翻译"><a class="header-anchor" href="#原文翻译"> </a>原文翻译</h1>
 <h2 id="abstract"><a class="header-anchor" href="#abstract"> </a>Abstract</h2>
 <p>时间关系推理，即<u>随着时间推移，将对象或实体的有意义的转换联系到一起link meaningful</u>
@@ -441,9 +453,9 @@
 <p>但是，卷积神经网络仍然在数据和观测有限的情况下，或是基础结构以变换和时间关系、而非某些实体的出现为特征的情况下，表现吃力。让卷积神经网络推理时间关系、并预测观察到的事物发生了什么变化，仍然是一个非常有挑战性的问题。图1显示了这样的例子。随着时间的推移，网络需要发现视觉常识，超越帧中对象的外观和光流。</p>
 <p>在这项工作中，我们提出了一个简单且可解释的网络模块，称为时间关系网络（TRN）。它支持神经网络中的时间关系推理。这个模块的灵感来自于文献[17]中提出的关系网络，但TRN不是对空间关系建模，而是旨在描述视频中的观察事物之间的时间关系。因此，TRN可以在多个时间尺度上学习和发现可能的时间关系。TRN是一个通用的、可扩展的模块，它能够在任何现有的CNN架构中即插即用。我们在最近的三个视频数据集（Something-Something, Jester, Charades）上应用了配备TRN的网络，用于识别不同类型的活动，如人-人交互和收拾，但都依赖于时间关系推理。配备TRN的网络即使只有离散的RGB帧也能获得极具竞争力的结果，从而带来了在基准之上的显著改进。因此，TRN为标准神经网络提供了一种实用的解决方案，以使用时间关系推理来解决活动识别任务。</p>
 <h2 id="related-work"><a class="header-anchor" href="#related-work"> </a>Related Work</h2>
-<p>**用于活动识别的卷积神经网络。**视频中的活动识别是计算机视觉中的核心问题。。随着深度卷积神经网络（CNN）的兴起，它在图像识别任务中实现了最先进的性能，许多工作已经在研究如何设计有效的深度卷积神经网络来进行活动识别。例如，在Sport1M数据集上探索了在时间维度上融合RGB帧的各种方法。双流的CNN被提出来，一个静态图像的流和另一个光流的流融合了物体外观和短期运动的信息。3D卷积网络使用3D卷积内核从一系列密集的RGB帧中提取特征。<u>时间段网络Temporal Segment Networks</u>在不同时间段上采样帧和光流，以提取活动识别信息。CNN + LSTM模型也用于识别视频中的活动，它使用CNN提取帧特征，使用LSTM随着时间推移整合特征。最近，I3D网络在密集的RGB和光流序列上使用双流CNN和膨胀的3D卷积，以在Kinetics数据集上实现最先进的性能。现有的CNN在动作识别方面，存在若干个重要的问题：（1）对光流的预先提取的依赖性降低了识别系统的效率；（2）考虑到连续帧中的冗余，密集帧序列上的3D卷积在计算上是昂贵的；（3）由于进入网络的帧序列通常限于20~30帧，网络难以学习帧之间的长期时间关系。为了解决这些问题，我们提出的时间关系网络稀疏地对帧进行采样，然后学习它们的因果关系，这比密集地采样帧并对其进行卷积更有效。我们展示了：配置TRN的网络可以有效地捕捉在多个时间尺度上的时间关系，并使用稀疏采样的视频帧取得了超过密集采样帧的网络的性能。</p>
-<p>**活动识别中的时间信息。**对许多现有的视频数据集，如UCF101，Sport1M，THUMOS和Kinetics等之上的活动识别，静止帧的出现和光流等短期运动是最重要的信息。因此，诸如双流网络和I3D网络等的活动识别网络被专门设计出来，以捕获密集帧的这些短期动态。因此，现有的网络不需要建立时间关系推理的能力。另一方面，最近各种视频数据集被通过众包的方式收集而来，它们重点关注对有序活动的识别。Something-Something数据集是用于通用的人-物交互。它有诸如“将东西放入某物”，“用某物推某物”，甚至“假装打开某物而实际上不打开它”等的视频分类。Jester数据集是另一个最近用于手势识别的视频数据集。视频由众包工作者录制，他们摆出27种手势，如“向上翻阅”，“向左滑动”和“逆时针转动手”等。Charades数据集也是一个高级的人类活动数据集，通过要求群众工作人员进行并记录一系列家庭活动，来收集视频。为了识别这三个数据集中的复杂活动，将时间关系推理整合到网络中是至关重要的。此外，许多以前的作品使用<u>词袋bag of words</u>，<u>运动原子motion atoms</u>或<u>动作语法action grammar</u>来模拟视频的时间结构，以进行动作识别和检测。我们不是人工设计时间结构，而是使用更通用的结构来在端到端训练中学习时间关系。因此，它可以更有效地处理测试中的视频。</p>
-<p>**关系推理与直觉物理学。**最近，关系推理模块已被提出来用于具有超人类表现的视觉问答。我们的工作受到这项工作的启发，但我们专注于对视频中的多尺度时间关系进行建模。在机器人自我监督学习领域，许多模型被提出来学习帧之间的直观物理学。给定初始状态和目标状态，使用具有强化学习的逆动力模型来推断对象状态之间的转换。物理的相互作用和观察也用于训练深度神经网络。<u>Time contrast network</u>用于从第三人称的视频视角来自我监督模仿学习操纵对象。我们的工作旨在在监督学习环境中学习视频中的各种时间关系。所提出的TRN可以扩展到用于机器人操纵对象的自我监督学习。</p>
+<p><strong>用于活动识别的卷积神经网络。</strong> 视频中的活动识别是计算机视觉中的核心问题。。随着深度卷积神经网络（CNN）的兴起，它在图像识别任务中实现了最先进的性能，许多工作已经在研究如何设计有效的深度卷积神经网络来进行活动识别。例如，在Sport1M数据集上探索了在时间维度上融合RGB帧的各种方法。双流的CNN被提出来，一个静态图像的流和另一个光流的流融合了物体外观和短期运动的信息。3D卷积网络使用3D卷积内核从一系列密集的RGB帧中提取特征。<u>时间段网络Temporal Segment Networks</u>在不同时间段上采样帧和光流，以提取活动识别信息。CNN + LSTM模型也用于识别视频中的活动，它使用CNN提取帧特征，使用LSTM随着时间推移整合特征。最近，I3D网络在密集的RGB和光流序列上使用双流CNN和膨胀的3D卷积，以在Kinetics数据集上实现最先进的性能。现有的CNN在动作识别方面，存在若干个重要的问题：（1）对光流的预先提取的依赖性降低了识别系统的效率；（2）考虑到连续帧中的冗余，密集帧序列上的3D卷积在计算上是昂贵的；（3）由于进入网络的帧序列通常限于20~30帧，网络难以学习帧之间的长期时间关系。为了解决这些问题，我们提出的时间关系网络稀疏地对帧进行采样，然后学习它们的因果关系，这比密集地采样帧并对其进行卷积更有效。我们展示了：配置TRN的网络可以有效地捕捉在多个时间尺度上的时间关系，并使用稀疏采样的视频帧取得了超过密集采样帧的网络的性能。</p>
+<p><strong>活动识别中的时间信息。</strong> 对许多现有的视频数据集，如UCF101，Sport1M，THUMOS和Kinetics等之上的活动识别，静止帧的出现和光流等短期运动是最重要的信息。因此，诸如双流网络和I3D网络等的活动识别网络被专门设计出来，以捕获密集帧的这些短期动态。因此，现有的网络不需要建立时间关系推理的能力。另一方面，最近各种视频数据集被通过众包的方式收集而来，它们重点关注对有序活动的识别。Something-Something数据集是用于通用的人-物交互。它有诸如“将东西放入某物”，“用某物推某物”，甚至“假装打开某物而实际上不打开它”等的视频分类。Jester数据集是另一个最近用于手势识别的视频数据集。视频由众包工作者录制，他们摆出27种手势，如“向上翻阅”，“向左滑动”和“逆时针转动手”等。Charades数据集也是一个高级的人类活动数据集，通过要求群众工作人员进行并记录一系列家庭活动，来收集视频。为了识别这三个数据集中的复杂活动，将时间关系推理整合到网络中是至关重要的。此外，许多以前的作品使用<u>词袋bag of words</u>，<u>运动原子motion atoms</u>或<u>动作语法action grammar</u>来模拟视频的时间结构，以进行动作识别和检测。我们不是人工设计时间结构，而是使用更通用的结构来在端到端训练中学习时间关系。因此，它可以更有效地处理测试中的视频。</p>
+<p><strong>关系推理与直觉物理学。</strong> 最近，关系推理模块已被提出来用于具有超人类表现的视觉问答。我们的工作受到这项工作的启发，但我们专注于对视频中的多尺度时间关系进行建模。在机器人自我监督学习领域，许多模型被提出来学习帧之间的直观物理学。给定初始状态和目标状态，使用具有强化学习的逆动力模型来推断对象状态之间的转换。物理的相互作用和观察也用于训练深度神经网络。<u>Time contrast network</u>用于从第三人称的视频视角来自我监督模仿学习操纵对象。我们的工作旨在在监督学习环境中学习视频中的各种时间关系。所提出的TRN可以扩展到用于机器人操纵对象的自我监督学习。</p>
 <p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-2.svg" alt="图2"></p>
 <blockquote>
 <p>图2：时间关系网络的图示。对视频的代表帧（如上所示）进行采样并馈入不同的帧关系模块。只显示了2帧、3帧、4帧关系的子集，因为还包括更高的帧关系。</p>
@@ -453,17 +465,21 @@
 <h3 id="defining-temporal-relations"><a class="header-anchor" href="#defining-temporal-relations"> </a>Defining Temporal Relations</h3>
 <p>受到回答视觉问题的关系推理模块的启发，我们将成对的时间关系定义为如下的复合函数：</p>
 <p>$$T_2(V)=h_{\phi}(\sum\limits_{i&lt;j}g_{\theta}(f_i,f_j))\tag{1}$$</p>
-<p>其中，输入是视频V，有n个选择的、排序的帧，$V={f_1,f_2,\dots,f_n}$，其中$f_i$表示视频的第$i$帧。从一些标准CNN输出激活的帧。功能函数$h_\phi$和$g_\theta$将排序了的不同帧的特征融合到一起。在这里我们简单地使用分别具有参数$\phi$和$\theta$的<u>多层感知器multilayer perceptrons</u>（MLP）。为了有效地计算，我们不是添加所有组合对，而是统一对帧$i$和$j$进行采样，并对每对进行排序。</p>
+<p>其中，输入是视频V，有 $n$ 个选择的、排序的帧，$V={f_1,f_2,\dots,f_n}$，其中$f_i$表示视频的第$i$帧。从一些标准CNN输出激活的帧。功能函数$h_\phi$和$g_\theta$将排序了的不同帧的特征融合到一起。在这里我们简单地使用分别具有参数$\phi$和$\theta$的<u>多层感知器multilayer perceptrons</u>（MLP）。为了有效地计算，我们不是添加所有组合对，而是统一对帧$i$和$j$进行采样，并对每对进行排序。</p>
 <p>我们进一步将2帧时间关系的复合函数扩展到更高的帧关系，如下面的3帧关系函数：</p>
-<p>$$T_3(V)=h’<em>\phi(\sum\limits</em>{i&lt;j&lt;k}g’_\theta(f_i,f_j,f_k))\tag{2}$$</p>
+<p>$$T_3(V) = h_{\phi}’(\sum\limits_{i&lt;j&lt;k}g_{\theta}’(f_i,f_j,f_k))\tag{2}$$</p>
 <p>其中，总和再次超过已经均匀采样和排序的帧$i,j,k$的集合。</p>
 <h3 id="multi-scale-temporal-relations"><a class="header-anchor" href="#multi-scale-temporal-relations"> </a>Multi-Scale Temporal Relations</h3>
 <p>为了捕获多个时间尺度上的时间关系，我们使用以下复合函数来累加不同尺度的帧关系：</p>
 <p>$MT_N(V)=T_2(V)+T_3(V)+\dots+T_N(V)\tag{3}$</p>
-<p>每个关系项$T_d$捕捉$d$个有序帧之间的时间关系。每个$T_d$具有其自己的单独的$h_\phi<sup>{(d)}$和$g_\theta</sup>{(d)}$。注意，对于每个$T_d$的任意给定的$d$帧样本，所有的时间关系函数都是端到端可微分的，因此它们都可以与用于提取每个视频帧的特征的基本的CNN一起训练。整个网络框架如图2所示。</p>
+<p>每个关系项$T_d$捕捉$d$个有序帧之间的时间关系。每个$T_d$具有其自己的单独的 $h_{\phi}^{(d)}$ 和 $g_\theta^{(d)}$ 。注意，对于每个 $T_d$ 的任意给定的$d$帧样本，所有的时间关系函数都是端到端可微分的，因此它们都可以与用于提取每个视频帧的特征的基本的CNN一起训练。整个网络框架如图2所示。</p>
 <h3 id="efficient-training-and-testing"><a class="header-anchor" href="#efficient-training-and-testing"> </a>Efficient Training and Testing</h3>
-<p>当训练多尺度的时间网络时，我们可以通过为视频的每个$T_d$项选择不同的$d$帧组来对总和进行采样。但是，我们使用的采样方案可以显著降低计算量。首先，我们从视频中的$N$段，均匀采样一组$N$个帧的集合，$V<sup>*_N⊂V$，并且我们使用$V_N</sup><em>$来计算$T_N(V)$。然后，对于每个$d&lt;N$，我们从$d$帧中选择$k$个随机子样本，有$V<sup>*_{kd}⊂V</sup></em>_N$。这些用于计算每个$T_d(V)$的$d$帧关系。这允许在基础CNN上仅评估$N$帧时，同时对$O(kN^2)$个时间关系进行采样。</p>
-<p>（有一版写的是$kN$而非$O(kN^2)$）</p>
+<p>当训练多尺度的时间网络时，我们可以通过为视频的每个$T_d$项选择不同的$d$帧组来对总和进行采样。但是，我们使用的采样方案可以显著降低计算量。</p>
+<p>首先，我们从视频中的$N$段，均匀采样一组$N$个帧的集合， $ V_N^{*}⊂V $ 。</p>
+<p>并且我们使用 $ V_N^{*} $ 来计算 $ T_N(V) $ 。</p>
+<p>然后，对每个 $ d&lt;N $ ，我们从$d$帧中选择 $k$ 个随机子样本，即 $V^{*}_{kd}$ ，记为 $K$。</p>
+<p>有 $K⊂V^{*}_N$ 。</p>
+<p>这些子样本用于计算每个 $ T_d(V) $ 的 $d$ 帧关系。这允许在基础CNN上仅评估 $N$ 帧时，同时对 $ O(kN^2) $ 个时间关系进行采样。（有一版写的是$kN$而非$O(kN^2)$）</p>
 <p>在测试时，我们可以在移动窗口中使用配置TRN的网络，以处理长视频。特征队列用于缓存从采样自视频的等距帧中提取的CNN特征，并且这些特征进一步组合成不同的关系元组，然后馈送到TRN以预测活动。CNN特征仅从输入帧中提取一次然后排队，从而使配备TRN的网络非常有效地在桌面上实时运行。</p>
 <p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/table-1.png" alt="表1"></p>
 <blockquote>
@@ -526,9 +542,9 @@
 </blockquote>
 <h3 id="interpreting-visual-common-sense-knowledge-inside-the-trn"><a class="header-anchor" href="#interpreting-visual-common-sense-knowledge-inside-the-trn"> </a>Interpreting Visual Common Sense Knowledge inside the TRN</h3>
 <p>与先前的视频分类网络（如C3D和I3D）相比，所提出的TRN的一个独特属性是TRN具有更多的可解释的结构。在本节中，我们将通过解决这些时间推理任务，来更深入地分析TRN所学习到的视觉常识知识。我们探讨以下四个部分：</p>
-<p>**由TRN投票选出来用以识别活动的视频的代表帧。**直观地，人类观察者可以通过选择一小组代表帧来捕捉动作的本质。对于训练用以识别活动的模型，这个做法是否也适用？为了获得每个TRN的代表帧序列，我们首先从视频计算等距帧的特征，然后随机组合它们以生成不同的帧关系元组，将它们传递到TRN中。最后，我们使用不同TRN的响应对关系元组排名。图4显示由不同TRN投票选出的，识别同一视频中的活动最有代表性的帧。我们可以看到这些TRN学习到了表征活动的时间关系。对于相对简单的操作，单帧的网络足以在正确的操作中建立一定程度的可信度，但在存在转换时容易出错。2帧TRN拾取最能描述转换的两个帧。同时，对于更加困难的活动类别，例如“假装戳东西”，两帧也没有足够的信息来让人类观察者区分。类似地，网络需要TRN中的附加帧以正确识别行为。</p>
+<p><strong>由TRN投票选出来用以识别活动的视频的代表帧。</strong> 直观地，人类观察者可以通过选择一小组代表帧来捕捉动作的本质。对于训练用以识别活动的模型，这个做法是否也适用？为了获得每个TRN的代表帧序列，我们首先从视频计算等距帧的特征，然后随机组合它们以生成不同的帧关系元组，将它们传递到TRN中。最后，我们使用不同TRN的响应对关系元组排名。图4显示由不同TRN投票选出的，识别同一视频中的活动最有代表性的帧。我们可以看到这些TRN学习到了表征活动的时间关系。对于相对简单的操作，单帧的网络足以在正确的操作中建立一定程度的可信度，但在存在转换时容易出错。2帧TRN拾取最能描述转换的两个帧。同时，对于更加困难的活动类别，例如“假装戳东西”，两帧也没有足够的信息来让人类观察者区分。类似地，网络需要TRN中的附加帧以正确识别行为。</p>
 <p>因此，代表帧的传播，及其相应的类别预测，告诉我们时间关系如何帮助模型推理更复杂的行为。一个特别的例子是图4的最后一个视频：单帧给出的动作上下文——一本靠近书的手——足以将<u>顶部预测top prediction</u>缩小到一个定性合理的动作，展开一些东西。类似的两帧关系略微增加了初始预测的概率，尽管这两个帧对人类观察者来说也不足以让他们做出正确的预测。现在，三帧关系开始对Something-Something的假装类别突出一个模式特征：初始帧非常类似于某个动作，但后面的帧与该动作的完成不一致，就好像它从未发生过一样。这种关系有助于模型将其预测调整到正确的类别。最后，那只手在4帧关系的第三帧中的向上运动进一步增加了场景的预期状态和观察到的最终状态之间的不一致; 类似于另一个动作的某个动作似乎发生了而对对象没有影响，这因此巩固了对正确的类别预测的信心。</p>
-<p>**活动识别的时间顺序的重要性。**为了验证帧的时间顺序对于活动识别的重要性，我们进行了一个实验，在训练TRN时比较按时间顺序的帧输入和打乱顺序的帧输入的不同情况，如图5所示。为了训练乱序帧的TRN，我们随机地打乱关系模块中的帧。Something-Something数据集上结果的显著差异表明了时间顺序在活动识别中的重要性。更有趣的是，我们在UCF101数据集上重复相同的实验，观察到有序帧和乱序帧的结果之间没有区别。这表明UCF101中Youtube类型视频的活动识别不一定需要时间推理能力，因为没有那么多随意的关系与已经在进行的活动相关联。</p>
+<p><strong>活动识别的时间顺序的重要性。</strong> 为了验证帧的时间顺序对于活动识别的重要性，我们进行了一个实验，在训练TRN时比较按时间顺序的帧输入和打乱顺序的帧输入的不同情况，如图5所示。为了训练乱序帧的TRN，我们随机地打乱关系模块中的帧。Something-Something数据集上结果的显著差异表明了时间顺序在活动识别中的重要性。更有趣的是，我们在UCF101数据集上重复相同的实验，观察到有序帧和乱序帧的结果之间没有区别。这表明UCF101中Youtube类型视频的活动识别不一定需要时间推理能力，因为没有那么多随意的关系与已经在进行的活动相关联。</p>
 <p>为了进一步研究时间排序如何影响TRN中的活动识别，我们检查并绘制了在Something-Something数据集上有序和乱序输入之间准确率差异最大的类别，如图6所示。一般而言，具有强烈“方向性”的行为和大的单向运动（例如“向下移动”）似乎从保留正确的时间顺序中获益最多。这一观察结果符合一个想法：连续运动的破坏和打乱视频帧的潜在后果可能会令人类观察者感到迷惑，因为这会违背我们直观的物理概念。</p>
 <p>有趣的是，如果在某些情况下完全受到惩罚，那么打乱相对静态的动作的帧受到的惩罚就不那么严重了，其中几个类别甚至从打乱输入中略有受益，正如“放下不能滚动到倾斜表面的东西，所以它会留在远处”这个类别的观察结果。在这里，简单地学习帧的重合而不是时间变换，可能足以使模型区分相似的活动并进行正确的预测。</p>
 <p>特别是在具有挑战性的模糊情况下，例如“假装扔东西”，其中释放处部分或完全地模糊不清，破坏了强烈的“运动感”可能会使模型的预测偏离可能的替代方案，如“抛出某物”，这经常被有序模型错误地选择，从而导致对该动作的准确率的奇怪差异。</p>
@@ -540,12 +556,66 @@
 <blockquote>
 <p>表7：在Something-Something和Jester数据集上使用多尺度TRN预测活动。只有前25％和50％的帧被提供给TRN来预测活动。这里的基准是在单帧上训练的模型。</p>
 </blockquote>
-<p>**活动相似性的t-SNE可视化。**图7显示了对验证集中15个最常见活动类的视频，来自单帧基准网络、3帧TRN和5帧TRN的高级特征的t-SNE可视化。我们可以看到，2帧和5帧TRN的特征可以更好地区分活动类别。我们还观察了可视化图中类别之间的相似性。例如，“将某物分成两部分”非常类似于“将某物稍微撕掉一点”，并且“折叠某物”、“展开某物”、“拿着东西”、“抓住某物”等类别聚集在一起。</p>
-<p>**预测活动。**在活动发生或完全发生之前预测活动是活动识别任务中具有挑战性、但探索很少的问题。在这里，我们在仅给出每个验证视频中的前25％和50％的帧的条件下评估TRN模型的预测活动的表现。结果如表7所示。为了比较，我们还包括了单帧的基准模型。我们看到TRN可以使用学习的时间关系来预测活动。随着更多有序帧被接收，性能会提高。图8显示了仅使用视频的前25％帧来预测活动的一些示例。对这些例子的定性评估表明，尽管给出了对人类观察者来说也具有高度不确定性的任务，仅使用初始帧的模型确实作出了非常合理的预测。</p>
+<p><strong>活动相似性的t-SNE可视化。</strong> 图7显示了对验证集中15个最常见活动类的视频，来自单帧基准网络、3帧TRN和5帧TRN的高级特征的t-SNE可视化。我们可以看到，2帧和5帧TRN的特征可以更好地区分活动类别。我们还观察了可视化图中类别之间的相似性。例如，“将某物分成两部分”非常类似于“将某物稍微撕掉一点”，并且“折叠某物”、“展开某物”、“拿着东西”、“抓住某物”等类别聚集在一起。</p>
+<p><strong>预测活动。</strong> 在活动发生或完全发生之前预测活动是活动识别任务中具有挑战性、但探索很少的问题。在这里，我们在仅给出每个验证视频中的前25％和50％的帧的条件下评估TRN模型的预测活动的表现。结果如表7所示。为了比较，我们还包括了单帧的基准模型。我们看到TRN可以使用学习的时间关系来预测活动。随着更多有序帧被接收，性能会提高。图8显示了仅使用视频的前25％帧来预测活动的一些示例。对这些例子的定性评估表明，尽管给出了对人类观察者来说也具有高度不确定性的任务，仅使用初始帧的模型确实作出了非常合理的预测。</p>
 <h2 id="conclusion"><a class="header-anchor" href="#conclusion"> </a>Conclusion</h2>
 <p>我们提出了一个简单且可解释的网络模块，称为时间关系网络（TRN），以便在视频的神经网络中实现时间关系推理。我们在几个最近的数据集上评估了TRN，仅使用离散帧就取得了具有竞争力的结果。最后，我们已经证明了TRN模块能在视频中发现视觉常识。</p>
 <h1 id="论文笔记"><a class="header-anchor" href="#论文笔记"> </a>论文笔记</h1>
-<p>（未完待续）</p>
+<h2 id="核心思想"><a class="header-anchor" href="#核心思想"> </a>核心思想</h2>
+<p>时间推理，即随着时间推移而推理实体之间的关系的能力。它对活动识别来说非常重要，形成了描述事件步骤的构建块。</p>
+<p>在短期的和长期的时间尺度上，单个活动可以包含若干时间关系。例如，短跑的活动包括在起始处蹲下、在轨道上奔跑、在终点处完成的长期时间关系，同时还包括周期性手脚运动的短期时间关系。</p>
+<p>本论文提出了一个有效且可解释的网络模块，即时间关系网络（Temporal Relation Networks, TRN），支持神经网络中的时间关系推理。它旨在学习和推理多个时间尺度的视频帧之间的时间依赖性。</p>
+<p>TRN是一个通用的、可扩展的模块，它能够在任何现有的CNN架构中即插即用。</p>
+<h2 id="网络架构"><a class="header-anchor" href="#网络架构"> </a>网络架构</h2>
+<h3 id="时间关系的定义"><a class="header-anchor" href="#时间关系的定义"> </a>时间关系的定义</h3>
+<p>将成对的时间关系定义为如下的复合函数：</p>
+<p>$$T_2(V)=h_{\phi}(\sum\limits_{i&lt;j}g_{\theta}(f_i,f_j))\tag{1}$$</p>
+<ul>
+<li>$V$ ：输入的视频，有 $n$ 个选择的、排序的帧，$V={f_1,f_2,\dots,f_n}$
+<ul>
+<li>$f_i$表示视频的第$i$帧，从一些标准CNN输出激活</li>
+</ul>
+</li>
+<li>$h_\phi$，$g_\theta$：功能函数，将排序了的不同帧的特征融合到一起
+<ul>
+<li>在本篇论文中，简单地使用分别具有参数$\phi$和$\theta$的多层感知器（MLP）</li>
+</ul>
+</li>
+</ul>
+<p>为了有效地计算，不是添加所有组合对，而是统一对帧$i$和$j$进行采样，并对每对进行排序。</p>
+<p>进一步将2帧时间关系的复合函数扩展到更高的帧关系，如下面的3帧关系函数：</p>
+<p>$$T_3(V) = h_{\phi}’(\sum\limits_{i&lt;j&lt;k}g_{\theta}’(f_i,f_j,f_k))\tag{2}$$</p>
+<h3 id="多尺度的时间关系"><a class="header-anchor" href="#多尺度的时间关系"> </a>多尺度的时间关系</h3>
+<p>为了捕获多个时间尺度上的时间关系，使用以下复合函数来累加不同尺度的帧关系：</p>
+<p>$MT_N(V)=T_2(V)+T_3(V)+\dots+T_N(V)\tag{3}$</p>
+<p>每个关系项$T_d$捕捉$d$个有序帧之间的时间关系。</p>
+<p>每个$T_d$具有其自己的单独的 $h_{\phi}^{(d)}$ 和 $g_\theta^{(d)}$ 。</p>
+<p>注意，对于每个 $T_d$ 的任意给定的$d$帧样本，所有的时间关系函数都是端到端可微分的，因此它们都可以与用于提取每个视频帧的特征的基本的CNN一起训练。</p>
+<p>整个网络框架如下图所示。</p>
+<p><img src="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/figure-2.svg" alt="图2"></p>
+<blockquote>
+<p>时间关系网络的图示。对视频的代表帧（如上所示）进行采样并馈入不同的帧关系模块。只显示了2帧、3帧、4帧关系的子集，因为还包括更高的帧关系。</p>
+</blockquote>
+<h3 id="训练和测试"><a class="header-anchor" href="#训练和测试"> </a>训练和测试</h3>
+<p>当训练多尺度的时间网络时，可以通过为视频的每个$T_d$项选择不同的$d$帧组来对总和进行采样。</p>
+<p>以下的采样方案可以显著降低计算量。</p>
+<p>首先，我们从视频中的$N$段，均匀采样一组$N$个帧的集合， $ V_N^{*}⊂V $ 。</p>
+<p>并且我们使用 $ V_N^{*} $ 来计算 $ T_N(V) $ 。</p>
+<p>然后，对每个 $ d&lt;N $ ，我们从$d$帧中选择 $k$ 个随机子样本，即 $V^{*}_{kd}$ ，记为 $K$。</p>
+<p>有 $K⊂V^{*}_N$ 。这些子样本用于计算每个 $ T_d(V) $ 的 $d$ 帧关系。</p>
+<p>在测试时，可以在移动窗口中使用配置TRN的网络，以处理长视频。特征队列用于缓存从采样自视频的等距帧中提取的CNN特征，并且这些特征进一步组合成不同的关系元组，然后馈送到TRN以预测活动。CNN特征仅从输入帧中提取一次然后排队，从而使配备TRN的网络非常有效地在桌面上实时运行。</p>
+<h2 id="实验结果"><a class="header-anchor" href="#实验结果"> </a>实验结果</h2>
+<p>在各种活动识别任务上评估配备TRN的网络。</p>
+<p>在识别依赖于时间关系推理的活动时，配备TRN的网络表现相当优于没有TRN的基准网络。</p>
+<ul>
+<li>
+<p>在用于人类交互识别的Something-Something数据集上和用于手势识别的Jester数据集上取得了最先进的结果。</p>
+</li>
+<li>
+<p>在Charades数据集的活动识别中获得了具有竞争力的结果，仅使用稀疏采样的RGB帧而性能优于Flow+RGB集合模型。</p>
+</li>
+</ul>
+<p>可以证明，TRN模块能在视频中发现视觉常识。</p>
 
       
     </div>
@@ -817,7 +887,7 @@
               
 
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原文翻译"><span class="nav-number">1.</span> <span class="nav-text"> 原文翻译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract"><span class="nav-number">1.1.</span> <span class="nav-text"> Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.2.</span> <span class="nav-text"> Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#related-work"><span class="nav-number">1.3.</span> <span class="nav-text"> Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#temporal-relation-networks"><span class="nav-number">1.4.</span> <span class="nav-text"> Temporal Relation Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#defining-temporal-relations"><span class="nav-number">1.4.1.</span> <span class="nav-text"> Defining Temporal Relations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multi-scale-temporal-relations"><span class="nav-number">1.4.2.</span> <span class="nav-text"> Multi-Scale Temporal Relations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#efficient-training-and-testing"><span class="nav-number">1.4.3.</span> <span class="nav-text"> Efficient Training and Testing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#experiments"><span class="nav-number">1.5.</span> <span class="nav-text"> Experiments</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#network-architectures-and-training"><span class="nav-number">1.5.1.</span> <span class="nav-text"> Network Architectures and Training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-on-something-something-dataset"><span class="nav-number">1.5.2.</span> <span class="nav-text"> Results on Something-Something Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-on-jester-and-charades"><span class="nav-number">1.5.3.</span> <span class="nav-text"> Results on Jester and Charades</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#interpreting-visual-common-sense-knowledge-inside-the-trn"><span class="nav-number">1.5.4.</span> <span class="nav-text"> Interpreting Visual Common Sense Knowledge inside the TRN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-number">1.6.</span> <span class="nav-text"> Conclusion</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文笔记"><span class="nav-number">2.</span> <span class="nav-text"> 论文笔记</span></a></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原文翻译"><span class="nav-number">1.</span> <span class="nav-text"> 原文翻译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract"><span class="nav-number">1.1.</span> <span class="nav-text"> Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.2.</span> <span class="nav-text"> Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#related-work"><span class="nav-number">1.3.</span> <span class="nav-text"> Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#temporal-relation-networks"><span class="nav-number">1.4.</span> <span class="nav-text"> Temporal Relation Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#defining-temporal-relations"><span class="nav-number">1.4.1.</span> <span class="nav-text"> Defining Temporal Relations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multi-scale-temporal-relations"><span class="nav-number">1.4.2.</span> <span class="nav-text"> Multi-Scale Temporal Relations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#efficient-training-and-testing"><span class="nav-number">1.4.3.</span> <span class="nav-text"> Efficient Training and Testing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#experiments"><span class="nav-number">1.5.</span> <span class="nav-text"> Experiments</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#network-architectures-and-training"><span class="nav-number">1.5.1.</span> <span class="nav-text"> Network Architectures and Training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-on-something-something-dataset"><span class="nav-number">1.5.2.</span> <span class="nav-text"> Results on Something-Something Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-on-jester-and-charades"><span class="nav-number">1.5.3.</span> <span class="nav-text"> Results on Jester and Charades</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#interpreting-visual-common-sense-knowledge-inside-the-trn"><span class="nav-number">1.5.4.</span> <span class="nav-text"> Interpreting Visual Common Sense Knowledge inside the TRN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-number">1.6.</span> <span class="nav-text"> Conclusion</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文笔记"><span class="nav-number">2.</span> <span class="nav-text"> 论文笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心思想"><span class="nav-number">2.1.</span> <span class="nav-text"> 核心思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络架构"><span class="nav-number">2.2.</span> <span class="nav-text"> 网络架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间关系的定义"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 时间关系的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多尺度的时间关系"><span class="nav-number">2.2.2.</span> <span class="nav-text"> 多尺度的时间关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练和测试"><span class="nav-number">2.2.3.</span> <span class="nav-text"> 训练和测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果"><span class="nav-number">2.3.</span> <span class="nav-text"> 实验结果</span></a></li></ol></li></ol></div>
               
 
             </div>
