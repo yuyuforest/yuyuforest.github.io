@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="简答题">
+<meta name="keywords" content="系统分析与设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统分析与设计 | 作业6：用例建模-绘制用例图">
+<meta property="og:url" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/index.html">
+<meta property="og:site_name" content="yuyu&#39;s forest">
+<meta property="og:description" content="简答题">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/system.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/actor.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/use-case.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/association.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/include.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/extends.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/generalization.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/maoyan.png">
+<meta property="og:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/momo.png">
+<meta property="og:updated_time" content="2019-05-26T08:48:47.416Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="系统分析与设计 | 作业6：用例建模-绘制用例图">
+<meta name="twitter:description" content="简答题">
+<meta name="twitter:image" content="https://yuyuforest.github.io/2019/05/20/swsad-hw6/system.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuyuforest.github.io/2019/05/20/swsad-hw6/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>系统分析与设计 | 作业6：用例建模-绘制用例图 | yuyu's forest</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yuyu's forest</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuyuforest.github.io/2019/05/20/swsad-hw6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuyu">
+      <meta itemprop="description" content="鱼鱼爱吃鱼">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yuyu's forest">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">系统分析与设计 | 作业6：用例建模-绘制用例图
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-20 08:58:47" itemprop="dateCreated datePublished" datetime="2019-05-20T08:58:47+08:00">2019-05-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-26 16:48:47" itemprop="dateModified" datetime="2019-05-26T16:48:47+08:00">2019-05-26</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简答题"><a class="header-anchor" href="#简答题"> </a>简答题</h1>
+<a id="more"></a>
+<p><strong>1. 用例的概念</strong></p>
+<p>用例是一组相关的成功和失败场景的集合，用来描述参与者如何使用系统来实现其目标。同时，用例也是需求，主要是说明系统如何工作的功能性或行为性需求。</p>
+<p><strong>2. 用例和场景的关系？什么是主场景或 happy path？</strong></p>
+<p>场景也称为用例实例，是用例的一条执行路径。而用例就是一组相关的成功和失败场景的集合。</p>
+<p>主场景/happy path描述了满足涉众关注点的典型成功路径。它通常不包括任何条件或分支。</p>
+<p><strong>3. 用例有哪些形式？</strong></p>
+<p>用例有三种常用的形式：</p>
+<ul>
+<li>摘要，通常用于主成功场景。</li>
+<li>非正式的段落格式，用几个段落覆盖不同场景。</li>
+<li>详述，详细编写所有步骤及各种变化，同时具有补充部分。</li>
+</ul>
+<p><strong>4. 对于复杂业务，为什么编制完整用例非常难？</strong></p>
+<p>因为复杂的业务会有更多的细节，如更多的约束条件、更多的特殊需求等。</p>
+<p>这样，编制完整用例会难以完全覆盖所有的分支。</p>
+<p><strong>5. 什么是用例图？</strong></p>
+<p>用例图显示用例和参与者的名称及其关系，可以为系统及其环境提供良好的语境图，也为按名称列出用例提供了快捷方式。</p>
+<p><strong>6. 用例图的基本符号与元素？</strong></p>
+<ul>
+<li>
+<p>系统边界框</p>
+<ul>
+<li>表示&lt;&lt;system&gt;&gt;，即待研究的系统时，Actor放在系统框外的左边，Use Case放在系统框内</li>
+</ul>
+<p><img src="/2019/05/20/swsad-hw6/system.png" alt=""></p>
+<ul>
+<li>可表示&lt;&lt;service&gt;&gt;，即第三方服务，放在主系统的框外</li>
+<li>可表示&lt;&lt;device&gt;&gt;或&lt;&lt;sensor&gt;&gt;，例如GPS等，放在主系统的框外</li>
+</ul>
+</li>
+<li>
+<p>Actor参与者，表示系统的主要用户或角色</p>
+<p>比如在预定酒店系统中，参与者主要是旅行者。</p>
+<p><img src="/2019/05/20/swsad-hw6/actor.png" alt=""></p>
+</li>
+<li>
+<p>Use Case用例，描述系统提供的功能、服务</p>
+<p>比如在预定酒店系统中，用例之一是预订酒店。</p>
+<p><img src="/2019/05/20/swsad-hw6/use-case.png" alt=""></p>
+</li>
+<li>
+<p>用例之间的关系</p>
+<ul>
+<li>
+<p>association关联关系，描述参与者与用例之间的关系</p>
+<p>下图中的直线即为关联关系。</p>
+<p><img src="/2019/05/20/swsad-hw6/association.png" alt=""></p>
+</li>
+<li>
+<p>include包含关系，用例可以包含多个子用例，通常强调若离开该子用例，则父用例无法达成目标</p>
+<p><img src="/2019/05/20/swsad-hw6/include.png" alt=""></p>
+</li>
+<li>
+<p>extends扩展关系，表示子用例是父用例的可选场景或技术特征</p>
+<p><img src="/2019/05/20/swsad-hw6/extends.png" alt=""></p>
+</li>
+<li>
+<p>generalization泛化关系，子用例表示父用例的特殊形式</p>
+<p><img src="/2019/05/20/swsad-hw6/generalization.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>7. 用例图的画法与步骤</strong></p>
+<ol>
+<li>对系统的<strong>语境</strong>进行建模，强调系统的外部<strong>参与者</strong>：
+<ul>
+<li>识别系统外部的参与者，组织成泛化的结构层次</li>
+<li>在需要加深理解的地方，为每个参与者提供一个构造型</li>
+<li>将参与者放入到用例图中，说明参与者与用例之间的通信路径</li>
+</ul>
+</li>
+<li>对系统的<strong>需求</strong>进行建模，强调系统要实现的<strong>功能</strong>：
+<ul>
+<li>识别系统外部的参与者来建立系统的语境</li>
+<li>考虑每一个参与者期望的行为，或需要系统提供的行为</li>
+<li>把公共的行为命名为用例</li>
+<li>分解公共行为，放入新的用例中以供其他的用例使用；分解异常行为，放入新的用例中以延伸为主要的控制流</li>
+<li>在用例图中对用例、参与者和它们之间的关系进行建模</li>
+</ul>
+</li>
+</ol>
+<p><strong>8. 用例图给利益相关人与开发者的价值有哪些？</strong></p>
+<ul>
+<li>对利益相关人（主要是用户），用例强调了用户的目标和观点，有利于用户参与到软件项目中，而用例图能将用例的语境可视化，更直观地阐述外部参与者及其对系统的使用。</li>
+<li>对开发者，用例图可以给团队带来以下利益：
+<ul>
+<li>明确系统的业务范围、服务对象（角色）、外部系统与设备</li>
+<li>帮助识别技术风险，提前实施关键技术原型公关与学习</li>
+<li>易于评估项目工作量，合理规划迭代周期，规划人力需要</li>
+</ul>
+</li>
+</ul>
+<h1 id="建模练习题"><a class="header-anchor" href="#建模练习题"> </a>建模练习题</h1>
+<h2 id="绘制用例图"><a class="header-anchor" href="#绘制用例图"> </a>绘制用例图</h2>
+<p>选择2-3个你熟悉的类似业务的在线服务系统（或移动 APP），如定旅馆（携程、去哪儿等）、定电影票、背单词APP等，分别绘制它们用例图。并满足以下要求：</p>
+<ul>
+<li>请使用用户的视角，描述用户目标或系统提供的服务</li>
+<li>粒度达到子用例级别，并用 include 和 exclude 关联它们</li>
+<li>请用色彩标注出你认为创新（区别于竞争对手的）用例或子用例</li>
+<li>尽可能识别外部系统和服务</li>
+</ul>
+<p><strong>猫眼电影</strong></p>
+<p><img src="/2019/05/20/swsad-hw6/maoyan.png" alt=""></p>
+<p><strong>墨墨背单词</strong></p>
+<p><img src="/2019/05/20/swsad-hw6/momo.png" alt=""></p>
+<h2 id="回答问题"><a class="header-anchor" href="#回答问题"> </a>回答问题</h2>
+<p><strong>1. 为什么相似系统的用例图是相似的？</strong></p>
+<p>因为相似的系统有相似的用户人群（也即参与者）、业务范围或功能、逻辑上的模块等，所以通常会有相似的用例图。</p>
+<p><strong>2. 如果是定旅馆业务，请对比 Asg_RH 用例图，简述如何利用不同时代、不同地区产品的用例图，展现、突出创新业务和技术。</strong></p>
+<p>不同时代、不同地区的产品可以有不同的业务范围和技术改进。通过对比不同时代不同时代、不同地区的产品的用例图，可以看出在最基本的业务模块之外的不同的扩展，即为创新的业务和技术。</p>
+<p><strong>3. 如何利用用例图定位创新思路（业务创新、或技术创新、或商业模式创新）在系统中的作用。</strong></p>
+<ul>
+<li>用不同的颜色标识的用例，一般是强调创新之处</li>
+<li>通过该创新之处的元素表示（可以是用例、参与者、外部服务等），和它在用例图中与其他用例的关系，可以观察、推测它在系统中的作用</li>
+</ul>
+<p><strong>4. 请使用 SCRUM 方法，选择一个用例图，编制某定旅馆开发的需求（backlog）开发计划表。</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Imp</th>
+<th>Est</th>
+<th>How do demo</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>注册与登录</td>
+<td>20</td>
+<td>10</td>
+<td>输入账号名和密码，注册/登录</td>
+<td>需要短信验证或邮件验证</td>
+</tr>
+<tr>
+<td>2</td>
+<td>查找旅馆</td>
+<td>50</td>
+<td>30</td>
+<td>通过地区、可入住时间等条件筛选、排序旅馆</td>
+<td>需要地图API</td>
+</tr>
+<tr>
+<td>3</td>
+<td>预订旅馆</td>
+<td>60</td>
+<td>30</td>
+<td>选择旅馆、入住时间、房间类型，下订单</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>管理订单</td>
+<td>20</td>
+<td>10</td>
+<td>可查看已支付订单，为未支付的订单付款或取消订单</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>支付</td>
+<td>40</td>
+<td>20</td>
+<td>可选择银行卡支付或电子支付</td>
+<td>需要生成相应的电子支付二维码</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5. 根据任务4，参考 <a href="https://www.ibm.com/developerworks/cn/rational/edge/09/mar09/collaris_dekker/index.html" target="_blank" rel="noopener">使用用例点估算软件成本</a>，给出项目用例点的估算。</strong></p>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>事务</th>
+<th>计算</th>
+<th>原因</th>
+<th>UC权重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1注册与登录</td>
+<td></td>
+<td></td>
+<td></td>
+<td>5</td>
+</tr>
+<tr>
+<td>2查找旅馆</td>
+<td></td>
+<td></td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>3预订旅馆</td>
+<td></td>
+<td></td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>4管理订单</td>
+<td></td>
+<td></td>
+<td></td>
+<td>5</td>
+</tr>
+<tr>
+<td>5支付</td>
+<td></td>
+<td></td>
+<td></td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/系统分析与设计/" rel="tag"># 系统分析与设计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/01/paper-reading-temporal-relational-reasoning-in-videos/" rel="next" title="深度学习论文阅读 | Temporal Relational Reasoning in Videos">
+                <i class="fa fa-chevron-left"></i> 深度学习论文阅读 | Temporal Relational Reasoning in Videos
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/20/swsad-hw7/" rel="prev" title="系统分析与设计 | 作业7：用例建模-业务建模方法">
+                系统分析与设计 | 作业7：用例建模-业务建模方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        
+          <ul class="sidebar-nav motion-element">
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+              文章目录
+            </li>
+            <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+              站点概览
+            </li>
+          </ul>
+        
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="yuyu" />
+            
+              <p class="site-author-name" itemprop="name">yuyu</p>
+              <p class="site-description motion-element" itemprop="description">鱼鱼爱吃鱼</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuyuforest" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yumlin16@outlook.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://blog.csdn.net/squirrelyuyu" target="_blank" title="CSDN"><i class="fa fa-fw fa-cuttlefish"></i>CSDN</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://icytown.com" title="MegaShow" target="_blank">MegaShow</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zzfly.net/" title="Rytia" target="_blank">Rytia</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+        
+        <!--noindex-->
+          <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+            <div class="post-toc">
+
+              
+                
+              
+
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简答题"><span class="nav-number">1.</span> <span class="nav-text"> 简答题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建模练习题"><span class="nav-number">2.</span> <span class="nav-text"> 建模练习题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#绘制用例图"><span class="nav-number">2.1.</span> <span class="nav-text"> 绘制用例图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答问题"><span class="nav-number">2.2.</span> <span class="nav-text"> 回答问题</span></a></li></ol></li></ol></div>
+              
+
+            </div>
+          </section>
+        <!--/noindex-->
+        
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuyu</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
